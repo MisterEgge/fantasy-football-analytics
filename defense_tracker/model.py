@@ -110,11 +110,18 @@ def team_profiles(games):
         def avg(df,key):
             return float(df[key].mean()) if len(df) else 0.
         pts=own.fantasy_points.to_list()
+        opponent_dst=faced.fantasy_points.to_list()
+        def smoothed_recent(values):
+            if not values:
+                return 0.0
+            median=float(np.median(values))
+            return round(float(np.mean(np.clip(values[-3:],median-6,median+6))),2)
         profiles[team]={
             "team":team, "team_name":TEAMS[team], "games":len(own),
             "recent_weekly_points": [round(float(x),1) for x in pts[-5:]],
             "season_ppg":round(avg(own,"fantasy_points"),2),
             "last3_ppg":round(avg(own.tail(3),"fantasy_points"),2),
+            "last3_robust_ppg":smoothed_recent(pts),
             "last5_ppg":round(avg(own.tail(5),"fantasy_points"),2),
             "median_ppg":round(float(np.median(pts)),2),
             "robust_ppg":round(robust_mean(pts),2),
@@ -127,6 +134,8 @@ def team_profiles(games):
             "points_allowed_last3":round(avg(own.tail(3),"points_allowed_scoreboard"),2),
             "dst_points_allowed_pg":round(avg(faced,"fantasy_points"),2),
             "dst_points_allowed_last3":round(avg(faced.tail(3),"fantasy_points"),2),
+            "dst_points_allowed_robust":round(robust_mean(opponent_dst),2),
+            "dst_points_allowed_last3_robust":smoothed_recent(opponent_dst),
             "sacks_conceded_pg":round(avg(faced,"sacks"),2),
             "sacks_conceded_last3":round(avg(faced.tail(3),"sacks"),2),
             "turnovers_conceded_pg":round(avg(faced,"interceptions")+avg(faced,"fumble_recoveries"),2),
@@ -140,8 +149,8 @@ def team_profiles(games):
 
 def predict(defense, opposing_offense):
     """Transparent, conservative heuristic. Tunable once holdout backtests exist."""
-    d=.45*defense["season_ppg"]+.55*defense["last3_ppg"]
-    o=.45*opposing_offense["dst_points_allowed_pg"]+.55*opposing_offense["dst_points_allowed_last3"]
+    d=.45*defense.get("robust_ppg",defense["season_ppg"])+.55*defense.get("last3_robust_ppg",defense["last3_ppg"])
+    o=.45*opposing_offense.get("dst_points_allowed_robust",opposing_offense["dst_points_allowed_pg"])+.55*opposing_offense.get("dst_points_allowed_last3_robust",opposing_offense["dst_points_allowed_last3"])
     # Opponent-friendly tendency is high when that offense gives up D/ST fantasy points.
     forecast=.58*d+.42*o
     sacks=.5*defense["sacks_last3"]+.5*opposing_offense["sacks_conceded_last3"]
