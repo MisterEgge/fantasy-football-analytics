@@ -48,6 +48,10 @@ def evaluate(snapshot,pbp,schedule,as_of):
         if team not in pred or pred[team].get("projected_points") is None:
             raise ValueError(f"No archived pregame projection for {team}")
         p=pred[team]
+        ctx = p.get("game_context") or {}
+        weather_risk = (ctx.get("weather") or {}).get("flags") or []
+        own_injuries = (ctx.get("team_injuries") or {}).get("flags") or []
+        opponent_injuries = (ctx.get("opponent_injuries") or {}).get("flags") or []
         error=round(float(p["projected_points"])-float(g.fantasy_points),2)
         sack_error=round(float(p["projected_sacks"])-g.sacks,2)
         turnover_error=round(float(p["projected_takeaways"])-(g.interceptions+g.fumble_recoveries),2)
@@ -63,6 +67,9 @@ def evaluate(snapshot,pbp,schedule,as_of):
             diagnostic="Normal weekly variance"
         grades.append({
             "team":team,"opponent":opponent,
+            "weather_risk_flags":weather_risk,
+            "defense_team_injury_flags":own_injuries,
+            "opposing_offense_injury_flags":opponent_injuries,
             "predicted_points":float(p["projected_points"]),
             "raw_projected_points":float(p.get("raw_projected_points",p["projected_points"])),
             "actual_points":float(g.fantasy_points),
@@ -92,6 +99,8 @@ def evaluate(snapshot,pbp,schedule,as_of):
             "bias":round(float(np.mean(errors)),2),
             "sack_mae":round(float(np.mean(abs(sacks))),2),
             "takeaway_mae":round(float(np.mean(abs(takeaways))),2),
+            "weather_flagged_teams":sum(bool(r["weather_risk_flags"]) for r in grades),
+            "opponent_injury_flagged_teams":sum(bool(r["opposing_offense_injury_flags"]) for r in grades),
         },
         "teams":grades,
     }
