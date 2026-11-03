@@ -13,9 +13,9 @@ def table(headers, rows):
     return f'<table cellspacing="0" cellpadding="0" style="width:100%;border-collapse:collapse"><thead><tr>{header}</tr></thead><tbody>{body}</tbody></table>'
 
 def wrapper(title, body, note):
-    return f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><title>{escape(title)}</title></head>
+    return f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Fantasy Football Analytics | {escape(title)}</title></head>
 <body style="background:#f5f7fb;margin:0;padding:14px"><div style="max-width:1000px;margin:auto;background:white;padding:20px;{STYLE}">
-<header style="padding:18px;background:#14263d;color:#fff"><div style="font-size:11px;color:#bdcee0">FANTASY DEFENSE ANALYSIS</div>
+<header style="padding:18px;background:#14263d;color:#fff"><div style="font-size:11px;color:#bdcee0">FANTASY FOOTBALL ANALYTICS · D/ST</div>
 <h1 style="font-size:22px;color:#fff;margin:5px 0">{escape(title)}</h1></header>
 {body}<p style="font-size:12px;color:#54657a;border-top:1px solid #dfe6ee;padding-top:10px">{escape(note)}</p></div></body></html>'''
 
