@@ -128,3 +128,22 @@ The November 1, 2026 Buccaneers–Falcons game illustrates why this matters: hea
 ### Future small improvement
 
 A Sunday-morning refresh could compare the Wednesday snapshot to more recent weather forecasts and Friday injury designations. That's a sensible next step **after** confirming the Wednesday source feeds and data coverage, rather than adding more scheduled workflows immediately.
+
+## Change-only Thursday, weekend and international pregame alerts
+
+The new [change-only alert workflow](.github/workflows/change-only-alerts.yml) checks automatically **every three hours Thursday–Monday**, but sends **nothing** if the weather/injury picture has not materially changed from the Wednesday snapshot. Actual game kickoff timestamps (provided in Eastern Time by nflverse) determine when a game may be checked. An already-started game is never alerted.
+
+Both Wednesday fantasy reports contain a prominent **Thursday and early-Sunday game check**, including explicit **OUTDOORS / INDOORS / ROOF UNVERIFIED** designations, venue name, Eastern kickoff time and weather. This catches outdoor Thursday games and international Sunday starts earlier than typical US Sunday games.
+
+The change-only email combines all newly significant developments found in a single check. Examples include:
+
+- Sustained winds newly reaching **15 mph** (higher risk **25 mph**), gusts **30 mph** (higher risk **40 mph**), heavy precipitation **0.12 inches/hour** (higher risk **0.20 inches/hour**), or forecast snow.
+- A *new* QB/kicker questionable or missed-practice designation, or a monitored key-position player newly doubtful/out/IR.
+- A verified change from an indoor/closed-roof designation to outdoor/open (or vice versa).
+- A severe Wednesday wind/rain concern easing substantially.
+
+Minor hourly wind fluctuations, unchanged questionable reports, and ordinary forecast noise are ignored. The alert engine keeps the unique IDs of previously sent developments in the `forecast-history` branch at `alerts/<season>/week_<week>.json`. If the same issue is present on the next check, it sends **no additional email**. A single email can contain multiple new updates. The state is saved after Gmail accepts the message.
+
+The system uses only known game venues. Common international stadiums (e.g. Wembley, Tottenham Hotspur Stadium, Allianz Arena, Bernabéu) have explicit stadium-area forecast coordinates and local time zones. Unknown neutral venues are flagged as unverified; we never pretend their weather is at the NFL team's home stadium. Because the schedule feed's kickoff times are **Eastern**, the code converts them to the venue's local time for hourly forecasts, while comparing actual UTC kickoff to the current time for pregame alert filtering. This accommodates 8:30/9:30 AM Eastern international games.
+
+**Limitations:** The schedule is not a promise of real-time delivery: GitHub can delay cron jobs. Official injury releases and model weather forecasts can also lag. The change-only emails are an advisory and do not modify the archived Wednesday projections or automatically apply an unvalidated fantasy-points penalty. The monitoring needs a saved Wednesday forecast to establish a genuine *before* baseline. If a data provider is unavailable, it does not invent an all-clear or send misleading weather-change warnings.

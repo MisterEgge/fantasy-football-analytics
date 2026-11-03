@@ -30,6 +30,28 @@ def forecast_html(payload):
                r["last3_ppg"],r["median_ppg"],r["sacks_last3"],
                r["takeaways_last3"],r["dst_points_allowed_last3"],
                " / ".join(str(v) for v in r["recent_weekly_points"])) for i,r in enumerate(rows)]
+    special=[]
+    seen=set()
+    for r in rows:
+        ctx=r.get("game_context") or {}
+        day=ctx.get("weekday")
+        kick=str(ctx.get("kickoff_eastern",""))
+        early=day=="Sunday" and kick and kick<"12:00"
+        if day!="Thursday" and not early:
+            continue
+        key=tuple(sorted((r["team"],r["opponent"])))
+        if key in seen:
+            continue
+        seen.add(key)
+        roof=str(ctx.get("roof","unknown"))
+        label=("INDOORS / CLOSED" if roof in ("closed","dome","indoor")
+               else "OUTDOORS" if roof in ("outdoors","outdoor","open")
+               else "ROOF UNVERIFIED")
+        special.append((day+(" · early international window" if early else ""),
+                        r["team"]+" vs "+r["opponent"],label,
+                        ctx.get("venue","Unknown"),kick+" ET",
+                        (ctx.get("weather") or {}).get("summary","Unavailable")))
+    special_html=table(("When","Matchup","Indoor/outdoor","Venue","Kickoff","Weather"),special) if special else "<p>No Thursday or early-Sunday game in this week's schedule.</p>"
     watch=[]
     for r in rows:
         context=r.get("game_context") or {}
@@ -49,6 +71,9 @@ def forecast_html(payload):
     context_html=table(("D/ST","Opponent","Weather","Opponent key injuries","Team key injuries"),watch) if watch else "<p>No major weather or qualifying injury designations found in current data.</p>"
     body=('<h2 style="font-size:17px">Top 10 predicted D/ST units</h2>'+
           table(("Rank","Defense","Opponent","Projected","Last 3 PPG","Sacks/G","Takeaways/G"),top)+
+          '<h2 style="font-size:17px;margin-top:25px">Thursday and early-Sunday games</h2>'+
+          '<p>Explicit roof status and local weather are shown for Thursday games and early international starts. Significant new developments are emailed separately.</p>'+
+          special_html+
           '<h2 style="font-size:17px;margin-top:25px">Weather and injuries to monitor</h2>'+
           '<p>Pregame forecasts and official injury flags are displayed but do not automatically change predicted fantasy points. Check again near kickoff.</p>'+
           context_html+

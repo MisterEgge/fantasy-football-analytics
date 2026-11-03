@@ -39,25 +39,49 @@ MOUNTAIN = {"DEN"}
 CENTRAL = {"CHI", "DAL", "GB", "HOU", "KC", "MIN", "NO", "TEN"}
 ARIZONA = {"ARI"}
 
+NEUTRAL_VENUES = {
+    "wembley": (51.5560, -0.2796, "Europe/London"),
+    "tottenham hotspur stadium": (51.6043, -0.0664, "Europe/London"),
+    "allianz arena": (48.2188, 11.6247, "Europe/Berlin"),
+    "deutsche bank park": (50.0686, 8.6455, "Europe/Berlin"),
+    "santiago bernab": (40.4531, -3.6883, "Europe/Madrid"),
+    "croke park": (53.3607, -6.2513, "Europe/Dublin"),
+    "neo quimica arena": (-23.5457, -46.4732, "America/Sao_Paulo"),
+    "arena corinthians": (-23.5457, -46.4732, "America/Sao_Paulo"),
+}
+
+def venue_location(game):
+    if game["neutral_site"]:
+        label = str(game.get("stadium", "")).lower()
+        for phrase, details in NEUTRAL_VENUES.items():
+            if phrase in label:
+                return details
+        return None
+    home = game["home"]
+    coords = STADIUMS.get(home)
+    if not coords:
+        return None
+    local_zone = ("America/Los_Angeles" if home in WEST else
+                  "America/Denver" if home in MOUNTAIN else
+                  "America/Phoenix" if home in ARIZONA else
+                  "America/Chicago" if home in CENTRAL else "America/New_York")
+    return (coords[0], coords[1], local_zone)
+
+def kickoff_utc(game):
+    parts = str(game.get("kickoff", "")).split(":")
+    if len(parts)<2 or not game.get("date"):
+        raise ValueError("Unknown game kickoff")
+    hour, minute = int(parts[0]), int(parts[1])
+    if not 0<=hour<=23 or not 0<=minute<=59:
+        raise ValueError("Invalid kickoff clock")
+    return datetime.fromisoformat(game["date"] + f"T{hour:02d}:{minute:02d}").replace(
+        tzinfo=ZoneInfo("America/New_York")).astimezone(timezone.utc)
+
 def kickoff_local_hour(game):
-    kickoff = str(game.get("kickoff", "")).strip()
-    parts = kickoff.split(":")
-    if len(parts) < 2:
-        raise ValueError("Kickoff time not available")
-    hour = int(parts[0])
-    minute = int(parts[1])
-    if not (0 <= hour <= 23 and 0 <= minute <= 59):
-        raise ValueError("Kickoff time outside valid range")
-    team = game["home"]
-    local_zone = ("America/Los_Angeles" if team in WEST else
-                  "America/Denver" if team in MOUNTAIN else
-                  "America/Phoenix" if team in ARIZONA else
-                  "America/Chicago" if team in CENTRAL else "America/New_York")
-    start = datetime.fromisoformat(game["date"] + f"T{hour:02d}:{minute:02d}").replace(
-        tzinfo=ZoneInfo("America/New_York")
-    )
-    local = start.astimezone(ZoneInfo(local_zone))
-    return local.hour
+    location = venue_location(game)
+    if not location:
+        raise ValueError("Game venue unverified")
+    return kickoff_utc(game).astimezone(ZoneInfo(location[2])).hour
 
 ROOF_INDOOR = {"dome", "closed", "indoor"}
 ROOF_OUTDOOR = {"outdoors", "outdoor", "open"}
@@ -130,11 +154,12 @@ def weather_for_game(game, fetch=_forecast_hourly):
         return {"status": "indoor", "summary": "Indoor / roof closed", "flags": []}
     if roof not in ROOF_OUTDOOR:
         return {"status": "roof_unknown", "summary": "Roof state not verified", "flags": []}
-    if game["neutral_site"]:
-        return {"status": "venue_unknown", "summary": "Neutral-site stadium location unverified", "flags": []}
-    if game["home"] not in STADIUMS or not game["date"]:
-        return {"status": "unavailable", "summary": "Missing venue coordinates or game date", "flags": []}
-    lat, lon = STADIUMS[game["home"]]
+    location = venue_location(game)
+    if not location:
+        return {"status": "venue_unknown", "summary": "Venue coordinates unverified", "flags": []}
+    if not game["date"]:
+        return {"status": "unavailable", "summary": "Missing scheduled game date", "flags": []}
+    lat, lon, _zone = location
     try:
         hourly = fetch(lat, lon, game["date"])
         timestamps = pd.to_datetime(hourly["time"], errors="coerce")
@@ -216,7 +241,7 @@ def injuries_for_team(injuries, team, week):
     subset = subset.sort_values("date_modified").drop_duplicates("full_name", keep="last")
     entries = []
     for row in subset.itertuples():
-        status = str(row.report_status)
+        status = str(row.report_status).strip().lower()
         practice = str(getattr(row, "practice_status", "")).lower()
         if status in IMPORTANT_STATUSES:
             label = status
@@ -261,5 +286,9 @@ def load_context(schedule, season, week, cutoff, injury_file=None, fetch=_foreca
             "injury_data_error": injury_error,
             "venue": game["stadium"],
             "roof": game["roof"],
+            "game_date": game["date"],
+            "weekday": (pd.Timestamp(game["date"]).day_name() if game["date"] else "Unknown"),
+            "kickoff_eastern": game["kickoff"],
+            "neutral_site": game["neutral_site"],
         }
     return output

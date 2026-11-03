@@ -28,6 +28,7 @@ def send(path: str):
     subjects = {
         "review": "Fantasy Kicker Tracker — Tuesday Prediction Review",
         "defense-review": "Fantasy Defense Tracker — Tuesday Prediction Review",
+        "alerts": "Fantasy NFL — Important Weather / Injury Update",
         "defense-report": "Fantasy Defense Tracker — Wednesday 32-Team Rankings",
     }
     msg["Subject"] = subjects.get(
