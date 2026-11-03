@@ -26,13 +26,13 @@ def send(path: str):
     msg = EmailMessage()
     report_dir = report.parent.name
     subjects = {
-        "review": "Fantasy Kicker Tracker — Tuesday Prediction Review",
-        "defense-review": "Fantasy Defense Tracker — Tuesday Prediction Review",
-        "alerts": "Fantasy NFL — Important Weather / Injury Update",
-        "defense-report": "Fantasy Defense Tracker — Wednesday 32-Team Rankings",
+        "review": "Fantasy Football Analytics | Kickers — Tuesday Prediction Review",
+        "defense-review": "Fantasy Football Analytics | D/ST — Tuesday Prediction Review",
+        "alerts": "Fantasy Football Analytics | Weather & Injury Alert",
+        "defense-report": "Fantasy Football Analytics | D/ST — Wednesday 32-Team Rankings",
     }
     msg["Subject"] = subjects.get(
-        report_dir, "Fantasy Kicker Tracker — Wednesday 32-Team Rankings"
+        report_dir, "Fantasy Football Analytics | Kickers — Wednesday 32-Team Rankings"
     )
     msg["From"] = address
     msg["To"] = recipient
@@ -50,7 +50,7 @@ def send(path: str):
         smtp.ehlo()
         smtp.login(address, app_password)
         smtp.send_message(msg)
-    print("Weekly report accepted by Gmail for delivery.")
+    print("Fantasy Football Analytics report accepted by Gmail for delivery.")
 
 
 if __name__ == "__main__":
