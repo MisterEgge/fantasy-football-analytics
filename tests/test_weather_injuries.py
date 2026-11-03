@@ -2,7 +2,7 @@
 import pandas as pd
 
 from kicker_tracker.context import (
-    game_lookup, weather_for_game, weather_flags, injuries_for_team, load_context,
+    game_lookup, weather_for_game, weather_flags, injuries_for_team, load_context, kickoff_local_hour,
 )
 
 
@@ -92,3 +92,8 @@ def test_context_missing_injury_feed_is_explicit(monkeypatch):
     out=load_context(schedule,2026,9,"2026-11-04")
     assert out["TB"]["team_injuries"]["status"]=="unavailable"
     assert out["ATL"]["weather"]["status"]=="indoor"
+
+def test_eastern_schedule_time_converts_to_stadium_local():
+    assert kickoff_local_hour(game(home="SF", kickoff="16:25"))==13
+    assert kickoff_local_hour(game(home="ARI", kickoff="16:05"))==14
+    assert kickoff_local_hour(game(home="TB", kickoff="13:00"))==13
