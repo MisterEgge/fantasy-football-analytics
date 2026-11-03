@@ -1,4 +1,5 @@
 import argparse
+import pandas as pd
 from datetime import datetime, timedelta
 from .config import Settings, team_code
 from .data import load_pbp, load_schedule, select_completed_games
@@ -13,7 +14,7 @@ def run(season, as_of, pbp_file=None, schedule_file=None, output='report'):
     if pbp.game_date.max().date() < asof-timedelta(days=12):
         raise RuntimeError('NFLverse play-by-play is stale (>12 days): refusing to send ranking')
     schedule=load_schedule(schedule_file)
-    future=schedule[(schedule.season.eq(season)) & schedule.game_type.eq('REG') & schedule.gameday.ge(asof)]
+    future=schedule[(schedule.season.eq(season)) & schedule.game_type.eq('REG') & schedule.gameday.ge(pd.Timestamp(asof))]
     if future.empty:
         raise RuntimeError('No upcoming regular-season games found; do not send stale rankings')
     target_week=int(future.week.min())
