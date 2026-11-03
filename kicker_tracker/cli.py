@@ -35,8 +35,7 @@ def run(season, as_of, pbp_file=None, schedule_file=None, output='report'):
         r.update(result or {'projected_fg_attempts':None,'projected_xp':None,'projected_points':None})
         r['opp_fg_allowed_pg']=index[opp]['fg_allowed_pg'] if opp in index else None
         r['opp_rz_td_allowed_pct']=index[opp]['rz_td_allowed_pct'] if opp in index else None
-    metadata={'season':season,'target_week':target_week,'as_of':as_of,'owned_team':settings.owned_team,
-              'data_max_game_date':str(pbp.game_date.max().date()),'data_origin':'nflverse play by play'}
+    metadata={'season':season,'target_week':target_week,'as_of':as_of,'data_max_game_date':str(pbp.game_date.max().date()),'data_origin':'nflverse play by play'}
     p=save_report(base,metadata,output)
     print(f'Wrote {p} (week {target_week}, {len(base)} teams)')
     return p
