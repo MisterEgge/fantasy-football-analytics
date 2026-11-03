@@ -1,0 +1,102 @@
+name: Tuesday fantasy kicker model review
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Tuesday 3 PM Central; separate UTC cron entries handle daylight saving.
+    - cron: '0 20 * * 2'
+    - cron: '0 21 * * 2'
+
+permissions:
+  contents: write
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    concurrency:
+      group: kicker-history-update
+      cancel-in-progress: false
+    steps:
+      - name: Checkout forecasting code
+        uses: actions/checkout@v4
+      - name: Checkout immutable history
+        uses: actions/checkout@v4
+        with:
+          ref: forecast-history
+          path: history-store
+      - name: Verify Central-time schedule
+        id: clock
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          SCHEDULE: ${{ github.event.schedule }}
+        shell: bash
+        run: |
+          if [[ "$EVENT_NAME" == "workflow_dispatch" ]]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          elif [[ "$SCHEDULE" == "0 20 * * 2" && "$(TZ=America/Chicago date +%Z)" == "CDT" ]]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          elif [[ "$SCHEDULE" == "0 21 * * 2" && "$(TZ=America/Chicago date +%Z)" == "CST" ]]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=false" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Set up Python
+        if: steps.clock.outputs.run == 'true'
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - name: Install dependencies
+        if: steps.clock.outputs.run == 'true'
+        run: python -m pip install -r requirements.txt
+      - name: Run regression tests
+        if: steps.clock.outputs.run == 'true'
+        run: python -m pytest -q
+      - name: Grade archived Wednesday predictions
+        if: steps.clock.outputs.run == 'true'
+        run: python -m kicker_tracker.review --history-dir history-store --season "$(TZ=America/Chicago date +%Y)" --as-of "$(TZ=America/Chicago date +%F)"
+      - name: Determine whether a new review exists
+        id: produced
+        if: steps.clock.outputs.run == 'true'
+        shell: bash
+        run: |
+          if [[ -f review/latest.json ]]; then
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Upload review audit
+        if: steps.produced.outputs.ready == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: kicker-review-${{ github.run_number }}
+          path: review/
+          retention-days: 90
+      - name: Permanently archive weekly review
+        if: steps.produced.outputs.ready == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          season=$(python -c 'import json; print(json.load(open("review/latest.json"))["metadata"]["season"])')
+          week=$(python -c 'import json; print("%02d" % json.load(open("review/latest.json"))["metadata"]["week"])')
+          json_target="history-store/reviews/${season}/week_${week}.json"
+          html_target="history-store/reviews/${season}/week_${week}.html"
+          if [[ -e "$json_target" ]]; then
+            echo "::error::Review already archived; refusing to overwrite."
+            exit 1
+          fi
+          mkdir -p "$(dirname "$json_target")"
+          cp review/latest.json "$json_target"
+          cp review/latest.html "$html_target"
+          git -C history-store config user.name "github-actions[bot]"
+          git -C history-store config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git -C history-store add "reviews/${season}/week_${week}.json" "reviews/${season}/week_${week}.html"
+          git -C history-store commit -m "Review ${season} Week ${week} predictions vs actual"
+          git -C history-store push origin HEAD:forecast-history
+      - name: Email Tuesday model review
+        if: steps.produced.outputs.ready == 'true'
+        env:
+          GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+        run: python -m kicker_tracker.emailer review/latest.html
