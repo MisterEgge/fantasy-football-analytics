@@ -60,7 +60,7 @@ def forecast_html(payload):
     return wrapper(f'{meta["season"]} Week {meta["target_week"]} — Defense Rankings',body,
                    f'Cutoff {meta["as_of"]}. Provisional ESPN-like D/ST scoring. '
                    'Points-allowed values use final game scoreboard as an approximation; this can differ from '
-                   'fantasy platform definitions. Weather and injuries not yet integrated; rankings uncalibrated.')
+                   'fantasy platform definitions. Weather and injuries shown as watchlist context, not yet numerical adjustments.')
 
 def review_html(payload):
     m=payload["metadata"]
