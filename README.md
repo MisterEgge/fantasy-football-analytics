@@ -1,6 +1,6 @@
 # Fantasy Kicker Tracker
 
-Automatically analyze **all 32 NFL teams and their kickers** for a ten-team fantasy league. Every kicker receives the same opportunity, recent-form, and matchup analysis; no kicker is used as a special benchmark. The report is generated every Wednesday afternoon and displayed directly inside the email when Gmail secrets are configured.
+Automatically analyze **all 32 NFL teams and their kickers** for a ten-team fantasy league. Every kicker receives the same opportunity, recent-form, and matchup analysis; no kicker is used as a special benchmark. The forecast is generated every Wednesday afternoon and displayed directly inside Gmail. Every Tuesday afternoon, a separate job grades the preceding week's **saved pregame predictions** against actual NFL results and emails an accuracy review.
 
 ## Scoring and analysis
 
@@ -27,6 +27,33 @@ python -m kicker_tracker.cli --season 2026 --as-of 2026-11-04
 Outputs are `report/latest.html`, `report/latest.json`, and a dated `week_<week>_<season>.html` file. The HTML is an archival browser report; the scheduled email embeds this same formatted report **directly in Gmail**, so recipients do not need to open an HTML attachment. For local viewing, double-click the `.html` file or open it in a web browser. PBP is downloaded from [nflverse-data](https://github.com/nflverse/nflverse-data) and schedules from [nflverse nfldata](https://github.com/nflverse/nfldata). These are community-maintained datasets, not an official NFL feed. To use downloaded files, pass `--pbp /path/to/file.parquet --schedule /path/to/games.csv`.
 
 The report fails closed on stale input (last completed game more than 12 days before report day), missing data, or incomplete 32-team season coverage. On a local rerun, remove cached `data/` files to refresh. GitHub Actions runners use a fresh checkout.
+
+## Automated Tuesday review and Wednesday forecast
+
+Both GitHub Actions workflows are scheduled automatically at **3 PM America/Chicago**:
+
+| Day | Workflow | Email |
+| --- | --- | --- |
+| Tuesday | `.github/workflows/tuesday-model-review.yml` | Grading of last week's predicted versus actual kicker fantasy points and FG attempts for all playing teams |
+| Wednesday | `.github/workflows/weekly-kicker-report.yml` | Top 10 projected kickers plus all-32-team report |
+
+You do not need to run either workflow manually after initial setup. Actions schedules can be delayed by GitHub.
+
+### Permanent prediction history
+
+A separate `forecast-history` Git branch preserves dated records:
+
+- `forecasts/<season>/week_<week>.json`: immutable pregame forecasts (created on Wednesdays).
+- `reviews/<season>/week_<week>.json`: Tuesday per-team actual-vs-predicted differences and summary error metrics.
+- `reviews/<season>/week_<week>.html`: readable Tuesday review email copy.
+
+The Wednesday job will not replace a forecast that was already saved for that week. On reruns it uses the original snapshot for the email; on a manual preview outside Wednesday, no historical forecast is archived. The Tuesday job does not recalculate old forecasts from updated data. When there is no ungraded forecast, it skips the email.
+
+The Tuesday report tracks fantasy-point mean absolute error, prediction bias, FG attempts forecast error, kicker changes, and the largest over/underpredictions. A completed matchup must have play-by-play before it can be evaluated. Reviews are saved for comparison, not just emailed and discarded.
+
+**Guarded model improvement:** The Wednesday model can introduce an automatically calculated *FG-attempt volume* correction only after three completed Tuesday reviews and at least 60 team-games. The proposed factor is trained on earlier weeks and must improve field-goal-attempt error on a held-out later week; adjustments are capped at ±10%. This is deliberately conservative and does **not** automatically rewrite arbitrary model parameters based on a single anomalous game. The review's calibration details are retained in the next forecast's JSON.
+
+The first valid Tuesday backtest requires an archived Wednesday forecast and its following weekend games; before that, there is no reliable prediction-versus-actual history.
 
 ## Wednesday 3 PM Central delivery
 
@@ -55,9 +82,9 @@ The report is uploaded as a workflow artifact before the email step. The email c
 
 ## Next development priorities
 
-1. Validate live 2026 nflverse schemas and kickoff schedules on GitHub Actions.
+1. Validate live 2026 nflverse schemas, grading and kickoff schedules on GitHub Actions.
 2. Integrate active kicker and injury verification, weather and venue, and implied team totals.
-3. Persist dated forecasts for genuine prediction-versus-actual backtesting and weekly rank changes.
+3. Extend the saved prediction history with multiweek trend charts and strict probability calibration.
 4. Incorporate league-specific waiver availability to rank **available** kickers rather than all players.
 5. Improve fourth-down decision attribution with field position, score and wind.
 
