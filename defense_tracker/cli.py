@@ -10,6 +10,7 @@ from kicker_tracker.config import TEAMS, team_code
 from .model import game_stats, team_profiles, predict
 from .scoring import DefenseScoring
 from .report import save
+from .calibration import choose, adjust
 
 
 def upcoming(schedule, season, as_of):
@@ -29,7 +30,7 @@ def upcoming(schedule, season, as_of):
     return target_week,opponents
 
 
-def build_forecast(season, as_of, pbp, schedule, scoring=None):
+def build_forecast(season, as_of, pbp, schedule, scoring=None, history_dir=None):
     scoring=scoring or DefenseScoring()
     clipped=select_completed_games(pbp,as_of)
     if clipped.empty:
@@ -42,6 +43,9 @@ def build_forecast(season, as_of, pbp, schedule, scoring=None):
     profiles=team_profiles(stats)
     if len(profiles)!=32:
         raise RuntimeError(f"Expected 32 teams; found {len(profiles)}")
+    calibration=(choose(history_dir,season,target_week) if history_dir else
+                 {"method":"no_history","point_adjustment":0.,"review_weeks":0,
+                  "graded_defenses":0,"reason":"Historical review data unavailable"})
     teams=[]
     for team in TEAMS:
         row=dict(profiles[team])
@@ -49,13 +53,14 @@ def build_forecast(season, as_of, pbp, schedule, scoring=None):
         row["opponent"]=opponent or "BYE"
         row.update(predict(row,profiles[opponent]) if opponent else
                    {"projected_points":None,"projected_sacks":None,"projected_takeaways":None})
+        adjust(row,calibration)
         # Raw game data are not needed in the archived snapshot; grades use nflverse.
         row.pop("raw_game_records",None)
         teams.append(row)
     return {
         "metadata":{
             "season":season,"target_week":target_week,"as_of":as_of,
-            "model_version":"defense-v1",
+            "model_version":"defense-v1", "calibration":calibration,
             "scoring":{
                 "sack":scoring.sack,"interception":scoring.interception,
                 "fumble_recovery":scoring.fumble_recovery,
@@ -78,10 +83,11 @@ def main():
     ap.add_argument("--pbp")
     ap.add_argument("--schedule")
     ap.add_argument("--output",default="defense-report")
+    ap.add_argument("--history-dir",default=None)
     args=ap.parse_args()
     scoring=DefenseScoring.from_json(args.scoring)
     payload=build_forecast(args.season,args.as_of,load_pbp(args.season,args.pbp),
-                           load_schedule(args.schedule),scoring)
+                           load_schedule(args.schedule),scoring,args.history_dir)
     file=save(payload,args.output,"forecast")
     print(f'Created {file} with {len(payload["teams"])} D/ST units')
 
