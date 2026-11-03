@@ -65,6 +65,19 @@ def compare_game(game, baseline, current, already_notified):
     """New significant risks only; never mistake an unavailable feed for a clear sky."""
     new = []
     matchup = f'{game["away"]}@{game["home"]}'
+    before_roof = str((baseline or {}).get("roof","unknown")).lower()
+    after_roof = str((current or {}).get("roof","unknown")).lower()
+    known_roof = {"open", "closed", "dome", "indoor", "outdoors", "outdoor"}
+    old_outdoor = before_roof in {"open", "outdoors", "outdoor"}
+    new_outdoor = after_roof in {"open", "outdoors", "outdoor"}
+    if (before_roof in known_roof and after_roof in known_roof
+            and old_outdoor != new_outdoor):
+        ident = f"{matchup}|roof|{'outdoor' if new_outdoor else 'indoor'}"
+        if ident not in already_notified:
+            new.append({"id": ident, "game": matchup, "category": "Roof status changed",
+                        "message": ("Game now designated OUTDOORS" if new_outdoor
+                                    else "Game now designated INDOORS / CLOSED"),
+                        "why": "Outdoor wind and precipitation exposure has changed"})
     old_weather = (baseline or {}).get("weather") or {}
     now_weather = (current or {}).get("weather") or {}
     old_levels = _weather_levels(old_weather)
@@ -80,17 +93,18 @@ def compare_game(game, baseline, current, already_notified):
                 new.append({"id": identifier, "game": matchup, "category": "Weather",
                             "message": f'{label} (was {old_weather.get("summary", "unavailable")})',
                             "why": "Could affect kick distance, play calling, or ball security"})
-        # A high-risk condition that was explicitly forecast Wednesday, or
-        # already warned about, materially clears. Notify once per category.
+        # A major weather risk materially improves from high to medium or clear.
+        # State IDs ensure only one improvement notice per category and game.
         for kind, (prior_level, _) in old_levels.items():
-            if ranks.get(prior_level, 0) < 2 or kind in new_levels:
+            if (ranks.get(prior_level, 0) < 2 or
+                    ranks.get(new_levels.get(kind, ("none",""))[0], 0) >= 2):
                 continue
-            identifier = f"{matchup}|weather|{kind}|cleared"
+            identifier = f"{matchup}|weather|{kind}|eased"
             if identifier not in already_notified:
-                new.append({"id": identifier, "game": matchup, "category": "Weather improved",
-                            "message": f"Previously severe {kind} forecast no longer meets alert thresholds",
-                            "why": "An earlier significant weather concern has eased"})
-
+                new.append({"id": identifier, "game": matchup,
+                            "category": "Weather improved",
+                            "message": f"Previously severe {kind} forecast has eased",
+                            "why": "A major weather concern is no longer in the highest category"})
     for team in (game["home"], game["away"]):
         ctx_old = baseline.get(team, {}) if isinstance(baseline, dict) and team in baseline else baseline or {}
         ctx_new = current.get(team, {}) if isinstance(current, dict) and team in current else current or {}
