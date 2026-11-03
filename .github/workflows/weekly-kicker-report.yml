@@ -58,13 +58,6 @@ jobs:
       - name: Generate weekly report
         if: steps.clock.outputs.run == 'true'
         run: python -m kicker_tracker.cli --season "$(TZ=America/Chicago date +%Y)" --as-of "$(TZ=America/Chicago date +%F)" --history-dir history-store
-      - name: Upload HTML and JSON reports
-        if: steps.clock.outputs.run == 'true'
-        uses: actions/upload-artifact@v4
-        with:
-          name: kicker-report-${{ github.run_number }}
-          path: report/
-          retention-days: 90
       - name: Archive immutable pregame predictions
         if: steps.clock.outputs.run == 'true'
         shell: bash
@@ -90,6 +83,13 @@ jobs:
           git -C history-store add "forecasts/${season}/week_${week}.json"
           git -C history-store commit -m "Archive immutable ${season} Week ${week} pregame forecast"
           git -C history-store push origin HEAD:forecast-history
+      - name: Upload HTML and JSON reports
+        if: steps.clock.outputs.run == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: kicker-report-${{ github.run_number }}
+          path: report/
+          retention-days: 90
       - name: Email report
         if: steps.clock.outputs.run == 'true'
         env:
