@@ -74,8 +74,14 @@ jobs:
           week=$(python -c 'import json; print("%02d" % json.load(open("report/latest.json"))["metadata"]["target_week"])')
           target="history-store/forecasts/${season}/week_${week}.json"
           if [[ -f "$target" ]]; then
-            echo "::error::Week ${week} pregame forecast is already archived; refusing to overwrite history."
-            exit 1
+            echo "Archived forecast already exists; reusing the immutable forecast for this email."
+            cp "$target" report/latest.json
+            python -c 'import json; from pathlib import Path; from kicker_tracker.report import build_html; s=json.loads(Path("report/latest.json").read_text()); Path("report/latest.html").write_text(build_html(s["teams"],s["metadata"]),encoding="utf-8")'
+            exit 0
+          fi
+          if [[ "$(TZ=America/Chicago date +%u)" != "3" ]]; then
+            echo "Manual preview outside Wednesday: not saving a pregame forecast."
+            exit 0
           fi
           mkdir -p "$(dirname "$target")"
           cp report/latest.json "$target"
