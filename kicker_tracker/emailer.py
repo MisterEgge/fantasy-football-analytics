@@ -24,9 +24,15 @@ def send(path: str):
     # By default, send the report to the same Gmail address that sends it.
     recipient = os.environ.get("EMAIL_TO", "").strip() or address
     msg = EmailMessage()
-    is_review = report.parent.name == "review"
-    msg["Subject"] = ("Fantasy Kicker Tracker — Tuesday Prediction Review" if is_review
-                      else "Fantasy Kicker Tracker — Wednesday 32-Team Rankings")
+    report_dir = report.parent.name
+    subjects = {
+        "review": "Fantasy Kicker Tracker — Tuesday Prediction Review",
+        "defense-review": "Fantasy Defense Tracker — Tuesday Prediction Review",
+        "defense-report": "Fantasy Defense Tracker — Wednesday 32-Team Rankings",
+    }
+    msg["Subject"] = subjects.get(
+        report_dir, "Fantasy Kicker Tracker — Wednesday 32-Team Rankings"
+    )
     msg["From"] = address
     msg["To"] = recipient
     msg.set_content(
