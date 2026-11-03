@@ -129,3 +129,46 @@ def test_no_archived_forecast_means_no_email(tmp_path,monkeypatch):
     monkeypatch.chdir(tmp_path)
     assert run(tmp_path,2026,datetime(2026,11,5,tzinfo=timezone.utc)) is None
     assert not (tmp_path/"alerts"/"latest.html").exists()
+
+
+def test_outdoor_thursday_roof_change_is_a_single_alert():
+    game=make_game(roof="open")
+    baseline={"TB":ctx(),"ATL":ctx(), **ctx(), "roof":"closed"}
+    current={"TB":ctx(),"ATL":ctx(), **ctx(), "roof":"open"}
+    events=compare_game(game,baseline,current,set())
+    assert len(events)==1
+    assert events[0]["category"]=="Roof status changed"
+    assert compare_game(game,baseline,current,{events[0]["id"]})==[]
+
+
+def test_830_am_eastern_international_start_is_respected():
+    g=make_game(home="JAX",away="NE",when="2026-11-08",
+                kickoff="08:30",stadium="Tottenham Hotspur Stadium",neutral=True)
+    assert kickoff_utc(g).isoformat().startswith("2026-11-08T13:30:00")
+
+
+def test_sent_change_is_not_emailed_again_on_next_scheduled_check(tmp_path,monkeypatch):
+    monkeypatch.chdir(tmp_path)
+    history=tmp_path/"history-store"
+    folder=history/"forecasts"/"2026"
+    folder.mkdir(parents=True)
+    snap={"metadata":{"season":2026,"target_week":9,"as_of":"2026-11-04"},
+          "teams":[{"team":"TB","game_context":ctx()},
+                   {"team":"ATL","game_context":ctx()}]}
+    (folder/"week_09.json").write_text(json.dumps(snap),encoding="utf-8")
+    schedule=pd.DataFrame([{
+        "season":2026,"week":9,"game_type":"REG",
+        "home_team":"TB","away_team":"ATL","gameday":pd.Timestamp("2026-11-05"),
+        "roof":"outdoors","stadium":"Raymond James Stadium","location":"Home",
+        "gametime":"20:15",
+    }])
+    wind={"status":"forecast","wind_mph":26,"gust_mph":11,
+          "precip_in_hour":0,"flags":["wind"],"summary":"Strong wind"}
+    changes=lambda *_args: {"TB":ctx(weather=wind),"ATL":ctx(weather=wind)}
+    when=datetime(2026,11,5,18,0,tzinfo=timezone.utc)
+    events=run(history,2026,now=when,schedule=schedule,context_loader=changes)
+    assert events and len(events)==1
+    state=history/"alerts"/"2026"/"week_09.json"
+    state.parent.mkdir(parents=True)
+    state.write_text((tmp_path/"alerts"/"next_state.json").read_text())
+    assert run(history,2026,now=when,schedule=schedule,context_loader=changes) is None
