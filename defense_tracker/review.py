@@ -64,6 +64,7 @@ def evaluate(snapshot,pbp,schedule,as_of):
         grades.append({
             "team":team,"opponent":opponent,
             "predicted_points":float(p["projected_points"]),
+            "raw_projected_points":float(p.get("raw_projected_points",p["projected_points"])),
             "actual_points":float(g.fantasy_points),
             "error":error,
             "projected_sacks":float(p["projected_sacks"]),
@@ -82,6 +83,7 @@ def evaluate(snapshot,pbp,schedule,as_of):
             "season":season,"week":week,"forecast_as_of":metadata["as_of"],
             "review_as_of":str(timestamp.date()),"scoring":metadata["scoring"],
             "model_version":metadata["model_version"],
+            "calibration":metadata.get("calibration",{}),
             "points_allowed_method":metadata["points_allowed_method"],
         },
         "summary":{
