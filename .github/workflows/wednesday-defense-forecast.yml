@@ -51,7 +51,7 @@ jobs:
         run: pytest -q
       - name: Build 32-team defense report
         if: steps.clock.outputs.run == 'true'
-        run: python -m defense_tracker.cli --season "$(TZ=America/Chicago date +%Y)" --as-of "$(TZ=America/Chicago date +%F)"
+        run: python -m defense_tracker.cli --season "$(TZ=America/Chicago date +%Y)" --as-of "$(TZ=America/Chicago date +%F)" --history-dir history-store
       - name: Preserve pregame predictions for next Tuesday
         if: steps.clock.outputs.run == 'true'
         run: |
