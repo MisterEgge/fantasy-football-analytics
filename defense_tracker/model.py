@@ -41,7 +41,9 @@ def _final_score(group, home, away):
 def game_stats(pbp, scoring=None):
     scoring = scoring or DefenseScoring()
     required = {"game_id", "week", "season", "posteam", "defteam",
-                "home_team", "away_team", "play_type"}
+                "home_team", "away_team", "play_type", "sack", "interception",
+                "fumble_lost", "safety", "touchdown", "td_team",
+                "punt_blocked", "field_goal_result", "extra_point_result"}
     missing = required-set(pbp)
     if missing:
         raise ValueError(f"Missing defensive PBP columns: {sorted(missing)}")
@@ -63,7 +65,7 @@ def game_stats(pbp, scoring=None):
             blocked=int(
                 (defense.get("field_goal_result",pd.Series(index=defense.index,dtype=object)).astype(str).str.lower().eq("blocked")
                  | defense.get("extra_point_result",pd.Series(index=defense.index,dtype=object)).astype(str).str.lower().eq("blocked")
-                 | numeric(defense,"blocked_punt").eq(1)
+                 | numeric(defense,"punt_blocked").eq(1)
                 ).sum()
             )
             td_team = group.get("td_team",pd.Series(index=group.index,dtype=object)).map(team_code)
