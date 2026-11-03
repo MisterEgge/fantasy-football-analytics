@@ -2,8 +2,6 @@ from dataclasses import dataclass
 
 @dataclass(frozen=True)
 class Settings:
-    owned_team: str = "CIN"
-    min_swap_edge: float = 2.0
     outlier_cap: float = 2.5
     recent_weight: float = 0.65
     distance_priors: tuple[float, float, float] = (0.94, 0.82, 0.67)
