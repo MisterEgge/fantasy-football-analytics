@@ -1,0 +1,89 @@
+name: Wednesday defense forecasts
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Wednesday 3:20 PM America/Chicago (CDT and CST alternatives).
+    - cron: '20 20 * * 3'
+    - cron: '20 21 * * 3'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: fantasy-history-updates
+  cancel-in-progress: false
+
+jobs:
+  defense-forecast:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check out historical forecasts
+        uses: actions/checkout@v4
+        with:
+          ref: forecast-history
+          path: history-store
+      - name: Determine if correct Central-time cron
+        id: clock
+        env:
+          EVENT: ${{ github.event_name }}
+          CRON: ${{ github.event.schedule }}
+        run: |
+          if [[ "$EVENT" == "workflow_dispatch" ||
+                ( "$CRON" == "20 20 * * 3" && "$(TZ=America/Chicago date +%Z)" == "CDT" ) ||
+                ( "$CRON" == "20 21 * * 3" && "$(TZ=America/Chicago date +%Z)" == "CST" ) ]]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=false" >> "$GITHUB_OUTPUT"
+          fi
+      - uses: actions/setup-python@v5
+        if: steps.clock.outputs.run == 'true'
+        with:
+          python-version: '3.12'
+          cache: pip
+      - name: Install requirements
+        if: steps.clock.outputs.run == 'true'
+        run: pip install -r requirements.txt
+      - name: Verify tests
+        if: steps.clock.outputs.run == 'true'
+        run: pytest -q
+      - name: Build 32-team defense report
+        if: steps.clock.outputs.run == 'true'
+        run: python -m defense_tracker.cli --season "$(TZ=America/Chicago date +%Y)" --as-of "$(TZ=America/Chicago date +%F)"
+      - name: Preserve pregame predictions for next Tuesday
+        if: steps.clock.outputs.run == 'true'
+        run: |
+          set -euo pipefail
+          season=$(python -c 'import json; print(json.load(open("defense-report/latest.json"))["metadata"]["season"])')
+          week=$(python -c 'import json; print("%02d" % json.load(open("defense-report/latest.json"))["metadata"]["target_week"])')
+          target="history-store/defense-forecasts/${season}/week_${week}.json"
+          if [[ -f "$target" ]]; then
+            echo "Existing immutable forecast retained for this week."
+            cp "$target" defense-report/latest.json
+            python -c 'import json; from pathlib import Path; from defense_tracker.report import forecast_html; d=json.loads(Path("defense-report/latest.json").read_text()); Path("defense-report/latest.html").write_text(forecast_html(d),encoding="utf-8")'
+          elif [[ "$(TZ=America/Chicago date +%u)" == "3" ]]; then
+            mkdir -p "$(dirname "$target")"
+            cp defense-report/latest.json "$target"
+            git -C history-store config user.name "github-actions[bot]"
+            git -C history-store config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git -C history-store add "defense-forecasts/${season}/week_${week}.json"
+            git -C history-store commit -m "Archive ${season} Week ${week} defense forecast"
+            git -C history-store push origin HEAD:forecast-history
+          else
+            echo "Manual preview outside Wednesday: no archived pregame prediction."
+          fi
+      - name: Upload defense report
+        if: steps.clock.outputs.run == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: defense-forecast-${{ github.run_number }}
+          path: defense-report/
+          retention-days: 90
+      - name: Email Wednesday defense report
+        if: steps.clock.outputs.run == 'true'
+        env:
+          GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+        run: python -m kicker_tracker.emailer defense-report/latest.html
