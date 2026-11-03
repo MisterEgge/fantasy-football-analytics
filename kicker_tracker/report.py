@@ -71,6 +71,36 @@ def build_html(rows, metadata):
         for i, r in enumerate(active[:10], 1)
     ]
 
+    special_games = []
+    special_seen = set()
+    for r in ranked:
+        info = r.get("game_context") or {}
+        weekday = info.get("weekday")
+        kickoff = str(info.get("kickoff_eastern",""))
+        is_early_sunday = weekday == "Sunday" and kickoff and kickoff < "12:00"
+        if weekday != "Thursday" and not is_early_sunday:
+            continue
+        group = tuple(sorted((r["team"],r.get("opponent","BYE"))))
+        if group in special_seen:
+            continue
+        special_seen.add(group)
+        roof = str(info.get("roof","unknown"))
+        venue_state = ("INDOORS / CLOSED" if roof in ("closed","dome","indoor")
+                       else "OUTDOORS" if roof in ("outdoor","outdoors","open")
+                       else "ROOF UNVERIFIED")
+        weather = (info.get("weather") or {}).get("summary","Weather unavailable")
+        special_games.append((
+            weekday + (" · early international window" if is_early_sunday else ""),
+            r["team"] + " vs " + str(r.get("opponent")),
+            venue_state,
+            str(info.get("venue","Unknown")),
+            str(kickoff)+" ET",
+            weather,
+        ))
+    special_table = _table(
+        ("When", "Matchup", "Indoor / outdoor", "Venue", "Kickoff", "Weather"),
+        special_games
+    ) if special_games else "<p>No Thursday or early-Sunday matchups identified for this week.</p>"
     weather_rows = []
     for r in ranked:
         ctx = r.get("game_context") or {}
@@ -152,6 +182,10 @@ def build_html(rows, metadata):
     <p style="color:{MUTED};font-size:12px;margin-top:8px;">
       Projections are preliminary statistical estimates, not verified betting-market or injury-adjusted forecasts.
     </p>
+    <h2 style="font-size:18px;margin:24px 0 10px;">Thursday and early-Sunday game check</h2>
+    <p style="font-size:12px;color:{MUTED};">Roof status is explicit. Early international games are checked ahead of their actual kickoff.
+    New severe forecasts or important injury changes trigger a separate change-only alert.</p>
+    {special_table}
     <h2 style="font-size:18px;margin:24px 0 10px;">Weather and injury watchlist</h2>
     <p style="font-size:12px;color:{MUTED};">Conditions are forecasts, not guaranteed game-day weather.
     Injury designations are the latest available at the report cutoff; questionable does not mean out.
