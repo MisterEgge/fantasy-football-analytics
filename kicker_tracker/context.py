@@ -241,7 +241,7 @@ def injuries_for_team(injuries, team, week):
     subset = subset.sort_values("date_modified").drop_duplicates("full_name", keep="last")
     entries = []
     for row in subset.itertuples():
-        status = str(row.report_status)
+        status = str(row.report_status).strip().lower()
         practice = str(getattr(row, "practice_status", "")).lower()
         if status in IMPORTANT_STATUSES:
             label = status
