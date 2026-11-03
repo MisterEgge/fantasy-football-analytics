@@ -12,7 +12,7 @@ def sample_pbp():
         game_id="2026_09_BAL_CIN", season=2026, week=9,
         game_date=pd.Timestamp("2026-11-08"), home_team="CIN", away_team="BAL",
         home_score=17, away_score=10, touchdown=0, td_team=None, return_touchdown=0,
-        sack=0, interception=0, fumble_lost=0, safety=0, blocked_punt=0,
+        sack=0, interception=0, fumble_lost=0, safety=0, punt_blocked=0,
         field_goal_result=None, extra_point_result=None, pass_attempt=0,
         yards_gained=0, play_type="pass", field_goal_attempt=0,
     )
