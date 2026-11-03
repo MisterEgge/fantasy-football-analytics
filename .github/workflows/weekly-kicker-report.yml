@@ -8,15 +8,24 @@ on:
     - cron: '0 21 * * 3'
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   report:
     runs-on: ubuntu-latest
     timeout-minutes: 25
+    concurrency:
+      group: kicker-history-update
+      cancel-in-progress: false
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Checkout forecast history
+        if: always()
+        uses: actions/checkout@v4
+        with:
+          ref: forecast-history
+          path: history-store
       - name: Verify Central-time schedule
         id: clock
         env:
@@ -48,7 +57,7 @@ jobs:
         run: python -m pytest -q
       - name: Generate weekly report
         if: steps.clock.outputs.run == 'true'
-        run: python -m kicker_tracker.cli --season "$(TZ=America/Chicago date +%Y)" --as-of "$(TZ=America/Chicago date +%F)"
+        run: python -m kicker_tracker.cli --season "$(TZ=America/Chicago date +%Y)" --as-of "$(TZ=America/Chicago date +%F)" --history-dir history-store
       - name: Upload HTML and JSON reports
         if: steps.clock.outputs.run == 'true'
         uses: actions/upload-artifact@v4
@@ -56,6 +65,25 @@ jobs:
           name: kicker-report-${{ github.run_number }}
           path: report/
           retention-days: 90
+      - name: Archive immutable pregame predictions
+        if: steps.clock.outputs.run == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          season=$(python -c 'import json; print(json.load(open("report/latest.json"))["metadata"]["season"])')
+          week=$(python -c 'import json; print(f"{json.load(open(chr(114)+chr(101)+chr(112)+chr(111)+chr(114)+chr(116)+chr(47)+chr(108)+chr(97)+chr(116)+chr(101)+chr(115)+chr(116)+chr(46)+chr(106)+chr(115)+chr(111)+chr(110)))["metadata"]["target_week"]:02d}")')
+          target="history-store/forecasts/${season}/week_${week}.json"
+          if [[ -f "$target" ]]; then
+            echo "::error::Week ${week} pregame forecast is already archived; refusing to overwrite history."
+            exit 1
+          fi
+          mkdir -p "$(dirname "$target")"
+          cp report/latest.json "$target"
+          git -C history-store config user.name "github-actions[bot]"
+          git -C history-store config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git -C history-store add "forecasts/${season}/week_${week}.json"
+          git -C history-store commit -m "Archive immutable ${season} Week ${week} pregame forecast"
+          git -C history-store push origin HEAD:forecast-history
       - name: Email report
         if: steps.clock.outputs.run == 'true'
         env:
