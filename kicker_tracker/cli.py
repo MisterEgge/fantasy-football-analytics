@@ -5,6 +5,7 @@ from .config import Settings, team_code
 from .data import load_pbp, load_schedule, select_completed_games
 from .analysis import build_team_rows, project
 from .calibration import choose_calibration, apply_calibration
+from .context import load_context
 from .report import save_report
 
 def run(season, as_of, pbp_file=None, schedule_file=None, output='report', history_dir=None):
@@ -28,6 +29,7 @@ def run(season, as_of, pbp_file=None, schedule_file=None, output='report', histo
     index={r['team']:r for r in base}
     if len(index)!=32:
         raise RuntimeError(f'Expected all 32 teams, received {len(index)}; refusing incomplete report')
+    context = load_context(schedule, season, target_week, as_of)
     settings=Settings()
     calibration=(choose_calibration(history_dir, season, target_week) if history_dir else
                  {"volume_factor": 1.0, "method": "no_history_available",
@@ -36,6 +38,7 @@ def run(season, as_of, pbp_file=None, schedule_file=None, output='report', histo
     for r in base:
         opp=opponent.get(r['team'])
         r['opponent']=opp or 'BYE'
+        r['game_context']=context.get(r['team'], {"weather":{"status":"bye","summary":"Bye week","flags":[]},"team_injuries":{"status":"bye","flags":[]},"opponent_injuries":{"status":"bye","flags":[]}})
         result=project(r,index[opp],settings) if opp in index else None
         r.update(result or {'projected_fg_attempts':None,'projected_xp':None,'projected_points':None})
         apply_calibration(r, calibration)
