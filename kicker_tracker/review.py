@@ -271,7 +271,8 @@ def main():
     root = Path(args.history_dir)
     candidates = sorted((root / "forecasts" / str(args.season)).glob("week_*.json"))
     if not candidates:
-        raise RuntimeError("No archived Wednesday forecasts: cannot backtest without pregame predictions")
+        print("No archived Wednesday forecasts yet; the first review follows the first archived forecast.")
+        return
     forecasts = [json.loads(p.read_text(encoding="utf-8")) for p in candidates]
     # Grade the latest saved week that has not already been evaluated.
     ungraded = [f for f in forecasts if not history_path(
