@@ -1,48 +1,151 @@
-"""Self-contained mobile-friendly HTML report."""
+"""Readable email-first weekly report. All NFL kickers receive identical treatment."""
+from datetime import datetime, timezone
 from html import escape
-from datetime import datetime
 from pathlib import Path
 import json
 
-CSS='''body{font:15px/1.55 system-ui,Arial,sans-serif;max-width:1150px;margin:auto;padding:25px;color:#172033;background:#f6f8fb}h1{font-size:28px}h2{margin-top:34px}p{max-width:900px}.note{background:#fff3cd;padding:12px;border-left:4px solid #d79b00}.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;background:white}th,td{padding:8px 10px;border-bottom:1px solid #e4e9f0;text-align:right;white-space:nowrap}th:first-child,td:first-child,th:nth-child(2),td:nth-child(2){text-align:left}thead{background:#eaf0f7}.owned{background:#e6f5ef}.pos{color:#166534;font-weight:700}.neg{color:#991b1b;font-weight:700}small{color:#546173}a{color:#175e9b}'''
+NAVY = "#14263d"
+MUTED = "#53657a"
+BLUE = "#eaf2fb"
+BORDER = "#dfe6ee"
 
-def fmt(v, digits=1):
-    return 'N/A' if v is None else f'{v:.{digits}f}'
+
+def fmt(value, digits=1):
+    return "—" if value is None else f"{float(value):.{digits}f}"
+
+
+def pct(value):
+    return "—" if value is None else f"{float(value)*100:.0f}%"
+
+
+def _cell(value, head=False, left=False, highlight=False):
+    background = "#e9f2fc" if highlight else "#ffffff"
+    if head:
+        background = NAVY
+    style = (
+        "padding:9px 10px;border-bottom:1px solid " + BORDER + ";"
+        "font-size:12px;vertical-align:top;"
+        "text-align:" + ("left" if left else "right") + ";"
+        "color:" + ("#ffffff" if head else NAVY) + ";"
+        "background:" + background + ";"
+    )
+    return f'<{"th" if head else "td"} style="{style}">{value}</{"th" if head else "td"}>'
+
+
+def _table(headers, rows):
+    top = "".join(_cell(escape(str(h)), head=True, left=i < 2) for i, h in enumerate(headers))
+    body = ""
+    for i, values in enumerate(rows):
+        body += "<tr>" + "".join(
+            _cell(escape(str(value)), left=j < 2, highlight=i % 2 == 1)
+            for j, value in enumerate(values)
+        ) + "</tr>"
+    return (
+        '<table role="presentation" cellpadding="0" cellspacing="0" '
+        'style="width:100%;border-collapse:collapse;background:#ffffff;">'
+        f"<thead><tr>{top}</tr></thead><tbody>{body}</tbody></table>"
+    )
+
 
 def build_html(rows, metadata):
-    season=metadata['season']
-    week=metadata['target_week']
-    asof=metadata['as_of']
-    owned=metadata.get('owned_team','CIN')
-    arr=list(rows)
-    arr.sort(key=lambda r:(r.get('projected_points') is not None, r.get('projected_points') if r.get('projected_points') is not None else -1),reverse=True)
-    base=next((r.get('projected_points') for r in arr if r['team']==owned),None)
-    lines=[]
-    for idx,r in enumerate(arr,1):
-        f=r.get('form') or {}
-        diff=r['projected_points']-base if base is not None and r.get('projected_points') is not None else None
-        cls='owned' if r['team']==owned else ''
-        recent=', '.join(str(int(v['points'])) for v in f.get('weekly',[])[-5:])
-        line=(f'<tr class="{cls}"><td>{idx}</td>'
-              f'<td>{escape(r["team"])} — {escape(str(f.get("kicker","unknown")))}</td>'
-              f'<td>{escape(str(r.get("opponent","BYE")))}</td>'
-              f'<td>{fmt(r.get("projected_points"))}</td>'
-              f'<td class="{"pos" if diff is not None and diff>=2 else "neg" if diff is not None and diff<=-2 else ""}">'
-              f'{"N/A" if diff is None else f"{diff:+.1f}"}</td>'
-              f'<td>{fmt(r["fg_attempts_pg"])}</td><td>{fmt(r["fg_last3_pg"])}</td>'
-              f'<td>{fmt(r.get("opp_fg_allowed_pg"))}</td>'
-              f'<td>{fmt(r["opp_rz_td_allowed_pct"]*100) if r.get("opp_rz_td_allowed_pct") is not None else "N/A"}%</td>'
-              f'<td>{fmt(f.get("median_ppg"))}</td><td>{fmt(f.get("last3_ppg"))}</td>'
-              f'<td>{escape(recent)}</td></tr>')
-        lines.append(line)
-    intro=f'Generated {escape(datetime.now().strftime("%Y-%m-%d %H:%M"))}. Completed games only before {escape(asof)}. Next target week: {week}.'
-    return f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Fantasy Kicker Tracker — Week {week}</title><style>{CSS}</style></head><body><h1>Fantasy Kicker Tracker — {season} Week {week}</h1><p>{intro}</p><p class="note"><b>Model status:</b> Heuristic projection, not a validated probability model. Opponent / offensive FG attempt rates are observed; forecast points and swap edges are estimates. Injuries, weather, betting markets and actual league ownership are <b>not included</b>. Confirm the kicker is active before a waiver move.</p><h2>All 32 teams versus your Cincinnati baseline</h2><p>Consider swapping only for a projected edge of at least +2 points. Scoring: 3/4/5 per made FG by distance, +1 made XP, −1 missed FG.</p><div class="table-wrap"><table><thead><tr><th>Rank</th><th>Team / kicker</th><th>Opponent</th><th>Projected pts</th><th>vs CIN</th><th>FG/game</th><th>Last 3 FG/game</th><th>Opp FG allowed/game</th><th>Opp RZ TD%</th><th>Median pts</th><th>Last 3 pts/game</th><th>Last 5 weekly pts</th></tr></thead><tbody>{''.join(lines)}</tbody></table></div><h2>Method</h2><p>Expected field-goal attempts blend season and recent offense attempt rates with the opponent defense's season and recent conceded attempts, with a bounded red-zone adjustment. Field-goal accuracy by distance uses shrinkage priors. Extra-point projection uses season and recent makes. This is an initial heuristic: no valid historical prediction backtest exists yet.</p><p>All teams including bye weeks are present; a bye produces no startable projection. Confirm real injury and depth-chart status before adding a player.</p><p><small>Data: <a href="https://github.com/nflverse/nflverse-data">nflverse play-by-play</a>. See README for limitations.</small></p></body></html>'''
+    season = metadata["season"]
+    week = metadata["target_week"]
+    cutoff = metadata["as_of"]
+    ranked = sorted(
+        rows,
+        key=lambda r: (
+            r.get("projected_points") is not None,
+            r.get("projected_points") if r.get("projected_points") is not None else -1,
+        ),
+        reverse=True,
+    )
 
-def save_report(rows, metadata, folder='report'):
-    out=Path(folder)
-    out.mkdir(parents=True,exist_ok=True)
-    page=out/f'week_{metadata["target_week"]}_{metadata["season"]}.html'
-    page.write_text(build_html(rows,metadata),encoding='utf-8')
-    (out/'latest.html').write_text(page.read_text(encoding='utf-8'),encoding='utf-8')
-    (out/'latest.json').write_text(json.dumps({'metadata':metadata,'teams':rows},indent=2,default=str),encoding='utf-8')
+    def name(row):
+        form = row.get("form") or {}
+        return form.get("kicker") or "Unverified kicker"
+
+    active = [r for r in ranked if r.get("projected_points") is not None]
+    top_rows = [
+        (i, name(r), r["team"], "vs " + r["opponent"],
+         fmt(r["projected_points"]), fmt((r.get("form") or {}).get("last3_ppg")))
+        for i, r in enumerate(active[:10], 1)
+    ]
+
+    all_rows = []
+    for i, r in enumerate(ranked, 1):
+        form = r.get("form") or {}
+        recent = " / ".join(fmt(v["points"], 0) for v in form.get("weekly", [])[-5:]) or "—"
+        all_rows.append((
+            i, f'{r["team"]} · {name(r)}', r.get("opponent", "BYE"),
+            fmt(r.get("projected_points")),
+            fmt(r.get("fg_attempts_pg")),
+            fmt(r.get("fg_last3_pg")),
+            fmt(r.get("opp_fg_allowed_pg")),
+            pct(r.get("opp_rz_td_allowed_pct")),
+            fmt(form.get("median_ppg")),
+            recent,
+        ))
+
+    top = _table(("Rank", "Kicker", "Team", "Matchup", "Proj.", "Last 3 PPG"), top_rows)
+    all_table = _table((
+        "#", "Team / kicker", "Opponent", "Proj. pts", "FG/G",
+        "Last 3 FG/G", "Opp FG/G allowed", "Opp RZ TD%", "Median PPG", "Last 5 scores"
+    ), all_rows)
+
+    # Inline styles are important: Gmail strips or modifies document-level CSS.
+    return f"""<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fantasy Kicker Tracker — Week {week}</title></head>
+<body style="margin:0;padding:0;background:#f5f7fb;color:{NAVY};font-family:Arial,Helvetica,sans-serif;">
+<div style="max-width:1100px;margin:0 auto;padding:18px;">
+  <div style="padding:22px;background:{NAVY};color:#fff;border-radius:8px 8px 0 0;">
+    <div style="font-size:12px;letter-spacing:1px;">WEEKLY FANTASY REPORT</div>
+    <h1 style="margin:8px 0 3px;font-size:24px;color:#fff;">Week {week} · {season} Kicker Rankings</h1>
+    <div style="font-size:13px;color:#d0dce9;">All 32 teams · Data cutoff: {escape(str(cutoff))}</div>
+  </div>
+  <div style="background:#ffffff;padding:22px;">
+    <p style="margin-top:0;font-size:14px;line-height:1.6;">
+      Every kicker is evaluated equally on recent scoring, field-goal opportunity,
+      accuracy and opponent defensive trends. Bye-week kickers have no projected points.
+    </p>
+    <h2 style="font-size:18px;margin:22px 0 10px;">Top 10 projected this week</h2>
+    {top}
+    <p style="color:{MUTED};font-size:12px;margin-top:8px;">
+      Projections are preliminary statistical estimates, not verified betting-market or injury-adjusted forecasts.
+    </p>
+    <h2 style="font-size:18px;margin:24px 0 10px;">All 32 teams</h2>
+    <p style="font-size:12px;color:{MUTED};line-height:1.5;">
+      FG/G = offensive field-goal attempts per game; Opp FG/G allowed = field goals attempted
+      by opposing offenses per game. Last 5 scores are chronological (oldest to newest).
+    </p>
+    <div style="overflow-x:auto;max-width:100%;">{all_table}</div>
+    <div style="border-top:1px solid {BORDER};margin-top:24px;padding-top:12px;">
+      <p style="font-size:12px;color:{MUTED};line-height:1.5;">
+        Fantasy scoring: FG 0–39 yards = 3; 40–49 = 4; 50+ = 5; made XP = 1;
+        missed FG = −1. Model uses nflverse play-by-play, with recent FG rates and opposing
+        FG attempts allowed. Weather, injuries, verified active kicker status and waiver availability
+        are not yet ingested. Rankings are not historically calibrated.
+      </p>
+      <p style="font-size:12px;color:{MUTED};">
+        <a href="https://github.com/MisterEgge/fantasy-kicker-tracker">Project source</a>
+        · Generated {datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")}
+      </p>
+    </div>
+  </div>
+</div>
+</body></html>"""
+
+
+def save_report(rows, metadata, folder="report"):
+    out = Path(folder)
+    out.mkdir(parents=True, exist_ok=True)
+    html = build_html(rows, metadata)
+    page = out / f'week_{metadata["target_week"]}_{metadata["season"]}.html'
+    page.write_text(html, encoding="utf-8")
+    (out / "latest.html").write_text(html, encoding="utf-8")
+    (out / "latest.json").write_text(
+        json.dumps({"metadata": metadata, "teams": rows}, indent=2, default=str),
+        encoding="utf-8",
+    )
     return page
