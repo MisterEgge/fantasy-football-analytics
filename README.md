@@ -89,3 +89,26 @@ The report is uploaded as a workflow artifact before the email step. The email c
 5. Improve fourth-down decision attribution with field position, score and wind.
 
 The code is meant to be extended as these feeds become available; do not treat omitted factors as already implemented.
+
+## Defense / Special Teams (D/ST) tracking
+
+The `defense_tracker/` package adds an independent 32-team defensive analysis, with **Wednesday forecasts** and **Tuesday grading** using saved pregame predictions. It uses the same nflverse data source, email credentials and `forecast-history` branch, but preserves separate D/ST records in `defense-forecasts/` and `defense-reviews/`.
+
+**Provisional D/ST scoring configuration** is in [`defense_scoring.json`](defense_scoring.json). The initial values match ESPN's documented 2026 standard D/ST event scoring: 1/sack, 2/interception, 2/fumble recovered, 2/safety, 2/blocked kick, 6/defensive or return touchdown, plus points-allowed brackets. **These rules are NOT yet confirmed for your league**; replace the JSON to match your league before relying on fantasy-point projections or backtests. Default points-allowed tiers are: 0 points +5; 1–6 +4; 7–13 +3; 14–17 +1; 18–27 0; 28–34 −1; 35–45 −3; 46+ −5. No yardage-allowed scoring is applied.
+
+The defense analysis evaluates sack rates, opponent sacks conceded, turnover creation, opponent turnovers conceded, points allowed, opposing offenses' recent D/ST fantasy points conceded, robust/median and rolling last-3/5 scores, and matchup context. A single pick-six will not become an automatic expectation of future six-point defensive touchdowns. It reports all 32 units and top ten choices, with byes unprojected. Predictions use an **uncalibrated heuristic** until historical audits warrant a correction.
+
+**Known scoring limitation:** The first version estimates D/ST points allowed using the game's *final scoreboard*, which can include opponent defensive or special-teams touchdowns that many fantasy platforms exclude. The report explicitly labels this approximation. Other potential differences include official stat corrections, punt/field-goal blocks, kickoff return edge cases, and platform-specific rules. Validate against your league's actual D/ST totals before treating the backtest as platform-exact.
+
+Locally, after installing requirements:
+
+```bash
+python -m defense_tracker.cli --season 2026 --as-of 2026-11-04 --scoring defense_scoring.json
+python -m defense_tracker.review --season 2026 --as-of 2026-11-10 --history-dir history-store
+```
+
+Once GitHub Actions is activated, `.github/workflows/wednesday-defense-forecast.yml` runs Wednesday **3:20 PM Central**, and `.github/workflows/tuesday-defense-review.yml` runs Tuesday **3:20 PM Central**. Both use the same `GMAIL_ADDRESS` and `GMAIL_APP_PASSWORD` secrets and email a separate, formatted D/ST report. Tuesday grades only saved Wednesday forecasts against the completed games, including actual sacks, takeaways and fantasy points. If the previous Wednesday forecast is absent, the review skips rather than inventing historical projections.
+
+The initial D/ST learning mechanism uses an automatic bounded correction only after at least 3 backtested weeks and 60 D/ST game observations, with validation on a later held-out week. Corrections are limited to ±1.5 fantasy points and applied only if they improve mean absolute error. Other weights remain unchanged pending more robust evidence.
+
+Data source documentation: [nflverse nflfastR](https://nflfastr.com/reference/field_descriptions.html). Scoring reference: [ESPN standard D/ST settings](https://support.espn.com/hc/en-us/articles/360003914032-Scoring-Formats).
