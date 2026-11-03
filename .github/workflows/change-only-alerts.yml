@@ -1,0 +1,67 @@
+name: Change-only NFL game weather and injury alerts
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Every 3 hours Thu–Mon in UTC, including before early international games.
+    # Actual notification filtering is kickoff-based, not fixed to US time slots.
+    - cron: '0 */3 * * 0,1,4,5,6'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: fantasy-history-updates
+  cancel-in-progress: false
+
+jobs:
+  check-for-developments:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - name: Checkout program
+        uses: actions/checkout@v4
+      - name: Checkout saved pregame forecasts and alert history
+        uses: actions/checkout@v4
+        with:
+          ref: forecast-history
+          path: history-store
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - name: Install dependencies
+        run: python -m pip install -r requirements.txt
+      - name: Test alert rules
+        run: python -m pytest -q
+      - name: Compare latest conditions against frozen Wednesday snapshot
+        run: python -m kicker_tracker.alerts --season "$(TZ=America/Chicago date +%Y)" --history-dir history-store
+      - name: Determine if meaningful new event exists
+        id: changed
+        run: |
+          if [[ -f alerts/latest.html && -f alerts/next_state.json ]]; then
+            echo "send=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "send=false" >> "$GITHUB_OUTPUT"
+            echo "No new alerts, no email."
+          fi
+      - name: Send single consolidated change-only email
+        if: steps.changed.outputs.send == 'true'
+        env:
+          GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+        run: python -m kicker_tracker.emailer alerts/latest.html
+      - name: Record sent alert IDs to prevent repeats
+        if: steps.changed.outputs.send == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          relative=$(cat alerts/state_path.txt)
+          mkdir -p "history-store/$(dirname "$relative")"
+          cp alerts/next_state.json "history-store/$relative"
+          git -C history-store config user.name "github-actions[bot]"
+          git -C history-store config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git -C history-store add "$relative"
+          git -C history-store commit -m "Record notified significant NFL weather/injury developments"
+          git -C history-store push origin HEAD:forecast-history
