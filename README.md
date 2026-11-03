@@ -1,6 +1,6 @@
 # Fantasy Kicker Tracker
 
-Automatically analyze **all 32 NFL teams and their active kickers** for a ten-team fantasy league, comparing potential streamers against **Evan McPherson (Cincinnati)**. The report is generated every Wednesday afternoon and emailed when SMTP secrets are configured.
+Automatically analyze **all 32 NFL teams and their kickers** for a ten-team fantasy league. Every kicker receives the same opportunity, recent-form, and matchup analysis; no kicker is used as a special benchmark. The report is generated every Wednesday afternoon and displayed directly inside the email when Gmail secrets are configured.
 
 ## Scoring and analysis
 
@@ -10,7 +10,7 @@ Automatically analyze **all 32 NFL teams and their active kickers** for a ten-te
 - Track red-zone opportunities, red-zone TD% on both sides, and fourth-down go-for-it attempts within *approximate* realistic field-goal range.
 - Track fantasy points by week, median, last 3/5 average, percent below five points, percent ten-plus, peak-game share and an outlier-resistant mean.
 - Project field-goal attempts by blending a team's attempt rate with opposing defense's conceded attempt rate. Estimate fantasy points with distance-based accuracy shrinkage and expected extra points.
-- Compare estimated future points to McPherson; a proposed streamer must show roughly a **+2 point projected advantage** to justify moving.
+- Rank all 32 teams by projected fantasy points, with a top-10 summary and full 32-team table. Actual league free-agent availability is not currently known.
 
 **Caution:** Projections are uncalibrated heuristics, not guaranteed values. The repository does not yet ingest injuries, weather, sportsbook lines, confirmed NFL depth charts or your league's actual waiver availability. The fourth-down statistic measures observed fourth-down tries in plausible FG range, not a count of field goals that definitely would have been attempted. It does not claim a validated historical backtest. Always confirm a kicker is active.
 
@@ -24,7 +24,7 @@ python -m pytest -q
 python -m kicker_tracker.cli --season 2026 --as-of 2026-11-04
 ```
 
-Outputs are `report/latest.html`, `report/latest.json`, and a dated `week_<week>_<season>.html` file. PBP is downloaded from [nflverse-data](https://github.com/nflverse/nflverse-data) and schedules from [nflverse nfldata](https://github.com/nflverse/nfldata). These are community-maintained datasets, not an official NFL feed. To use downloaded files, pass `--pbp /path/to/file.parquet --schedule /path/to/games.csv`.
+Outputs are `report/latest.html`, `report/latest.json`, and a dated `week_<week>_<season>.html` file. The HTML is an archival browser report; the scheduled email embeds this same formatted report **directly in Gmail**, so recipients do not need to open an HTML attachment. For local viewing, double-click the `.html` file or open it in a web browser. PBP is downloaded from [nflverse-data](https://github.com/nflverse/nflverse-data) and schedules from [nflverse nfldata](https://github.com/nflverse/nfldata). These are community-maintained datasets, not an official NFL feed. To use downloaded files, pass `--pbp /path/to/file.parquet --schedule /path/to/games.csv`.
 
 The report fails closed on stale input (last completed game more than 12 days before report day), missing data, or incomplete 32-team season coverage. On a local rerun, remove cached `data/` files to refresh. GitHub Actions runners use a fresh checkout.
 
@@ -51,7 +51,7 @@ To obtain an app password:
 
 If App Passwords is unavailable on your account (for example, certain organization policies or Advanced Protection), this delivery method will not work; an OAuth-based provider or email API would be needed instead. Google generally recommends OAuth where supported, but an app password is a practical option for this personal scheduled script.
 
-The report is uploaded as a workflow artifact before the email step. If secrets are missing, the email step fails explicitly; it will not report that an email was sent.
+The report is uploaded as a workflow artifact before the email step. The email contains a styled HTML body (with a plain-text fallback), not a downloadable HTML attachment. If secrets are missing, the email step fails explicitly; it will not report that an email was sent.
 
 ## Next development priorities
 
