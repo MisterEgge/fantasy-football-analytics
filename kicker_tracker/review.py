@@ -108,8 +108,20 @@ def grade_forecast(snapshot, pbp, schedule, as_of):
         projected_points = float(prediction["projected_points"])
         raw_attempts = float(prediction.get("raw_projected_fg_attempts", projected_attempts))
         raw_points = float(prediction.get("raw_projected_points", projected_points))
+        if kicker_changed:
+            driver = "Kicker change"
+        elif abs(projected_attempts - actual_attempts) >= 1.5:
+            driver = "FG opportunity forecast"
+        elif abs(projected_points - actual_points) >= 4:
+            driver = "Kick distance, accuracy or extra points"
+        else:
+            driver = "Within ordinary weekly variance"
         rows.append({
             "team": team, "opponent": opponent,
+            "error_driver": driver,
+            "offense_fg_last3_pg": prediction.get("fg_last3_pg"),
+            "opponent_fg_allowed_pg": prediction.get("opp_fg_allowed_pg"),
+            "opponent_rz_td_allowed_pct": prediction.get("opp_rz_td_allowed_pct"),
             "predicted_kicker": predicted_kicker,
             "actual_kickers": actual_kickers,
             "kicker_changed": kicker_changed,
@@ -142,6 +154,10 @@ def grade_forecast(snapshot, pbp, schedule, as_of):
         "fg_attempt_bias": round(float(np.mean(fga)), 2),
         "constant_median_benchmark_mae": round(median_mae, 2),
         "kicker_changed_count": sum(r["kicker_changed"] for r in rows),
+        "diagnostic_counts": {
+            cause: sum(r["error_driver"] == cause for r in rows)
+            for cause in sorted(set(r["error_driver"] for r in rows))
+        },
     }
     if len(rows) != len(games) * 2:
         raise RuntimeError("Incomplete weekly review")
@@ -181,7 +197,7 @@ def build_review_html(review):
         (r["team"], r["opponent"], r["predicted_kicker"] or "Unverified",
          f'{r["predicted_points"]:.1f}', f'{r["actual_points"]:.1f}',
          f'{r["points_error"]:+.1f}', f'{r["predicted_fg_attempts"]:.1f}',
-         r["actual_fg_attempts"], "Changed" if r["kicker_changed"] else "")
+         r["actual_fg_attempts"], r["error_driver"])
         for r in rows
     ]
     high_fga = sum(r["fg_attempt_error"] > 1.0 for r in rows)
@@ -191,6 +207,11 @@ def build_review_html(review):
         f'{low_fga} teams attempted at least 1 more FG than projected.',
         f'{s["kicker_changed_count"]} teams had evidence that a different kicker handled attempts.',
     ]
+    notes.extend(
+        f'{count} team(s) classified as {label.lower()}.'
+        for label, count in sorted(s["diagnostic_counts"].items())
+        if label != "Within ordinary weekly variance"
+    )
     notes_html = "".join(f"<li>{escape(n)}</li>" for n in notes)
     review_label = f'{m["season"]} Week {m["week"]}'
     return f"""<!doctype html><html lang="en"><head><meta charset="utf-8">
@@ -218,7 +239,7 @@ f'{r["points_error"]:+.1f}', f'{r["predicted_fg_attempts"]:.1f}', r["actual_fg_a
 The Wednesday forecast can apply a bounded correction only after three reviewed weeks,
 at least 60 graded team-games, and an improved held-out error.</p>
 <h2 style="font-size:18px;">Full game-by-game audit (every team)</h2>
-{_metric_table(("Team", "Opponent", "Projected kicker", "Proj points", "Actual", "Error", "Proj FGA", "Actual FGA", "Kicker status"), all_rows)}
+{_metric_table(("Team", "Opponent", "Projected kicker", "Proj points", "Actual", "Error", "Proj FGA", "Actual FGA", "Diagnostic"), all_rows)}
 <p style="font-size:12px;color:#53657a;margin-top:20px;">
 Fantasy scoring: made FG 0–39 = 3, 40–49 = 4, 50+ = 5; made XP = 1; missed FG = −1.
 Kicker changes are flagged when a different player is recorded; actual team kicking totals
