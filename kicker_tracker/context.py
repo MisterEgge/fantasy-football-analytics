@@ -112,9 +112,16 @@ def weather_for_game(game, fetch=_forecast_hourly):
         timestamps = pd.to_datetime(hourly["time"], errors="coerce")
         if len(timestamps)==0:
             raise ValueError("No hourly weather available")
-        # This is an approximate game window until kickoff timezone is verified.
-        # Prefer the midday / afternoon 12–18 local time, excluding night only when possible.
-        hours = [i for i, ts in enumerate(timestamps) if pd.notna(ts) and 12 <= ts.hour <= 18]
+        # Kickoff time is treated as local stadium time; verify for international games.
+        kickoff = str(game.get("kickoff", ""))
+        try:
+            start_hour = int(kickoff.split(":")[0])
+            if not 0 <= start_hour <= 23:
+                raise ValueError("invalid kickoff")
+        except (ValueError, IndexError):
+            start_hour = 14
+        hours = [i for i, ts in enumerate(timestamps)
+                 if pd.notna(ts) and start_hour <= ts.hour < min(start_hour + 4, 24)]
         if not hours:
             hours = list(range(len(timestamps)))
         def values(key):
@@ -141,7 +148,7 @@ def weather_for_game(game, fetch=_forecast_hourly):
             "status": "forecast", "summary": ", ".join(desc) or "Weather forecast available",
             "flags": flags, "wind_mph": wind, "gust_mph": gust,
             "precip_in_hour": rain, "snow_cm": snowfall,
-            "source": "Open-Meteo hourly forecast, approximate 12–18 local time",
+            "source": f"Open-Meteo hourly forecast, local {start_hour}:00–{min(start_hour+4,24)}:00",
         }
     except (ValueError, KeyError, IndexError, requests.RequestException) as error:
         return {"status": "unavailable", "summary": f"Weather unavailable ({type(error).__name__})", "flags": []}
