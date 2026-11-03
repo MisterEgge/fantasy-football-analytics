@@ -24,12 +24,14 @@ def send(path: str):
     # By default, send the report to the same Gmail address that sends it.
     recipient = os.environ.get("EMAIL_TO", "").strip() or address
     msg = EmailMessage()
-    msg["Subject"] = "Fantasy Kicker Tracker — Weekly 32-Team Rankings"
+    is_review = report.parent.name == "review"
+    msg["Subject"] = ("Fantasy Kicker Tracker — Tuesday Prediction Review" if is_review
+                      else "Fantasy Kicker Tracker — Wednesday 32-Team Rankings")
     msg["From"] = address
     msg["To"] = recipient
     msg.set_content(
-        "Your weekly 32-team fantasy kicker report is included in the HTML version of this email. "
-        "Open this email in Gmail to view the rankings and matchup analysis."
+        "Your fantasy kicker analysis is included in the HTML version of this email. "
+        "Open this email in Gmail to view the report."
     )
     # Render the report directly in Gmail, rather than attaching raw HTML.
     # Gmail can strip embedded CSS, so the report uses inline styles.
