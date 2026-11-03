@@ -101,6 +101,7 @@ def build_html(rows, metadata):
         recent = " / ".join(fmt(v["points"], 0) for v in form.get("weekly", [])[-5:]) or "—"
         all_rows.append((
             i, f'{r["team"]} · {name(r)}', r.get("opponent", "BYE"),
+            (r.get("game_context") or {}).get("weather", {}).get("summary", "Not available"),
             fmt(r.get("projected_points")),
             fmt(r.get("fg_attempts_pg")),
             fmt(r.get("fg_last3_pg")),
@@ -125,7 +126,7 @@ def build_html(rows, metadata):
         for r in ranked if r.get("opponent") != "BYE"
     )
     all_table = _table((
-        "#", "Team / kicker", "Opponent", "Proj. pts", "FG/G",
+        "#", "Team / kicker", "Opponent", "Weather", "Proj. pts", "FG/G",
         "Last 3 FG/G", "Opp FG/G allowed", "Opp RZ TD%", "Median PPG", "Last 5 scores"
     ), all_rows)
 
