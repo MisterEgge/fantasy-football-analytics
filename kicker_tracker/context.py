@@ -4,6 +4,7 @@ Weather and injuries are observational flags, NOT automatic point modifiers.
 Store the forecast alongside predictions for honest Tuesday validation.
 """
 from datetime import datetime, timezone
+from zoneinfo import ZoneInfo
 from pathlib import Path
 
 import pandas as pd
@@ -32,6 +33,32 @@ STADIUMS = {
     "TEN": (36.1665, -86.7713), "WAS": (38.9077, -76.8645),
 }
 # Do not treat a roof with an unknown opening state as outdoor.
+# nflverse schedule gametime is ALWAYS Eastern. Convert to stadium local.
+WEST = {"SEA", "SF", "LA", "LAC", "LV"}
+MOUNTAIN = {"DEN"}
+CENTRAL = {"CHI", "DAL", "GB", "HOU", "KC", "MIN", "NO", "TEN"}
+ARIZONA = {"ARI"}
+
+def kickoff_local_hour(game):
+    kickoff = str(game.get("kickoff", "")).strip()
+    parts = kickoff.split(":")
+    if len(parts) < 2:
+        raise ValueError("Kickoff time not available")
+    hour = int(parts[0])
+    minute = int(parts[1])
+    if not (0 <= hour <= 23 and 0 <= minute <= 59):
+        raise ValueError("Kickoff time outside valid range")
+    team = game["home"]
+    local_zone = ("America/Los_Angeles" if team in WEST else
+                  "America/Denver" if team in MOUNTAIN else
+                  "America/Phoenix" if team in ARIZONA else
+                  "America/Chicago" if team in CENTRAL else "America/New_York")
+    start = datetime.fromisoformat(game["date"] + f"T{hour:02d}:{minute:02d}").replace(
+        tzinfo=ZoneInfo("America/New_York")
+    )
+    local = start.astimezone(ZoneInfo(local_zone))
+    return local.hour
+
 ROOF_INDOOR = {"dome", "closed", "indoor"}
 ROOF_OUTDOOR = {"outdoors", "outdoor", "open"}
 INJURY_URL = "https://github.com/nflverse/nflverse-data/releases/download/injuries/injuries_{season}.parquet"
@@ -113,14 +140,11 @@ def weather_for_game(game, fetch=_forecast_hourly):
         timestamps = pd.to_datetime(hourly["time"], errors="coerce")
         if len(timestamps)==0:
             raise ValueError("No hourly weather available")
-        # Kickoff time is treated as local stadium time; verify for international games.
-        kickoff = str(game.get("kickoff", ""))
+        # nflverse kickoff is Eastern; converted to stadium-local timezone above.
         try:
-            start_hour = int(kickoff.split(":")[0])
-            if not 0 <= start_hour <= 23:
-                raise ValueError("invalid kickoff")
-        except (ValueError, IndexError):
-            start_hour = 14
+            start_hour = kickoff_local_hour(game)
+        except (ValueError, KeyError, TypeError):
+            return {"status": "kickoff_unknown", "summary": "Kickoff time unverified", "flags": []}
         hours = [i for i, ts in enumerate(timestamps)
                  if pd.notna(ts) and start_hour <= ts.hour < min(start_hour + 4, 24)]
         if not hours:
