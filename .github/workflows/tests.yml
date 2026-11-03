@@ -1,4 +1,4 @@
-name: Kicker tracker tests
+name: Fantasy Football Analytics tests
 
 on:
   push:
@@ -25,4 +25,4 @@ jobs:
       - name: Run unit and regression tests
         run: python -m pytest -q
       - name: Compile all Python modules
-        run: python -m compileall -q kicker_tracker tests
+        run: python -m compileall -q kicker_tracker defense_tracker tests
