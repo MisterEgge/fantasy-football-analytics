@@ -30,8 +30,28 @@ def forecast_html(payload):
                r["last3_ppg"],r["median_ppg"],r["sacks_last3"],
                r["takeaways_last3"],r["dst_points_allowed_last3"],
                " / ".join(str(v) for v in r["recent_weekly_points"])) for i,r in enumerate(rows)]
+    watch=[]
+    for r in rows:
+        context=r.get("game_context") or {}
+        weather=context.get("weather") or {}
+        opponent=context.get("opponent_injuries") or {}
+        own=context.get("team_injuries") or {}
+        if not (weather.get("flags") or opponent.get("flags") or own.get("flags")):
+            continue
+        injury_text=lambda flags: "; ".join(
+            str(p.get("position","?"))+" "+str(p.get("player","?"))+": "+str(p.get("status","?"))
+            for p in flags
+        ) or "—"
+        watch.append((
+            r["team"],r["opponent"],weather.get("summary","—"),
+            injury_text(opponent.get("flags",[])),injury_text(own.get("flags",[]))
+        ))
+    context_html=table(("D/ST","Opponent","Weather","Opponent key injuries","Team key injuries"),watch) if watch else "<p>No major weather or qualifying injury designations found in current data.</p>"
     body=('<h2 style="font-size:17px">Top 10 predicted D/ST units</h2>'+
           table(("Rank","Defense","Opponent","Projected","Last 3 PPG","Sacks/G","Takeaways/G"),top)+
+          '<h2 style="font-size:17px;margin-top:25px">Weather and injuries to monitor</h2>'+
+          '<p>Pregame forecasts and official injury flags are displayed but do not automatically change predicted fantasy points. Check again near kickoff.</p>'+
+          context_html+
           '<h2 style="font-size:17px;margin-top:25px">All 32 NFL defenses</h2>'+
           table(("#","D/ST","Opponent","Projected","Last 3 PPG","Median PPG","Sacks last 3",
                  "Takeaways last 3","Opponent D/ST pts conceded last 3","Last 5 weekly scores"),all_rows)+
