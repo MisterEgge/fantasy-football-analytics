@@ -7,6 +7,7 @@ import pandas as pd
 
 from kicker_tracker.data import load_pbp, load_schedule, select_completed_games
 from kicker_tracker.config import TEAMS, team_code
+from kicker_tracker.context import load_context
 from .model import game_stats, team_profiles, predict
 from .scoring import DefenseScoring
 from .report import save
@@ -30,7 +31,7 @@ def upcoming(schedule, season, as_of):
     return target_week,opponents
 
 
-def build_forecast(season, as_of, pbp, schedule, scoring=None, history_dir=None):
+def build_forecast(season, as_of, pbp, schedule, scoring=None, history_dir=None, context_enabled=True):
     scoring=scoring or DefenseScoring()
     clipped=select_completed_games(pbp,as_of)
     if clipped.empty:
@@ -46,11 +47,13 @@ def build_forecast(season, as_of, pbp, schedule, scoring=None, history_dir=None)
     calibration=(choose(history_dir,season,target_week) if history_dir else
                  {"method":"no_history","point_adjustment":0.,"review_weeks":0,
                   "graded_defenses":0,"reason":"Historical review data unavailable"})
+    context = load_context(schedule, season, target_week, as_of) if context_enabled else {}
     teams=[]
     for team in TEAMS:
         row=dict(profiles[team])
         opponent=opponents.get(team)
         row["opponent"]=opponent or "BYE"
+        row["game_context"]=context.get(team, {})
         row.update(predict(row,profiles[opponent]) if opponent else
                    {"projected_points":None,"projected_sacks":None,"projected_takeaways":None})
         adjust(row,calibration)
