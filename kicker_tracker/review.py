@@ -108,6 +108,11 @@ def grade_forecast(snapshot, pbp, schedule, as_of):
         projected_points = float(prediction["projected_points"])
         raw_attempts = float(prediction.get("raw_projected_fg_attempts", projected_attempts))
         raw_points = float(prediction.get("raw_projected_points", projected_points))
+        ctx = prediction.get("game_context") or {}
+        forecast_weather = ctx.get("weather") or {}
+        weather_risk = forecast_weather.get("flags") or []
+        team_injuries = (ctx.get("team_injuries") or {}).get("flags") or []
+        opponent_injuries = (ctx.get("opponent_injuries") or {}).get("flags") or []
         if kicker_changed:
             driver = "Kicker change"
         elif abs(projected_attempts - actual_attempts) >= 1.5:
@@ -119,6 +124,9 @@ def grade_forecast(snapshot, pbp, schedule, as_of):
         rows.append({
             "team": team, "opponent": opponent,
             "error_driver": driver,
+            "weather_risk_flags": weather_risk,
+            "team_injury_flags": team_injuries,
+            "opponent_injury_flags": opponent_injuries,
             "offense_fg_last3_pg": prediction.get("fg_last3_pg"),
             "opponent_fg_allowed_pg": prediction.get("opp_fg_allowed_pg"),
             "opponent_rz_td_allowed_pct": prediction.get("opp_rz_td_allowed_pct"),
@@ -154,6 +162,8 @@ def grade_forecast(snapshot, pbp, schedule, as_of):
         "fg_attempt_bias": round(float(np.mean(fga)), 2),
         "constant_median_benchmark_mae": round(median_mae, 2),
         "kicker_changed_count": sum(r["kicker_changed"] for r in rows),
+        "weather_flagged_teams": sum(bool(r["weather_risk_flags"]) for r in rows),
+        "injury_flagged_teams": sum(bool(r["team_injury_flags"]) for r in rows),
         "diagnostic_counts": {
             cause: sum(r["error_driver"] == cause for r in rows)
             for cause in sorted(set(r["error_driver"] for r in rows))
