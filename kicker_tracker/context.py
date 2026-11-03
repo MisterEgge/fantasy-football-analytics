@@ -39,27 +39,6 @@ MOUNTAIN = {"DEN"}
 CENTRAL = {"CHI", "DAL", "GB", "HOU", "KC", "MIN", "NO", "TEN"}
 ARIZONA = {"ARI"}
 
-def kickoff_local_hour(game):
-    kickoff = str(game.get("kickoff", "")).strip()
-    parts = kickoff.split(":")
-    if len(parts) < 2:
-        raise ValueError("Kickoff time not available")
-    hour = int(parts[0])
-    minute = int(parts[1])
-    if not (0 <= hour <= 23 and 0 <= minute <= 59):
-        raise ValueError("Kickoff time outside valid range")
-    team = game["home"]
-    local_zone = ("America/Los_Angeles" if team in WEST else
-                  "America/Denver" if team in MOUNTAIN else
-                  "America/Phoenix" if team in ARIZONA else
-                  "America/Chicago" if team in CENTRAL else "America/New_York")
-    start = datetime.fromisoformat(game["date"] + f"T{hour:02d}:{minute:02d}").replace(
-        tzinfo=ZoneInfo("America/New_York")
-    )
-    local = start.astimezone(ZoneInfo(local_zone))
-    return local.hour
-
-# Only verified neutral/international venues get their own outdoor forecast.
 NEUTRAL_VENUES = {
     "wembley": (51.5560, -0.2796, "Europe/London"),
     "tottenham hotspur stadium": (51.6043, -0.0664, "Europe/London"),
