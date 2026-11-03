@@ -32,18 +32,26 @@ The report fails closed on stale input (last completed game more than 12 days be
 
 `.github/workflows/weekly-kicker-report.yml` contains two Wednesday cron expressions for daylight-saving time and a Central-time guard. Note GitHub Actions schedules may be delayed or occasionally skipped due to platform load.
 
-In the GitHub repository, add the following **Actions repository secrets** under **Settings → Secrets and variables → Actions**:
+To email the report from Gmail to **that same Gmail inbox**, add just **two** GitHub Actions repository secrets at [Settings → Secrets and variables → Actions](https://github.com/MisterEgge/fantasy-kicker-tracker/settings/secrets/actions):
 
 | Secret | Value |
 | --- | --- |
-| `EMAIL_TO` | Recipient email address |
-| `EMAIL_FROM` | Approved sender address |
-| `SMTP_HOST` | SMTP server hostname |
-| `SMTP_PORT` | Usually `587` |
-| `SMTP_USERNAME` | SMTP account or app-specific username |
-| `SMTP_PASSWORD` | App password / SMTP credential |
+| `GMAIL_ADDRESS` | Your full Gmail address (both sender and recipient) |
+| `GMAIL_APP_PASSWORD` | A dedicated 16-character Google app password; **not** your normal Google password |
 
-Never commit email credentials. After configuring secrets, go to **Actions → Weekly fantasy kicker report → Run workflow** to verify the live nflverse download, report output and SMTP delivery. If no secrets are configured, artifact generation can still run but the email step fails explicitly.
+Gmail's SMTP server is hardcoded as `smtp.gmail.com` on port `587` using STARTTLS. You do **not** configure SMTP hostname, port, sender or recipient separately. The code uses Python's standard-library `smtplib`, so no email package is required.
+
+To obtain an app password:
+
+1. Turn on [Google 2-Step Verification](https://myaccount.google.com/security) if it isn't already enabled.
+2. Visit [Google App Passwords](https://myaccount.google.com/apppasswords), create a password named `Fantasy Kicker Tracker`, and copy the 16-character value.
+3. Save it **only** under `GMAIL_APP_PASSWORD` in GitHub Actions secrets. Do not paste it into code, issues, or chat.
+4. Save your Gmail address under `GMAIL_ADDRESS`.
+5. Choose [Actions → Weekly fantasy kicker report](https://github.com/MisterEgge/fantasy-kicker-tracker/actions) → **Run workflow** to validate data ingestion and email.
+
+If App Passwords is unavailable on your account (for example, certain organization policies or Advanced Protection), this delivery method will not work; an OAuth-based provider or email API would be needed instead. Google generally recommends OAuth where supported, but an app password is a practical option for this personal scheduled script.
+
+The report is uploaded as a workflow artifact before the email step. If secrets are missing, the email step fails explicitly; it will not report that an email was sent.
 
 ## Next development priorities
 
