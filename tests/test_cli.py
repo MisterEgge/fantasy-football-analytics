@@ -20,6 +20,7 @@ def test_run_uses_compatible_schedule_datetime(monkeypatch, tmp_path):
     })
     monkeypatch.setattr(cli, "load_pbp", lambda *_args: pbp)
     monkeypatch.setattr(cli, "load_schedule", lambda *_args: schedule)
+    monkeypatch.setattr(cli, "load_context", lambda *_args: {})
     monkeypatch.setattr(
         cli,
         "build_team_rows",

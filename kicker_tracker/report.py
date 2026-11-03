@@ -71,12 +71,37 @@ def build_html(rows, metadata):
         for i, r in enumerate(active[:10], 1)
     ]
 
+    weather_rows = []
+    for r in ranked:
+        ctx = r.get("game_context") or {}
+        w = ctx.get("weather") or {}
+        injuries = ctx.get("team_injuries") or {}
+        opp = ctx.get("opponent_injuries") or {}
+        all_flags = (w.get("flags") or [])
+        injury_flags = (injuries.get("flags") or [])
+        opp_flags = (opp.get("flags") or [])
+        if all_flags or injury_flags or opp_flags:
+            our_msg = ", ".join(
+                f'{x.get("position", "?")} {x.get("player", "?")}: {x.get("status", "?")}'
+                for x in injury_flags
+            ) or "—"
+            opp_msg = ", ".join(
+                f'{x.get("position", "?")} {x.get("player", "?")}: {x.get("status", "?")}'
+                for x in opp_flags
+            ) or "—"
+            weather_rows.append((
+                r["team"], r.get("opponent", "BYE"),
+                w.get("summary", "Not available"),
+                our_msg,
+                opp_msg,
+            ))
     all_rows = []
     for i, r in enumerate(ranked, 1):
         form = r.get("form") or {}
         recent = " / ".join(fmt(v["points"], 0) for v in form.get("weekly", [])[-5:]) or "—"
         all_rows.append((
             i, f'{r["team"]} · {name(r)}', r.get("opponent", "BYE"),
+            (r.get("game_context") or {}).get("weather", {}).get("summary", "Not available"),
             fmt(r.get("projected_points")),
             fmt(r.get("fg_attempts_pg")),
             fmt(r.get("fg_last3_pg")),
@@ -87,8 +112,21 @@ def build_html(rows, metadata):
         ))
 
     top = _table(("Rank", "Kicker", "Team", "Matchup", "Proj.", "Last 3 PPG"), top_rows)
+    context_table = _table(
+        ("Team", "Opponent", "Weather", "Team injuries", "Opponent injuries"),
+        weather_rows
+    ) if weather_rows else "<p>No high-priority weather or reported injuries detected in available data.</p>"
+    missing_weather = sum(
+        (r.get("game_context") or {}).get("weather", {}).get("status") in
+        ("unavailable", "roof_unknown", "venue_unknown")
+        for r in ranked if r.get("opponent") != "BYE"
+    )
+    missing_injuries = sum(
+        (r.get("game_context") or {}).get("team_injuries", {}).get("status") == "unavailable"
+        for r in ranked if r.get("opponent") != "BYE"
+    )
     all_table = _table((
-        "#", "Team / kicker", "Opponent", "Proj. pts", "FG/G",
+        "#", "Team / kicker", "Opponent", "Weather", "Proj. pts", "FG/G",
         "Last 3 FG/G", "Opp FG/G allowed", "Opp RZ TD%", "Median PPG", "Last 5 scores"
     ), all_rows)
 
@@ -114,6 +152,15 @@ def build_html(rows, metadata):
     <p style="color:{MUTED};font-size:12px;margin-top:8px;">
       Projections are preliminary statistical estimates, not verified betting-market or injury-adjusted forecasts.
     </p>
+    <h2 style="font-size:18px;margin:24px 0 10px;">Weather and injury watchlist</h2>
+    <p style="font-size:12px;color:{MUTED};">Conditions are forecasts, not guaranteed game-day weather.
+    Injury designations are the latest available at the report cutoff; questionable does not mean out.
+    Context is informational and currently does not change the projected points.</p>
+    {context_table}
+    <p style="font-size:12px;color:{MUTED};">
+      Weather unavailable or roof unverified for {missing_weather} teams;
+      official injury status unavailable for {missing_injuries} teams.
+      An empty watchlist does not establish that every starter is healthy.</p>
     <h2 style="font-size:18px;margin:24px 0 10px;">All 32 teams</h2>
     <p style="font-size:12px;color:{MUTED};line-height:1.5;">
       FG/G = offensive field-goal attempts per game; Opp FG/G allowed = field goals attempted

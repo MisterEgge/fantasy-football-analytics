@@ -112,3 +112,19 @@ Once GitHub Actions is activated, `.github/workflows/wednesday-defense-forecast.
 The initial D/ST learning mechanism uses an automatic bounded correction only after at least 3 backtested weeks and 60 D/ST game observations, with validation on a later held-out week. Corrections are limited to ±1.5 fantasy points and applied only if they improve mean absolute error. Other weights remain unchanged pending more robust evidence.
 
 Data source documentation: [nflverse nflfastR](https://nflfastr.com/reference/field_descriptions.html). Scoring reference: [ESPN standard D/ST settings](https://support.espn.com/hc/en-us/articles/360003914032-Scoring-Formats).
+
+## Weather and injury monitoring (Wednesday predictions)
+
+Both kicker and defense reports now include a **weather and injury watchlist**, plus a weather column for every playing team. This is generated automatically from the upcoming week's schedule; no additional API keys are needed:
+
+- **Forecast weather:** [Open-Meteo](https://open-meteo.com/en/docs) hourly forecast near the home stadium, aligned to the approximate kickoff/game window. Temperature, sustained wind, gusts, and precipitation are surfaced, with stronger alerts at wind ≥15 mph, gusts ≥30 mph, and precipitation ≥0.12 inches/hour. These are monitoring thresholds, not validated probabilities of lost fantasy points.
+- **Venue:** Indoor/dome/closed-roof games are labeled as such and exclude outdoor forecasts. Unverified roof configurations and neutral-site games are flagged rather than assigning weather from the wrong stadium.
+- **Official injuries:** [nflverse weekly injury reports](https://nflreadr.nflverse.com/articles/dictionary_injuries.html) are filtered to their latest available report before the Wednesday cutoff. Key positions include kicker, QB, offensive line, pass rush, linebackers, and defensive backs. Out/questionable/doubtful designations and notable practice limitations are displayed without assuming a questionable player will miss the game.
+
+**Crucial:** Wednesday conditions and injury reports are preliminary. Official designations often arrive later in the week, wind/precipitation models shift, and neutral-site/roof status can change. This is *context and a watchlist*, not a confirmed Sunday availability report. The model's base fantasy projections are **not automatically adjusted** yet; doing so without a historical weather/injury sensitivity backtest would create unjustified confidence. The contextual inputs are saved with each immutable pregame forecast and copied into Tuesday reviews so we can measure whether significant wind, rain or injuries correspond to repeated ranking misses. When feeds fail, the report explicitly labels missing/unavailable information; it never silently assumes perfect weather or healthy players.
+
+The November 1, 2026 Buccaneers–Falcons game illustrates why this matters: heavy rain contributed to run-heavy game scripts and unusual passing/turnover totals while the Tampa Bay kicker still converted three field goals. Bad weather should not simply translate to an automatic penalty for every kicker or boost for every defense.
+
+### Future small improvement
+
+A Sunday-morning refresh could compare the Wednesday snapshot to more recent weather forecasts and Friday injury designations. That's a sensible next step **after** confirming the Wednesday source feeds and data coverage, rather than adding more scheduled workflows immediately.
