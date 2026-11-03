@@ -35,7 +35,8 @@ STADIUMS = {
 ROOF_INDOOR = {"dome", "closed", "indoor"}
 ROOF_OUTDOOR = {"outdoors", "outdoor", "open"}
 INJURY_URL = "https://github.com/nflverse/nflverse-data/releases/download/injuries/injuries_{season}.parquet"
-KEY_POSITIONS = {"K", "QB", "C", "G", "T", "OT", "OG", "LT", "RT", "LG", "RG", "OL"}
+KEY_POSITIONS = {"K", "QB", "C", "G", "T", "OT", "OG", "LT", "RT", "LG", "RG", "OL",
+                 "DE", "DT", "DL", "EDGE", "LB", "ILB", "OLB", "CB", "S", "FS", "SS"}
 IMPORTANT_STATUSES = {"out", "doubtful", "questionable", "injured reserve", "ir"}
 
 
@@ -189,11 +190,22 @@ def injuries_for_team(injuries, team, week):
     if subset.empty:
         return {"status": "no_report", "flags": [], "summary": "No qualifying official injury entries"}
     subset = subset.sort_values("date_modified").drop_duplicates("full_name", keep="last")
-    flagged = subset[subset.report_status.isin(IMPORTANT_STATUSES)]
-    entries = [
-        {"player": str(row.full_name), "position": row.position, "status": row.report_status}
-        for row in flagged.itertuples()
-    ]
+    entries = []
+    for row in subset.itertuples():
+        status = str(row.report_status)
+        practice = str(getattr(row, "practice_status", "")).lower()
+        if status in IMPORTANT_STATUSES:
+            label = status
+        elif practice in ("did not participate", "dnp", "did not practice"):
+            label = "did not practice (not confirmed out)"
+        elif practice in ("limited participation", "limited"):
+            label = "limited practice"
+        else:
+            continue
+        entries.append({
+            "player": str(row.full_name), "position": row.position,
+            "status": label,
+        })
     return {
         "status": "available", "flags": entries,
         "summary": "; ".join(f'{e["position"]} {e["player"]}: {e["status"]}' for e in entries)
