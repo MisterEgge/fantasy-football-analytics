@@ -26,7 +26,7 @@ jobs:
         run: |
           if [[ "$EVENT_NAME" == "workflow_dispatch" ]]; then
             echo "run=true" >> "$GITHUB_OUTPUT"
-          elif [[ "$SCHEDULE" == "0 20 * * 3" && "$(TZ=America/Chicago date -d "${{ github.event.repository.updated_at }}" +%Z 2>/dev/null || TZ=America/Chicago date +%Z)" == "CDT" ]]; then
+          elif [[ "$SCHEDULE" == "0 20 * * 3" && "$(TZ=America/Chicago date +%Z)" == "CDT" ]]; then
             echo "run=true" >> "$GITHUB_OUTPUT"
           elif [[ "$SCHEDULE" == "0 21 * * 3" && "$(TZ=America/Chicago date +%Z)" == "CST" ]]; then
             echo "run=true" >> "$GITHUB_OUTPUT"
