@@ -26,7 +26,7 @@ def forecast_html(payload):
     top=[(i+1,r["team"],r["opponent"],r["projected_points"],r["last3_ppg"],
           r["sacks_last3"],r["takeaways_last3"]) for i,r in enumerate(
               [v for v in rows if v.get("projected_points") is not None][:10])]
-    all_rows=[(i+1,r["team"],r["opponent"],r.get("projected_points","BYE"),
+    all_rows=[(i+1,r["team"],r["opponent"],(r.get("game_context") or {}).get("weather",{}).get("summary","Unknown"),r.get("projected_points","BYE"),
                r["last3_ppg"],r["median_ppg"],r["sacks_last3"],
                r["takeaways_last3"],r["dst_points_allowed_last3"],
                " / ".join(str(v) for v in r["recent_weekly_points"])) for i,r in enumerate(rows)]
@@ -53,7 +53,7 @@ def forecast_html(payload):
           '<p>Pregame forecasts and official injury flags are displayed but do not automatically change predicted fantasy points. Check again near kickoff.</p>'+
           context_html+
           '<h2 style="font-size:17px;margin-top:25px">All 32 NFL defenses</h2>'+
-          table(("#","D/ST","Opponent","Projected","Last 3 PPG","Median PPG","Sacks last 3",
+          table(("#","D/ST","Opponent","Weather","Projected","Last 3 PPG","Median PPG","Sacks last 3",
                  "Takeaways last 3","Opponent D/ST pts conceded last 3","Last 5 weekly scores"),all_rows)+
           '<p>Outlier-resistant recent form and opposing offense D/ST points conceded are evaluated together. '
           'Bye teams have no projection.</p>')
