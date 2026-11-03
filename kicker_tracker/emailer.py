@@ -1,31 +1,54 @@
-"""Send report by authenticated SMTP only when configured."""
+"""Email the generated report through Gmail (no external Python package needed)."""
 import os
-from pathlib import Path
-from email.message import EmailMessage
 import smtplib
+import ssl
+from email.message import EmailMessage
+from pathlib import Path
+
 
 def send(path: str):
-    required=['SMTP_HOST','SMTP_PORT','SMTP_USERNAME','SMTP_PASSWORD','EMAIL_TO','EMAIL_FROM']
-    missing=[k for k in required if not os.environ.get(k)]
+    address = os.environ.get("GMAIL_ADDRESS", "").strip()
+    app_password = os.environ.get("GMAIL_APP_PASSWORD", "").replace(" ", "")
+    missing = []
+    if not address:
+        missing.append("GMAIL_ADDRESS")
+    if not app_password:
+        missing.append("GMAIL_APP_PASSWORD")
     if missing:
-        raise RuntimeError('Missing email environment variables: '+', '.join(missing))
-    p=Path(path)
-    if not p.exists():
-        raise FileNotFoundError(p)
-    msg=EmailMessage()
-    msg['Subject']='Fantasy kicker analysis — '+p.stem.replace('_',' ')
-    msg['From']=os.environ['EMAIL_FROM']
-    msg['To']=os.environ['EMAIL_TO']
-    msg.set_content('This week’s full 32-team kicker report is attached as HTML. The rankings include offensive and opponent field-goal opportunity, recency, and your McPherson comparison.')
-    msg.add_attachment(p.read_bytes(),maintype='text',subtype='html',filename=p.name)
-    with smtplib.SMTP(os.environ['SMTP_HOST'],int(os.environ['SMTP_PORT']),timeout=30) as smtp:
-        smtp.starttls()
-        smtp.login(os.environ['SMTP_USERNAME'],os.environ['SMTP_PASSWORD'])
-        smtp.send_message(msg)
-    print('Email accepted by configured SMTP server.')
+        raise RuntimeError("Missing GitHub Actions secrets: " + ", ".join(missing))
 
-if __name__=='__main__':
-    from sys import argv
-    if len(argv)!=2:
-        raise SystemExit('usage: python -m kicker_tracker.emailer report/latest.html')
-    send(argv[1])
+    report = Path(path)
+    if not report.is_file():
+        raise FileNotFoundError(report)
+
+    # By default, send the report to the same Gmail address that sends it.
+    recipient = os.environ.get("EMAIL_TO", "").strip() or address
+    msg = EmailMessage()
+    msg["Subject"] = "Fantasy Kicker Tracker — " + report.stem.replace("_", " ")
+    msg["From"] = address
+    msg["To"] = recipient
+    msg.set_content(
+        "Your weekly 32-team fantasy kicker report is attached. "
+        "It compares kicker opportunities and projections against Evan McPherson."
+    )
+    msg.add_attachment(
+        report.read_bytes(),
+        maintype="text",
+        subtype="html",
+        filename=report.name,
+    )
+
+    with smtplib.SMTP("smtp.gmail.com", 587, timeout=30) as smtp:
+        smtp.ehlo()
+        smtp.starttls(context=ssl.create_default_context())
+        smtp.ehlo()
+        smtp.login(address, app_password)
+        smtp.send_message(msg)
+    print("Weekly report accepted by Gmail for delivery.")
+
+
+if __name__ == "__main__":
+    import sys
+    if len(sys.argv) != 2:
+        raise SystemExit("Usage: python -m kicker_tracker.emailer report/latest.html")
+    send(sys.argv[1])
