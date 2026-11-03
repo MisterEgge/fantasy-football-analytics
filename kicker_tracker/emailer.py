@@ -36,7 +36,7 @@ def send(path: str):
     msg["From"] = address
     msg["To"] = recipient
     msg.set_content(
-        "Your fantasy kicker analysis is included in the HTML version of this email. "
+        "Your weekly fantasy analysis is included in the HTML version of this email. "
         "Open this email in Gmail to view the report."
     )
     # Render the report directly in Gmail, rather than attaching raw HTML.
