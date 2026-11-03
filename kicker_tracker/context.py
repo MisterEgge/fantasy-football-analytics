@@ -307,5 +307,9 @@ def load_context(schedule, season, week, cutoff, injury_file=None, fetch=_foreca
             "injury_data_error": injury_error,
             "venue": game["stadium"],
             "roof": game["roof"],
+            "game_date": game["date"],
+            "weekday": (pd.Timestamp(game["date"]).day_name() if game["date"] else "Unknown"),
+            "kickoff_eastern": game["kickoff"],
+            "neutral_site": game["neutral_site"],
         }
     return output
