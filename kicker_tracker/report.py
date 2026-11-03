@@ -164,11 +164,11 @@ def build_html(rows, metadata):
     return f"""<!doctype html>
 <html lang="en">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Fantasy Kicker Tracker — Week {week}</title></head>
+<title>Fantasy Football Analytics | Kickers — Week {week}</title></head>
 <body style="margin:0;padding:0;background:#f5f7fb;color:{NAVY};font-family:Arial,Helvetica,sans-serif;">
 <div style="max-width:1100px;margin:0 auto;padding:18px;">
   <div style="padding:22px;background:{NAVY};color:#fff;border-radius:8px 8px 0 0;">
-    <div style="font-size:12px;letter-spacing:1px;">WEEKLY FANTASY REPORT</div>
+    <div style="font-size:12px;letter-spacing:1px;">FANTASY FOOTBALL ANALYTICS · KICKERS</div>
     <h1 style="margin:8px 0 3px;font-size:24px;color:#fff;">Week {week} · {season} Kicker Rankings</h1>
     <div style="font-size:13px;color:#d0dce9;">All 32 teams · Data cutoff: {escape(str(cutoff))}</div>
   </div>
@@ -205,11 +205,11 @@ def build_html(rows, metadata):
       <p style="font-size:12px;color:{MUTED};line-height:1.5;">
         Fantasy scoring: FG 0–39 yards = 3; 40–49 = 4; 50+ = 5; made XP = 1;
         missed FG = −1. Model uses nflverse play-by-play, with recent FG rates and opposing
-        FG attempts allowed. Weather, injuries, verified active kicker status and waiver availability
-        are not yet ingested. Rankings are not historically calibrated.
+        FG attempts allowed. Weather and injuries appear as informational watchlists; verified active kicker status and waiver availability
+        are not yet ingested. Historical validation is still limited.
       </p>
       <p style="font-size:12px;color:{MUTED};">
-        <a href="https://github.com/MisterEgge/fantasy-kicker-tracker">Project source</a>
+        <a href="https://github.com/MisterEgge/fantasy-football-analytics">Project source</a>
         · Generated {datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")}
       </p>
     </div>

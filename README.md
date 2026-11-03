@@ -1,6 +1,6 @@
-# Fantasy Kicker Tracker
+# Fantasy Football Analytics
 
-Automatically analyze **all 32 NFL teams and their kickers** for a ten-team fantasy league. Every kicker receives the same opportunity, recent-form, and matchup analysis; no kicker is used as a special benchmark. The forecast is generated every Wednesday afternoon and displayed directly inside Gmail. Every Tuesday afternoon, a separate job grades the preceding week's **saved pregame predictions** against actual NFL results and emails an accuracy review.
+Analyze all 32 NFL teams across kicker and defensive/special-teams (D/ST) fantasy football, with room to expand to additional positions. Every kicker receives the same opportunity, recent-form, and matchup analysis; no kicker is used as a special benchmark. The forecast is generated every Wednesday afternoon and displayed directly inside Gmail. Every Tuesday afternoon, a separate job grades the preceding week's **saved pregame predictions** against actual NFL results and emails an accuracy review.
 
 ## Scoring and analysis
 
@@ -12,7 +12,7 @@ Automatically analyze **all 32 NFL teams and their kickers** for a ten-team fant
 - Project field-goal attempts by blending a team's attempt rate with opposing defense's conceded attempt rate. Estimate fantasy points with distance-based accuracy shrinkage and expected extra points.
 - Rank all 32 teams by projected fantasy points, with a top-10 summary and full 32-team table. Actual league free-agent availability is not currently known.
 
-**Caution:** Projections are uncalibrated heuristics, not guaranteed values. The repository does not yet ingest injuries, weather, sportsbook lines, confirmed NFL depth charts or your league's actual waiver availability. The fourth-down statistic measures observed fourth-down tries in plausible FG range, not a count of field goals that definitely would have been attempted. It does not claim a validated historical backtest. Always confirm a kicker is active.
+**Caution:** Projections are heuristics, not guaranteed values. Weather and injury watchlists are integrated, but they are not yet validated as numeric point adjustments; sportsbook lines, confirmed active depth charts, and league waiver availability are not integrated. The fourth-down statistic measures observed fourth-down tries in plausible FG range, not a count of field goals that definitely would have been attempted. It does not claim a validated historical backtest. Always confirm a kicker is active.
 
 ## Run locally
 
@@ -59,7 +59,7 @@ The first valid Tuesday backtest requires an archived Wednesday forecast and its
 
 `.github/workflows/weekly-kicker-report.yml` contains two Wednesday cron expressions for daylight-saving time and a Central-time guard. Note GitHub Actions schedules may be delayed or occasionally skipped due to platform load.
 
-To email the report from Gmail to **that same Gmail inbox**, add just **two** GitHub Actions repository secrets at [Settings → Secrets and variables → Actions](https://github.com/MisterEgge/fantasy-kicker-tracker/settings/secrets/actions):
+To email the report from Gmail to **that same Gmail inbox**, add just **two** GitHub Actions repository secrets at [Settings → Secrets and variables → Actions](https://github.com/MisterEgge/fantasy-football-analytics/settings/secrets/actions):
 
 | Secret | Value |
 | --- | --- |
@@ -71,10 +71,10 @@ Gmail's SMTP server is hardcoded as `smtp.gmail.com` on port `587` using STARTTL
 To obtain an app password:
 
 1. Turn on [Google 2-Step Verification](https://myaccount.google.com/security) if it isn't already enabled.
-2. Visit [Google App Passwords](https://myaccount.google.com/apppasswords), create a password named `Fantasy Kicker Tracker`, and copy the 16-character value.
+2. Visit [Google App Passwords](https://myaccount.google.com/apppasswords), create a password named `Fantasy Football Analytics`, and copy the 16-character value.
 3. Save it **only** under `GMAIL_APP_PASSWORD` in GitHub Actions secrets. Do not paste it into code, issues, or chat.
 4. Save your Gmail address under `GMAIL_ADDRESS`.
-5. Choose [Actions → Weekly fantasy kicker report](https://github.com/MisterEgge/fantasy-kicker-tracker/actions) → **Run workflow** to validate data ingestion and email.
+5. Choose [Actions → Weekly fantasy kicker report](https://github.com/MisterEgge/fantasy-football-analytics/actions) → **Run workflow** to validate data ingestion and email.
 
 If App Passwords is unavailable on your account (for example, certain organization policies or Advanced Protection), this delivery method will not work; an OAuth-based provider or email API would be needed instead. Google generally recommends OAuth where supported, but an app password is a practical option for this personal scheduled script.
 
@@ -83,7 +83,7 @@ The report is uploaded as a workflow artifact before the email step. The email c
 ## Next development priorities
 
 1. Validate live 2026 nflverse schemas, grading and kickoff schedules on GitHub Actions.
-2. Integrate active kicker and injury verification, weather and venue, and implied team totals.
+2. Validate live injury/weather data coverage, active kicker status, and implied team totals.
 3. Extend the saved prediction history with multiweek trend charts and strict probability calibration.
 4. Incorporate league-specific waiver availability to rank **available** kickers rather than all players.
 5. Improve fourth-down decision attribution with field position, score and wind.
@@ -125,9 +125,9 @@ Both kicker and defense reports now include a **weather and injury watchlist**, 
 
 The November 1, 2026 Buccaneers–Falcons game illustrates why this matters: heavy rain contributed to run-heavy game scripts and unusual passing/turnover totals while the Tampa Bay kicker still converted three field goals. Bad weather should not simply translate to an automatic penalty for every kicker or boost for every defense.
 
-### Future small improvement
+### Pregame changes
 
-A Sunday-morning refresh could compare the Wednesday snapshot to more recent weather forecasts and Friday injury designations. That's a sensible next step **after** confirming the Wednesday source feeds and data coverage, rather than adding more scheduled workflows immediately.
+The automated change-only workflow below checks for material new weather, injury, and roof developments before Thursday and weekend kickoffs. It does not resend the full rankings.
 
 ## Change-only Thursday, weekend and international pregame alerts
 

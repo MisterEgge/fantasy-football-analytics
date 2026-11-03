@@ -14,7 +14,7 @@ REQUIRED = {
 
 def download(url: str, target: Path):
     target.parent.mkdir(parents=True, exist_ok=True)
-    res = requests.get(url, timeout=120, headers={'User-Agent':'fantasy-kicker-tracker/1.0'})
+    res = requests.get(url, timeout=120, headers={'User-Agent':'fantasy-football-analytics/1.0'})
     res.raise_for_status()
     if len(res.content) < 1000:
         raise ValueError(f'Download unexpectedly small: {url}')
