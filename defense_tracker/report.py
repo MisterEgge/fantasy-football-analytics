@@ -30,6 +30,48 @@ def forecast_html(payload):
                r["last3_ppg"],r["median_ppg"],r["sacks_last3"],
                r["takeaways_last3"],r["dst_points_allowed_last3"],
                " / ".join(str(v) for v in r["recent_weekly_points"])) for i,r in enumerate(rows)]
+    # Compare what the upcoming offense conceded to actual defenses in its
+    # last three games, not merely its season-long opponent average.
+    def recent_opponents(row):
+        records=(row.get("opponent_recent_dst_results") or [])[-3:]
+        if not records:
+            return "No verified recent matchups"
+        chunks=[]
+        for rec in records:
+            label=f'W{rec["week"]} {rec["defense"]} {rec["dst_points"]:g} pts'
+            label+=(" (home)" if rec.get("offense_at_home") else " (away)")
+            if rec.get("return_tds",0):
+                label+=f' [incl. {rec["return_tds"]} D/ST TD]'
+            chunks.append(label)
+        return " · ".join(chunks)
+
+    def previous_defense_game(row):
+        prior=row.get("previous_defense_game")
+        if not prior:
+            return "—"
+        label=f'{prior["fantasy_points"]:g} pts vs {prior["opponent"]}'
+        label+=(" (home)" if prior.get("home_game") else " (away)")
+        if prior.get("return_tds",0):
+            label+="; D/ST TD"
+        return label
+
+    matchup_rows=[
+        (
+            r["team"] + (" (home)" if r.get("upcoming_home_game") else " (away)"),
+            str(r["opponent"]),
+            previous_defense_game(r),
+            recent_opponents(r),
+            r.get("opponent_dst_allowed_last3","—"),
+            r.get("opponent_dst_allowed_last3_without_return_tds","—"),
+        )
+        for r in rows if r.get("projected_points") is not None
+    ]
+    matchup_html=table(
+        ("D/ST / venue","Upcoming offense","Defense last game",
+         "D/ST fantasy pts allowed by offense — last 3 games",
+         "Last 3 avg","Last 3 avg excl. return TDs"),
+        matchup_rows
+    )
     special=[]
     seen=set()
     for r in rows:
@@ -71,6 +113,12 @@ def forecast_html(payload):
     context_html=table(("D/ST","Opponent","Weather","Opponent key injuries","Team key injuries"),watch) if watch else "<p>No major weather or qualifying injury designations found in current data.</p>"
     body=('<h2 style="font-size:17px">Top 10 predicted D/ST units</h2>'+
           table(("Rank","Defense","Opponent","Projected","Last 3 PPG","Sacks/G","Takeaways/G"),top)+
+          '<h2 style="font-size:17px;margin-top:25px">Opponent recent D/ST matchups</h2>'+
+          '<p>Each upcoming offense\'s last three opposing defenses and actual fantasy points surrendered, including game location and return-TD outliers. '
+          'The underlying opponent D/ST scoring rate already contributes to the forecast. '
+          'A single high-scoring game, especially with unusual weather or a defensive TD, should not define the next matchup. '
+          'Historical game weather is not verified here; home/away is context, not a numerical modifier.</p>'+
+          matchup_html+
           '<h2 style="font-size:17px;margin-top:25px">Thursday and early-Sunday games</h2>'+
           '<p>Explicit roof status and local weather are shown for Thursday games and early international starts. Significant new developments are emailed separately.</p>'+
           special_html+
