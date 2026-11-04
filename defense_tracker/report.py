@@ -46,10 +46,9 @@ def forecast_html(payload):
         return " · ".join(chunks)
 
     def previous_defense_game(row):
-        games=row.get("raw_game_records") or []
-        if not games:
+        prior=row.get("previous_defense_game")
+        if not prior:
             return "—"
-        prior=games[-1]
         label=f'{prior["fantasy_points"]:g} pts vs {prior["opponent"]}'
         label+=(" (home)" if prior.get("home_game") else " (away)")
         if prior.get("return_tds",0):
