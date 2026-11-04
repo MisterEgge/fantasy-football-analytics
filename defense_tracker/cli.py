@@ -54,6 +54,21 @@ def build_forecast(season, as_of, pbp, schedule, scoring=None, history_dir=None,
         opponent=opponents.get(team)
         row["opponent"]=opponent or "BYE"
         row["game_context"]=context.get(team, {})
+        # The upcoming opponent's recent defenses, with explicit team, week,
+        # home/away and scoring. Retain the data in the immutable Wednesday
+        # snapshot so the Tuesday audit can examine matchup assumptions.
+        opponent_profile=profiles.get(opponent,{}) if opponent else {}
+        row["opponent_recent_dst_results"]=opponent_profile.get("recent_opposing_defenses",[])[-5:]
+        row["opponent_dst_allowed_last3"]=opponent_profile.get("dst_points_allowed_last3")
+        row["opponent_dst_allowed_last3_without_return_tds"]=opponent_profile.get(
+            "dst_points_allowed_last3_without_return_tds")
+        row["upcoming_home_game"]=bool(
+            team==next((g.home_team for _,g in schedule[
+                schedule.season.eq(season) &
+                schedule.week.eq(target_week) &
+                schedule.game_type.eq("REG")
+            ].iterrows() if team_code(g.home_team)==team or team_code(g.away_team)==team),"")
+        ) if opponent else None
         row.update(predict(row,profiles[opponent]) if opponent else
                    {"projected_points":None,"projected_sacks":None,"projected_takeaways":None})
         adjust(row,calibration)
