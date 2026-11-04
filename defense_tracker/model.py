@@ -93,6 +93,7 @@ def game_stats(pbp, scoring=None):
                 "points_allowed_scoreboard":allowed,"sacks":sacks,"interceptions":ints,
                 "fumble_recoveries":fumbles,"safeties":safeties,
                 "blocked_kicks":blocked,"return_tds":defensive_tds,
+                "return_td_points":float(defensive_tds*scoring.return_td),
                 "dropbacks_faced":qb_dropbacks,"pass_attempts_faced":attempts,
                 "opponent_interceptions":interceptions_thrown,
                 "opponent_fumbles_lost":lost_fumbles,"offense_plays_faced":plays,
@@ -117,7 +118,7 @@ def team_profiles(games):
         # fantasy scores so a single pick-six does not masquerade as a trend.
         recent_opposing_defenses = []
         for rec in faced.tail(5).itertuples():
-            td_points = float(rec.return_tds) * 6.0
+            td_points = float(rec.return_td_points)
             recent_opposing_defenses.append({
                 "week": int(rec.week),
                 "defense": str(rec.team),
@@ -151,7 +152,7 @@ def team_profiles(games):
             "points_allowed_last3":round(avg(own.tail(3),"points_allowed_scoreboard"),2),
             "recent_opposing_defenses":recent_opposing_defenses,
             "dst_points_allowed_last3_without_return_tds":round(
-                float((faced.tail(3).fantasy_points - 6.0*faced.tail(3).return_tds).mean()),2
+                float((faced.tail(3).fantasy_points - faced.tail(3).return_td_points).mean()),2
             ) if len(faced) else 0.0,
             "dst_points_allowed_pg":round(avg(faced,"fantasy_points"),2),
             "dst_points_allowed_last3":round(avg(faced.tail(3),"fantasy_points"),2),
