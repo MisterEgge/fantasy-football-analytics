@@ -1,0 +1,34 @@
+name: One-time recovery for missed November 4 reports
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/recover-missed-nov4.yml
+  workflow_dispatch:
+
+permissions:
+  actions: write
+  contents: read
+
+jobs:
+  dispatch-once:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Dispatch reports missed on Wednesday November 4
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          # Date lock makes this strictly a one-time recovery, not another weekly schedule.
+          if [[ "$(TZ=America/Chicago date +%F)" != "2026-11-04" ]]; then
+            echo "Recovery window passed; not dispatching duplicate reports."
+            exit 0
+          fi
+          echo "Requesting the existing kicker and defense workflow_dispatch jobs."
+          gh workflow run weekly-kicker-report.yml --ref main
+          gh workflow run wednesday-defense-forecast.yml --ref main
+          echo "Both recovery workflows requested; their own Actions jobs handle generation and Gmail delivery."
