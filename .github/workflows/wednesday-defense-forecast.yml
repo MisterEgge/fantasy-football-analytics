@@ -48,7 +48,7 @@ jobs:
         run: pip install -r requirements.txt
       - name: Verify tests
         if: steps.clock.outputs.run == 'true'
-        run: pytest -q
+        run: python -m pytest -q tests
       - name: Build 32-team defense report
         if: steps.clock.outputs.run == 'true'
         run: python -m defense_tracker.cli --season "$(TZ=America/Chicago date +%Y)" --as-of "$(TZ=America/Chicago date +%F)" --history-dir history-store
