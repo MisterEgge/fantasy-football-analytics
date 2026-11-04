@@ -89,6 +89,7 @@ def game_stats(pbp, scoring=None):
             result.append({
                 "game_id":str(game_id),"season":int(group.season.iloc[0]),
                 "week":int(group.week.iloc[0]),"team":team,"opponent":opponent,
+                "home_game":bool(team==home),
                 "points_allowed_scoreboard":allowed,"sacks":sacks,"interceptions":ints,
                 "fumble_recoveries":fumbles,"safeties":safeties,
                 "blocked_kicks":blocked,"return_tds":defensive_tds,
@@ -111,6 +112,22 @@ def team_profiles(games):
             return float(df[key].mean()) if len(df) else 0.
         pts=own.fantasy_points.to_list()
         opponent_dst=faced.fantasy_points.to_list()
+        # These are the D/STs the offense ACTUALLY faced, not its own defense.
+        # Keep opponent identity and location; expose both raw and TD-excluded
+        # fantasy scores so a single pick-six does not masquerade as a trend.
+        recent_opposing_defenses = []
+        for rec in faced.tail(5).itertuples():
+            td_points = float(rec.return_tds) * 6.0
+            recent_opposing_defenses.append({
+                "week": int(rec.week),
+                "defense": str(rec.team),
+                "dst_points": round(float(rec.fantasy_points), 2),
+                "dst_points_without_return_tds": round(float(rec.fantasy_points)-td_points,2),
+                "sacks": int(rec.sacks),
+                "takeaways": int(rec.interceptions+rec.fumble_recoveries),
+                "return_tds": int(rec.return_tds),
+                "offense_at_home": not bool(rec.home_game),
+            })
         def smoothed_recent(values):
             if not values:
                 return 0.0
@@ -132,6 +149,10 @@ def team_profiles(games):
             "takeaways_last3":round(avg(own.tail(3),"interceptions")+avg(own.tail(3),"fumble_recoveries"),2),
             "points_allowed_pg":round(avg(own,"points_allowed_scoreboard"),2),
             "points_allowed_last3":round(avg(own.tail(3),"points_allowed_scoreboard"),2),
+            "recent_opposing_defenses":recent_opposing_defenses,
+            "dst_points_allowed_last3_without_return_tds":round(
+                float((faced.tail(3).fantasy_points - 6.0*faced.tail(3).return_tds).mean()),2
+            ) if len(faced) else 0.0,
             "dst_points_allowed_pg":round(avg(faced,"fantasy_points"),2),
             "dst_points_allowed_last3":round(avg(faced.tail(3),"fantasy_points"),2),
             "dst_points_allowed_robust":round(robust_mean(opponent_dst),2),
