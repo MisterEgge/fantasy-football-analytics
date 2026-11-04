@@ -59,6 +59,7 @@ def build_forecast(season, as_of, pbp, schedule, scoring=None, history_dir=None,
         # snapshot so the Tuesday audit can examine matchup assumptions.
         opponent_profile=profiles.get(opponent,{}) if opponent else {}
         row["opponent_recent_dst_results"]=opponent_profile.get("recent_opposing_defenses",[])[-5:]
+        row["previous_defense_game"]=(row.get("raw_game_records") or [None])[-1]
         row["opponent_dst_allowed_last3"]=opponent_profile.get("dst_points_allowed_last3")
         row["opponent_dst_allowed_last3_without_return_tds"]=opponent_profile.get(
             "dst_points_allowed_last3_without_return_tds")
