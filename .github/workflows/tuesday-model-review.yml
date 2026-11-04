@@ -52,7 +52,7 @@ jobs:
         run: python -m pip install -r requirements.txt
       - name: Run regression tests
         if: steps.clock.outputs.run == 'true'
-        run: python -m pytest -q
+        run: python -m pytest -q tests
       - name: Grade archived Wednesday predictions
         if: steps.clock.outputs.run == 'true'
         run: python -m kicker_tracker.review --history-dir history-store --season "$(TZ=America/Chicago date +%Y)" --as-of "$(TZ=America/Chicago date +%F)"
