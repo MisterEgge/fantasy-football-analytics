@@ -48,7 +48,7 @@ jobs:
         run: pip install -r requirements.txt
       - name: Test
         if: steps.clock.outputs.run == 'true'
-        run: pytest -q
+        run: python -m pytest -q tests
       - name: Grade archived D/ST forecasts against completed games
         if: steps.clock.outputs.run == 'true'
         run: python -m defense_tracker.review --history-dir history-store --season "$(TZ=America/Chicago date +%Y)" --as-of "$(TZ=America/Chicago date +%F)"
