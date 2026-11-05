@@ -1,5 +1,7 @@
 # Fantasy Football Analytics
 
+**All scheduled fantasy reports and alerts are owned by GitHub Actions.** See the [central automation inventory and operating guide](AUTOMATIONS.md) for the five schedules, their Gmail delivery rules, and troubleshooting. No ChatGPT fantasy-report automation is required.
+
 Analyze all 32 NFL teams across kicker and defensive/special-teams (D/ST) fantasy football, with room to expand to additional positions. Every kicker receives the same opportunity, recent-form, and matchup analysis; no kicker is used as a special benchmark. The forecast is generated every Wednesday afternoon and displayed directly inside Gmail. Every Tuesday afternoon, a separate job grades the preceding week's **saved pregame predictions** against actual NFL results and emails an accuracy review.
 
 ## Scoring and analysis
