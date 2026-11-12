@@ -2,6 +2,7 @@
   "season": 2026,
   "week": 10,
   "notified": [
+    "BUF@NYJ|weather|wind|medium",
     "WAS@NYG|weather|rain|high"
   ]
 }
