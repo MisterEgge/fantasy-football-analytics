@@ -2,6 +2,7 @@
   "season": 2026,
   "week": 11,
   "notified": [
+    "NO@CHI|weather|wind|medium",
     "PIT@PHI|weather|rain|eased"
   ]
 }
