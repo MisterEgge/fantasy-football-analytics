@@ -1,0 +1,4804 @@
+{
+  "metadata": {
+    "season": 2026,
+    "target_week": 12,
+    "as_of": "2026-11-25",
+    "model_calibration": {
+      "volume_factor": 1.0,
+      "method": "uncalibrated_baseline",
+      "review_weeks": 3,
+      "graded_team_games": 84,
+      "reason": "Held-out week showed insufficient improvement",
+      "candidate_factor": 0.9718,
+      "validation_week": 11,
+      "baseline_validation_mae": 1.2119,
+      "adjusted_validation_mae": 1.2146
+    },
+    "data_max_game_date": "2026-11-23",
+    "data_origin": "nflverse play by play"
+  },
+  "teams": [
+    {
+      "team": "ARI",
+      "team_name": "Arizona Cardinals",
+      "games": 11,
+      "fg_attempts_pg": 2.1818181818181817,
+      "fg_last3_pg": 1.0,
+      "fg_last5_pg": 1.6,
+      "fg_allowed_pg": 1.7272727272727273,
+      "fg_allowed_last3_pg": 1.6666666666666667,
+      "rz_trips_pg": 3.4545454545454546,
+      "rz_td_pct": 0.47368421052631576,
+      "rz_allowed_pg": 4.818181818181818,
+      "rz_td_allowed_pct": 0.7169811320754716,
+      "go_fg_range_pg": 0.7272727272727273,
+      "form": {
+        "kicker": "C.Ryland",
+        "weekly": [
+          {
+            "week": 1,
+            "points": 15.0,
+            "attempts": 5,
+            "fg_made": 4,
+            "xp_made": 2
+          },
+          {
+            "week": 2,
+            "points": 1.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 1
+          },
+          {
+            "week": 3,
+            "points": 14.0,
+            "attempts": 3,
+            "fg_made": 3,
+            "xp_made": 3
+          },
+          {
+            "week": 4,
+            "points": 8.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 3
+          },
+          {
+            "week": 5,
+            "points": 2.0,
+            "attempts": 1,
+            "fg_made": 0,
+            "xp_made": 3
+          },
+          {
+            "week": 6,
+            "points": 19.0,
+            "attempts": 6,
+            "fg_made": 6,
+            "xp_made": 0
+          },
+          {
+            "week": 7,
+            "points": 11.0,
+            "attempts": 3,
+            "fg_made": 3,
+            "xp_made": 1
+          },
+          {
+            "week": 8,
+            "points": 10.0,
+            "attempts": 2,
+            "fg_made": 2,
+            "xp_made": 3
+          },
+          {
+            "week": 9,
+            "points": 3.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 0
+          },
+          {
+            "week": 10,
+            "points": 8.0,
+            "attempts": 2,
+            "fg_made": 2,
+            "xp_made": 0
+          },
+          {
+            "week": 11,
+            "points": 1.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 1
+          }
+        ],
+        "season_points": 92.0,
+        "season_ppg": 8.363636363636363,
+        "last3_ppg": 4.0,
+        "last5_ppg": 6.6,
+        "median_ppg": 8.0,
+        "robust_ppg": 8.363636363636363,
+        "low_rate": 0.36363636363636365,
+        "high_rate": 0.45454545454545453,
+        "peak_share": 0.20652173913043478,
+        "fg_made": 22,
+        "fg_attempts": 24,
+        "xp_made": 17,
+        "fg_buckets_made": {
+          "0-39": 12,
+          "40-49": 9,
+          "50+": 1
+        },
+        "fg_buckets_attempts": {
+          "0-39": 12,
+          "40-49": 9,
+          "50+": 3
+        }
+      },
+      "opponent": "WAS",
+      "game_context": {
+        "weather": {
+          "status": "roof_unknown",
+          "summary": "Roof state not verified",
+          "flags": []
+        },
+        "team_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "opponent_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "injury_data_error": "ValueError",
+        "venue": "State Farm Stadium",
+        "roof": "nan",
+        "game_date": "2026-11-29",
+        "weekday": "Sunday",
+        "kickoff_eastern": "16:25",
+        "neutral_site": false
+      },
+      "projected_fg_attempts": 1.55,
+      "projected_xp": 0.88,
+      "projected_points": 5.56,
+      "source": "transparent heuristic (not yet calibrated)",
+      "raw_projected_fg_attempts": 1.55,
+      "raw_projected_points": 5.56,
+      "opp_fg_allowed_pg": 2.1,
+      "opp_rz_td_allowed_pct": 0.7368421052631579
+    },
+    {
+      "team": "ATL",
+      "team_name": "Atlanta Falcons",
+      "games": 10,
+      "fg_attempts_pg": 2.0,
+      "fg_last3_pg": 1.6666666666666667,
+      "fg_last5_pg": 1.6,
+      "fg_allowed_pg": 1.8,
+      "fg_allowed_last3_pg": 1.6666666666666667,
+      "rz_trips_pg": 3.5,
+      "rz_td_pct": 0.6,
+      "rz_allowed_pg": 4.1,
+      "rz_td_allowed_pct": 0.7073170731707317,
+      "go_fg_range_pg": 0.7,
+      "form": {
+        "kicker": "J.Moody",
+        "weekly": [
+          {
+            "week": 1,
+            "points": 0.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 0
+          },
+          {
+            "week": 2,
+            "points": 0.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 0
+          },
+          {
+            "week": 3,
+            "points": 0.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 0
+          },
+          {
+            "week": 4,
+            "points": 0.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 0
+          },
+          {
+            "week": 5,
+            "points": 0.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 0
+          },
+          {
+            "week": 6,
+            "points": 0.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 0
+          },
+          {
+            "week": 7,
+            "points": 0.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 0
+          },
+          {
+            "week": 8,
+            "points": 0.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 0
+          },
+          {
+            "week": 9,
+            "points": 0.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 0
+          },
+          {
+            "week": 10,
+            "points": 7.0,
+            "attempts": 2,
+            "fg_made": 2,
+            "xp_made": 1
+          }
+        ],
+        "season_points": 7.0,
+        "season_ppg": 0.7,
+        "last3_ppg": 2.3333333333333335,
+        "last5_ppg": 1.4,
+        "median_ppg": 0.0,
+        "robust_ppg": 0.5,
+        "low_rate": 0.9,
+        "high_rate": 0.0,
+        "peak_share": 1.0,
+        "fg_made": 2,
+        "fg_attempts": 2,
+        "xp_made": 1,
+        "fg_buckets_made": {
+          "0-39": 2,
+          "40-49": 0,
+          "50+": 0
+        },
+        "fg_buckets_attempts": {
+          "0-39": 2,
+          "40-49": 0,
+          "50+": 0
+        }
+      },
+      "opponent": "MIN",
+      "game_context": {
+        "weather": {
+          "status": "indoor",
+          "summary": "Indoor / roof closed",
+          "flags": []
+        },
+        "team_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "opponent_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "injury_data_error": "ValueError",
+        "venue": "U.S. Bank Stadium",
+        "roof": "dome",
+        "game_date": "2026-11-29",
+        "weekday": "Sunday",
+        "kickoff_eastern": "13:00",
+        "neutral_site": false
+      },
+      "projected_fg_attempts": 1.8,
+      "projected_xp": 0.23,
+      "projected_points": 5.45,
+      "source": "transparent heuristic (not yet calibrated)",
+      "raw_projected_fg_attempts": 1.8,
+      "raw_projected_points": 5.45,
+      "opp_fg_allowed_pg": 2.0,
+      "opp_rz_td_allowed_pct": 0.4838709677419355
+    },
+    {
+      "team": "BAL",
+      "team_name": "Baltimore Ravens",
+      "games": 11,
+      "fg_attempts_pg": 1.9090909090909092,
+      "fg_last3_pg": 1.3333333333333333,
+      "fg_last5_pg": 1.6,
+      "fg_allowed_pg": 2.4545454545454546,
+      "fg_allowed_last3_pg": 3.0,
+      "rz_trips_pg": 3.727272727272727,
+      "rz_td_pct": 0.6341463414634146,
+      "rz_allowed_pg": 4.363636363636363,
+      "rz_td_allowed_pct": 0.625,
+      "go_fg_range_pg": 0.09090909090909091,
+      "form": {
+        "kicker": "R.Patterson",
+        "weekly": [
+          {
+            "week": 1,
+            "points": 0.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 0
+          },
+          {
+            "week": 2,
+            "points": 0.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 0
+          },
+          {
+            "week": 3,
+            "points": 0.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 0
+          },
+          {
+            "week": 4,
+            "points": 0.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 0
+          },
+          {
+            "week": 5,
+            "points": 0.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 0
+          },
+          {
+            "week": 6,
+            "points": 0.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 0
+          },
+          {
+            "week": 7,
+            "points": 0.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 0
+          },
+          {
+            "week": 8,
+            "points": 0.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 0
+          },
+          {
+            "week": 9,
+            "points": 0.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 0
+          },
+          {
+            "week": 10,
+            "points": 8.0,
+            "attempts": 2,
+            "fg_made": 2,
+            "xp_made": 2
+          },
+          {
+            "week": 11,
+            "points": 7.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 4
+          }
+        ],
+        "season_points": 15.0,
+        "season_ppg": 1.3636363636363635,
+        "last3_ppg": 5.0,
+        "last5_ppg": 3.0,
+        "median_ppg": 0.0,
+        "robust_ppg": 0.9090909090909091,
+        "low_rate": 0.8181818181818182,
+        "high_rate": 0.0,
+        "peak_share": 0.5333333333333333,
+        "fg_made": 3,
+        "fg_attempts": 3,
+        "xp_made": 6,
+        "fg_buckets_made": {
+          "0-39": 3,
+          "40-49": 0,
+          "50+": 0
+        },
+        "fg_buckets_attempts": {
+          "0-39": 3,
+          "40-49": 0,
+          "50+": 0
+        }
+      },
+      "opponent": "HOU",
+      "game_context": {
+        "weather": {
+          "status": "roof_unknown",
+          "summary": "Roof state not verified",
+          "flags": []
+        },
+        "team_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "opponent_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "injury_data_error": "ValueError",
+        "venue": "Reliant Stadium",
+        "roof": "nan",
+        "game_date": "2026-11-29",
+        "weekday": "Sunday",
+        "kickoff_eastern": "13:00",
+        "neutral_site": false
+      },
+      "projected_fg_attempts": 2.03,
+      "projected_xp": 1.35,
+      "projected_points": 7.2,
+      "source": "transparent heuristic (not yet calibrated)",
+      "raw_projected_fg_attempts": 2.03,
+      "raw_projected_points": 7.2,
+      "opp_fg_allowed_pg": 2.6,
+      "opp_rz_td_allowed_pct": 0.6764705882352942
+    },
+    {
+      "team": "BUF",
+      "team_name": "Buffalo Bills",
+      "games": 10,
+      "fg_attempts_pg": 2.5,
+      "fg_last3_pg": 3.0,
+      "fg_last5_pg": 3.2,
+      "fg_allowed_pg": 2.2,
+      "fg_allowed_last3_pg": 3.0,
+      "rz_trips_pg": 5.2,
+      "rz_td_pct": 0.6730769230769231,
+      "rz_allowed_pg": 3.6,
+      "rz_td_allowed_pct": 0.6111111111111112,
+      "go_fg_range_pg": 0.6,
+      "form": {
+        "kicker": "T.Bass",
+        "weekly": [
+          {
+            "week": 1,
+            "points": 13.0,
+            "attempts": 3,
+            "fg_made": 3,
+            "xp_made": 3
+          },
+          {
+            "week": 2,
+            "points": 5.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 5
+          },
+          {
+            "week": 3,
+            "points": 6.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 3
+          },
+          {
+            "week": 4,
+            "points": 8.0,
+            "attempts": 2,
+            "fg_made": 2,
+            "xp_made": 2
+          },
+          {
+            "week": 5,
+            "points": 13.0,
+            "attempts": 3,
+            "fg_made": 3,
+            "xp_made": 2
+          },
+          {
+            "week": 6,
+            "points": 17.0,
+            "attempts": 4,
+            "fg_made": 4,
+            "xp_made": 3
+          },
+          {
+            "week": 8,
+            "points": 16.0,
+            "attempts": 3,
+            "fg_made": 3,
+            "xp_made": 3
+          },
+          {
+            "week": 9,
+            "points": 13.0,
+            "attempts": 3,
+            "fg_made": 3,
+            "xp_made": 2
+          },
+          {
+            "week": 10,
+            "points": 7.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 4
+          },
+          {
+            "week": 11,
+            "points": 17.0,
+            "attempts": 5,
+            "fg_made": 4,
+            "xp_made": 2
+          }
+        ],
+        "season_points": 115.0,
+        "season_ppg": 11.5,
+        "last3_ppg": 12.333333333333334,
+        "last5_ppg": 14.0,
+        "median_ppg": 13.0,
+        "robust_ppg": 11.5,
+        "low_rate": 0.0,
+        "high_rate": 0.6,
+        "peak_share": 0.14782608695652175,
+        "fg_made": 24,
+        "fg_attempts": 25,
+        "xp_made": 29,
+        "fg_buckets_made": {
+          "0-39": 13,
+          "40-49": 7,
+          "50+": 4
+        },
+        "fg_buckets_attempts": {
+          "0-39": 13,
+          "40-49": 7,
+          "50+": 5
+        }
+      },
+      "opponent": "KC",
+      "game_context": {
+        "weather": {
+          "status": "forecast",
+          "summary": "wind up to 24 mph, gusts 49 mph, precip up to 0.10 in/hr, 38\u00b0F",
+          "flags": [
+            "Sustained wind 20+ mph",
+            "Gusts 30+ mph"
+          ],
+          "wind_mph": 24.0,
+          "gust_mph": 49.4,
+          "precip_in_hour": 0.098,
+          "snow_cm": 0.0,
+          "source": "Open-Meteo hourly forecast, local 20:00\u201324:00"
+        },
+        "team_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "opponent_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "injury_data_error": "ValueError",
+        "venue": "Highmark Stadium",
+        "roof": "outdoors",
+        "game_date": "2026-11-26",
+        "weekday": "Thursday",
+        "kickoff_eastern": "20:20",
+        "neutral_site": false
+      },
+      "projected_fg_attempts": 2.64,
+      "projected_xp": 2.77,
+      "projected_points": 10.83,
+      "source": "transparent heuristic (not yet calibrated)",
+      "raw_projected_fg_attempts": 2.64,
+      "raw_projected_points": 10.83,
+      "opp_fg_allowed_pg": 2.2,
+      "opp_rz_td_allowed_pct": 0.45161290322580644
+    },
+    {
+      "team": "CAR",
+      "team_name": "Carolina Panthers",
+      "games": 10,
+      "fg_attempts_pg": 1.9,
+      "fg_last3_pg": 2.0,
+      "fg_last5_pg": 1.6,
+      "fg_allowed_pg": 1.5,
+      "fg_allowed_last3_pg": 1.3333333333333333,
+      "rz_trips_pg": 4.3,
+      "rz_td_pct": 0.6744186046511628,
+      "rz_allowed_pg": 3.8,
+      "rz_td_allowed_pct": 0.7894736842105263,
+      "go_fg_range_pg": 0.6,
+      "form": {
+        "kicker": "R.Fitzgerald",
+        "weekly": [
+          {
+            "week": 1,
+            "points": 8.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 4
+          },
+          {
+            "week": 2,
+            "points": 10.0,
+            "attempts": 2,
+            "fg_made": 2,
+            "xp_made": 4
+          },
+          {
+            "week": 3,
+            "points": 15.0,
+            "attempts": 4,
+            "fg_made": 4,
+            "xp_made": 0
+          },
+          {
+            "week": 4,
+            "points": 9.0,
+            "attempts": 2,
+            "fg_made": 2,
+            "xp_made": 2
+          },
+          {
+            "week": 6,
+            "points": 10.0,
+            "attempts": 2,
+            "fg_made": 2,
+            "xp_made": 1
+          },
+          {
+            "week": 7,
+            "points": 1.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 1
+          },
+          {
+            "week": 8,
+            "points": 9.0,
+            "attempts": 2,
+            "fg_made": 2,
+            "xp_made": 1
+          },
+          {
+            "week": 9,
+            "points": 2.0,
+            "attempts": 1,
+            "fg_made": 0,
+            "xp_made": 3
+          },
+          {
+            "week": 10,
+            "points": 11.0,
+            "attempts": 3,
+            "fg_made": 2,
+            "xp_made": 2
+          },
+          {
+            "week": 11,
+            "points": 9.0,
+            "attempts": 2,
+            "fg_made": 2,
+            "xp_made": 3
+          }
+        ],
+        "season_points": 84.0,
+        "season_ppg": 8.4,
+        "last3_ppg": 7.333333333333333,
+        "last5_ppg": 6.4,
+        "median_ppg": 9.0,
+        "robust_ppg": 8.8,
+        "low_rate": 0.2,
+        "high_rate": 0.4,
+        "peak_share": 0.17857142857142858,
+        "fg_made": 17,
+        "fg_attempts": 19,
+        "xp_made": 21,
+        "fg_buckets_made": {
+          "0-39": 8,
+          "40-49": 4,
+          "50+": 5
+        },
+        "fg_buckets_attempts": {
+          "0-39": 8,
+          "40-49": 6,
+          "50+": 5
+        }
+      },
+      "opponent": "TB",
+      "game_context": {
+        "weather": {
+          "status": "forecast",
+          "summary": "wind up to 7 mph, gusts 12 mph, precip up to 0.00 in/hr, 68\u00b0F",
+          "flags": [],
+          "wind_mph": 6.9,
+          "gust_mph": 11.9,
+          "precip_in_hour": 0.0,
+          "snow_cm": 0.0,
+          "source": "Open-Meteo hourly forecast, local 20:00\u201324:00"
+        },
+        "team_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "opponent_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "injury_data_error": "ValueError",
+        "venue": "Raymond James Stadium",
+        "roof": "outdoors",
+        "game_date": "2026-11-30",
+        "weekday": "Monday",
+        "kickoff_eastern": "20:15",
+        "neutral_site": false
+      },
+      "projected_fg_attempts": 1.92,
+      "projected_xp": 2.41,
+      "projected_points": 8.18,
+      "source": "transparent heuristic (not yet calibrated)",
+      "raw_projected_fg_attempts": 1.92,
+      "raw_projected_points": 8.18,
+      "opp_fg_allowed_pg": 2.2,
+      "opp_rz_td_allowed_pct": 0.59375
+    },
+    {
+      "team": "CHI",
+      "team_name": "Chicago Bears",
+      "games": 10,
+      "fg_attempts_pg": 2.1,
+      "fg_last3_pg": 2.0,
+      "fg_last5_pg": 2.4,
+      "fg_allowed_pg": 1.8,
+      "fg_allowed_last3_pg": 2.6666666666666665,
+      "rz_trips_pg": 5.0,
+      "rz_td_pct": 0.58,
+      "rz_allowed_pg": 3.6,
+      "rz_td_allowed_pct": 0.6111111111111112,
+      "go_fg_range_pg": 0.9,
+      "form": {
+        "kicker": "C.Santos",
+        "weekly": [
+          {
+            "week": 1,
+            "points": 12.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 8
+          },
+          {
+            "week": 2,
+            "points": 4.0,
+            "attempts": 2,
+            "fg_made": 1,
+            "xp_made": 0
+          },
+          {
+            "week": 3,
+            "points": 10.0,
+            "attempts": 2,
+            "fg_made": 2,
+            "xp_made": 3
+          },
+          {
+            "week": 4,
+            "points": 11.0,
+            "attempts": 3,
+            "fg_made": 3,
+            "xp_made": 2
+          },
+          {
+            "week": 5,
+            "points": 0.0,
+            "attempts": 1,
+            "fg_made": 0,
+            "xp_made": 1
+          },
+          {
+            "week": 6,
+            "points": 8.0,
+            "attempts": 2,
+            "fg_made": 1,
+            "xp_made": 4
+          },
+          {
+            "week": 7,
+            "points": 14.0,
+            "attempts": 4,
+            "fg_made": 3,
+            "xp_made": 3
+          },
+          {
+            "week": 8,
+            "points": 11.0,
+            "attempts": 2,
+            "fg_made": 2,
+            "xp_made": 4
+          },
+          {
+            "week": 9,
+            "points": 9.0,
+            "attempts": 2,
+            "fg_made": 2,
+            "xp_made": 3
+          },
+          {
+            "week": 11,
+            "points": 8.0,
+            "attempts": 2,
+            "fg_made": 2,
+            "xp_made": 1
+          }
+        ],
+        "season_points": 87.0,
+        "season_ppg": 8.7,
+        "last3_ppg": 9.333333333333334,
+        "last5_ppg": 10.0,
+        "median_ppg": 9.5,
+        "robust_ppg": 9.094024999999998,
+        "low_rate": 0.2,
+        "high_rate": 0.5,
+        "peak_share": 0.16091954022988506,
+        "fg_made": 17,
+        "fg_attempts": 21,
+        "xp_made": 29,
+        "fg_buckets_made": {
+          "0-39": 9,
+          "40-49": 5,
+          "50+": 3
+        },
+        "fg_buckets_attempts": {
+          "0-39": 10,
+          "40-49": 6,
+          "50+": 5
+        }
+      },
+      "opponent": "DET",
+      "game_context": {
+        "weather": {
+          "status": "indoor",
+          "summary": "Indoor / roof closed",
+          "flags": []
+        },
+        "team_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "opponent_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "injury_data_error": "ValueError",
+        "venue": "Ford Field",
+        "roof": "dome",
+        "game_date": "2026-11-26",
+        "weekday": "Thursday",
+        "kickoff_eastern": "13:00",
+        "neutral_site": false
+      },
+      "projected_fg_attempts": 1.83,
+      "projected_xp": 2.77,
+      "projected_points": 8.04,
+      "source": "transparent heuristic (not yet calibrated)",
+      "raw_projected_fg_attempts": 1.83,
+      "raw_projected_points": 8.04,
+      "opp_fg_allowed_pg": 1.5,
+      "opp_rz_td_allowed_pct": 0.6829268292682927
+    },
+    {
+      "team": "CIN",
+      "team_name": "Cincinnati Bengals",
+      "games": 10,
+      "fg_attempts_pg": 1.6,
+      "fg_last3_pg": 2.0,
+      "fg_last5_pg": 1.2,
+      "fg_allowed_pg": 2.4,
+      "fg_allowed_last3_pg": 2.6666666666666665,
+      "rz_trips_pg": 4.9,
+      "rz_td_pct": 0.7142857142857143,
+      "rz_allowed_pg": 4.1,
+      "rz_td_allowed_pct": 0.4878048780487805,
+      "go_fg_range_pg": 0.3,
+      "form": {
+        "kicker": "E.McPherson",
+        "weekly": [
+          {
+            "week": 1,
+            "points": 19.0,
+            "attempts": 4,
+            "fg_made": 4,
+            "xp_made": 3
+          },
+          {
+            "week": 2,
+            "points": 12.0,
+            "attempts": 2,
+            "fg_made": 2,
+            "xp_made": 2
+          },
+          {
+            "week": 3,
+            "points": 11.0,
+            "attempts": 2,
+            "fg_made": 2,
+            "xp_made": 3
+          },
+          {
+            "week": 4,
+            "points": 5.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 2
+          },
+          {
+            "week": 5,
+            "points": 7.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 4
+          },
+          {
+            "week": 7,
+            "points": 5.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 5
+          },
+          {
+            "week": 8,
+            "points": 5.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 5
+          },
+          {
+            "week": 9,
+            "points": 13.0,
+            "attempts": 2,
+            "fg_made": 2,
+            "xp_made": 4
+          },
+          {
+            "week": 10,
+            "points": 7.0,
+            "attempts": 2,
+            "fg_made": 1,
+            "xp_made": 5
+          },
+          {
+            "week": 11,
+            "points": 10.0,
+            "attempts": 2,
+            "fg_made": 2,
+            "xp_made": 2
+          }
+        ],
+        "season_points": 94.0,
+        "season_ppg": 9.4,
+        "last3_ppg": 10.0,
+        "last5_ppg": 8.0,
+        "median_ppg": 8.5,
+        "robust_ppg": 9.4,
+        "low_rate": 0.0,
+        "high_rate": 0.5,
+        "peak_share": 0.20212765957446807,
+        "fg_made": 15,
+        "fg_attempts": 16,
+        "xp_made": 35,
+        "fg_buckets_made": {
+          "0-39": 7,
+          "40-49": 1,
+          "50+": 7
+        },
+        "fg_buckets_attempts": {
+          "0-39": 7,
+          "40-49": 2,
+          "50+": 7
+        }
+      },
+      "opponent": "NO",
+      "game_context": {
+        "weather": {
+          "status": "forecast",
+          "summary": "wind up to 14 mph, gusts 38 mph, precip up to 0.04 in/hr, 53\u00b0F",
+          "flags": [
+            "Gusts 30+ mph"
+          ],
+          "wind_mph": 13.8,
+          "gust_mph": 37.8,
+          "precip_in_hour": 0.039,
+          "snow_cm": 0.0,
+          "source": "Open-Meteo hourly forecast, local 13:00\u201317:00"
+        },
+        "team_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "opponent_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "injury_data_error": "ValueError",
+        "venue": "Paycor Stadium",
+        "roof": "outdoors",
+        "game_date": "2026-11-29",
+        "weekday": "Sunday",
+        "kickoff_eastern": "13:00",
+        "neutral_site": false
+      },
+      "projected_fg_attempts": 2.11,
+      "projected_xp": 3.59,
+      "projected_points": 10.13,
+      "source": "transparent heuristic (not yet calibrated)",
+      "raw_projected_fg_attempts": 2.11,
+      "raw_projected_points": 10.13,
+      "opp_fg_allowed_pg": 2.3,
+      "opp_rz_td_allowed_pct": 0.6086956521739131
+    },
+    {
+      "team": "CLE",
+      "team_name": "Cleveland Browns",
+      "games": 10,
+      "fg_attempts_pg": 2.4,
+      "fg_last3_pg": 2.6666666666666665,
+      "fg_last5_pg": 2.8,
+      "fg_allowed_pg": 2.4,
+      "fg_allowed_last3_pg": 2.6666666666666665,
+      "rz_trips_pg": 3.5,
+      "rz_td_pct": 0.5142857142857142,
+      "rz_allowed_pg": 3.9,
+      "rz_td_allowed_pct": 0.5897435897435898,
+      "go_fg_range_pg": 0.5,
+      "form": {
+        "kicker": "A.Szmyt",
+        "weekly": [
+          {
+            "week": 1,
+            "points": 4.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 1
+          },
+          {
+            "week": 2,
+            "points": 13.0,
+            "attempts": 3,
+            "fg_made": 3,
+            "xp_made": 2
+          },
+          {
+            "week": 3,
+            "points": 9.0,
+            "attempts": 2,
+            "fg_made": 2,
+            "xp_made": 1
+          },
+          {
+            "week": 4,
+            "points": 12.0,
+            "attempts": 2,
+            "fg_made": 2,
+            "xp_made": 3
+          },
+          {
+            "week": 5,
+            "points": 7.0,
+            "attempts": 2,
+            "fg_made": 2,
+            "xp_made": 0
+          },
+          {
+            "week": 6,
+            "points": 7.0,
+            "attempts": 3,
+            "fg_made": 2,
+            "xp_made": 1
+          },
+          {
+            "week": 7,
+            "points": 8.0,
+            "attempts": 3,
+            "fg_made": 2,
+            "xp_made": 3
+          },
+          {
+            "week": 8,
+            "points": 7.0,
+            "attempts": 2,
+            "fg_made": 2,
+            "xp_made": 0
+          },
+          {
+            "week": 9,
+            "points": 13.0,
+            "attempts": 3,
+            "fg_made": 3,
+            "xp_made": 1
+          },
+          {
+            "week": 10,
+            "points": 9.0,
+            "attempts": 3,
+            "fg_made": 2,
+            "xp_made": 3
+          }
+        ],
+        "season_points": 89.0,
+        "season_ppg": 8.9,
+        "last3_ppg": 9.666666666666666,
+        "last5_ppg": 8.8,
+        "median_ppg": 8.5,
+        "robust_ppg": 8.9,
+        "low_rate": 0.1,
+        "high_rate": 0.3,
+        "peak_share": 0.14606741573033707,
+        "fg_made": 21,
+        "fg_attempts": 24,
+        "xp_made": 15,
+        "fg_buckets_made": {
+          "0-39": 10,
+          "40-49": 8,
+          "50+": 3
+        },
+        "fg_buckets_attempts": {
+          "0-39": 10,
+          "40-49": 10,
+          "50+": 4
+        }
+      },
+      "opponent": "LV",
+      "game_context": {
+        "weather": {
+          "status": "forecast",
+          "summary": "wind up to 11 mph, gusts 31 mph, precip up to 0.12 in/hr, 49\u00b0F",
+          "flags": [
+            "Gusts 30+ mph"
+          ],
+          "wind_mph": 10.9,
+          "gust_mph": 31.3,
+          "precip_in_hour": 0.118,
+          "snow_cm": 0.0,
+          "source": "Open-Meteo hourly forecast, local 20:00\u201324:00"
+        },
+        "team_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "opponent_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "injury_data_error": "ValueError",
+        "venue": "Huntington Bank Field",
+        "roof": "outdoors",
+        "game_date": "2026-11-29",
+        "weekday": "Sunday",
+        "kickoff_eastern": "20:20",
+        "neutral_site": false
+      },
+      "projected_fg_attempts": 1.99,
+      "projected_xp": 1.41,
+      "projected_points": 7.32,
+      "source": "transparent heuristic (not yet calibrated)",
+      "raw_projected_fg_attempts": 1.99,
+      "raw_projected_points": 7.32,
+      "opp_fg_allowed_pg": 1.5454545454545454,
+      "opp_rz_td_allowed_pct": 0.7222222222222222
+    },
+    {
+      "team": "DAL",
+      "team_name": "Dallas Cowboys",
+      "games": 11,
+      "fg_attempts_pg": 2.272727272727273,
+      "fg_last3_pg": 2.0,
+      "fg_last5_pg": 2.6,
+      "fg_allowed_pg": 1.9090909090909092,
+      "fg_allowed_last3_pg": 2.3333333333333335,
+      "rz_trips_pg": 4.7272727272727275,
+      "rz_td_pct": 0.7692307692307693,
+      "rz_allowed_pg": 4.818181818181818,
+      "rz_td_allowed_pct": 0.6792452830188679,
+      "go_fg_range_pg": 0.5454545454545454,
+      "form": {
+        "kicker": "B.Aubrey",
+        "weekly": [
+          {
+            "week": 1,
+            "points": 2.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 2
+          },
+          {
+            "week": 2,
+            "points": 16.0,
+            "attempts": 3,
+            "fg_made": 3,
+            "xp_made": 4
+          },
+          {
+            "week": 3,
+            "points": 10.0,
+            "attempts": 4,
+            "fg_made": 3,
+            "xp_made": 2
+          },
+          {
+            "week": 4,
+            "points": 10.0,
+            "attempts": 4,
+            "fg_made": 2,
+            "xp_made": 4
+          },
+          {
+            "week": 5,
+            "points": 5.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 1
+          },
+          {
+            "week": 6,
+            "points": 1.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 1
+          },
+          {
+            "week": 7,
+            "points": 14.0,
+            "attempts": 3,
+            "fg_made": 3,
+            "xp_made": 3
+          },
+          {
+            "week": 8,
+            "points": 12.0,
+            "attempts": 4,
+            "fg_made": 3,
+            "xp_made": 3
+          },
+          {
+            "week": 9,
+            "points": 9.0,
+            "attempts": 3,
+            "fg_made": 2,
+            "xp_made": 3
+          },
+          {
+            "week": 10,
+            "points": 12.0,
+            "attempts": 2,
+            "fg_made": 2,
+            "xp_made": 2
+          },
+          {
+            "week": 11,
+            "points": 10.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 6
+          }
+        ],
+        "season_points": 101.0,
+        "season_ppg": 9.181818181818182,
+        "last3_ppg": 10.333333333333334,
+        "last5_ppg": 11.4,
+        "median_ppg": 10.0,
+        "robust_ppg": 9.379454545454546,
+        "low_rate": 0.18181818181818182,
+        "high_rate": 0.6363636363636364,
+        "peak_share": 0.15841584158415842,
+        "fg_made": 20,
+        "fg_attempts": 25,
+        "xp_made": 31,
+        "fg_buckets_made": {
+          "0-39": 10,
+          "40-49": 5,
+          "50+": 5
+        },
+        "fg_buckets_attempts": {
+          "0-39": 10,
+          "40-49": 5,
+          "50+": 10
+        }
+      },
+      "opponent": "PHI",
+      "game_context": {
+        "weather": {
+          "status": "roof_unknown",
+          "summary": "Roof state not verified",
+          "flags": []
+        },
+        "team_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "opponent_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "injury_data_error": "ValueError",
+        "venue": "AT&T Stadium",
+        "roof": "nan",
+        "game_date": "2026-11-26",
+        "weekday": "Thursday",
+        "kickoff_eastern": "16:30",
+        "neutral_site": false
+      },
+      "projected_fg_attempts": 2.64,
+      "projected_xp": 3.28,
+      "projected_points": 10.89,
+      "source": "transparent heuristic (not yet calibrated)",
+      "raw_projected_fg_attempts": 2.64,
+      "raw_projected_points": 10.89,
+      "opp_fg_allowed_pg": 2.7,
+      "opp_rz_td_allowed_pct": 0.5853658536585366
+    },
+    {
+      "team": "DEN",
+      "team_name": "Denver Broncos",
+      "games": 10,
+      "fg_attempts_pg": 2.0,
+      "fg_last3_pg": 1.6666666666666667,
+      "fg_last5_pg": 1.8,
+      "fg_allowed_pg": 2.1,
+      "fg_allowed_last3_pg": 1.3333333333333333,
+      "rz_trips_pg": 3.6,
+      "rz_td_pct": 0.6666666666666666,
+      "rz_allowed_pg": 3.9,
+      "rz_td_allowed_pct": 0.5897435897435898,
+      "go_fg_range_pg": 0.0,
+      "form": {
+        "kicker": "W.Lutz",
+        "weekly": [
+          {
+            "week": 1,
+            "points": 4.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 1
+          },
+          {
+            "week": 2,
+            "points": 9.0,
+            "attempts": 2,
+            "fg_made": 2,
+            "xp_made": 2
+          },
+          {
+            "week": 3,
+            "points": 1.0,
+            "attempts": 1,
+            "fg_made": 0,
+            "xp_made": 2
+          },
+          {
+            "week": 4,
+            "points": 8.0,
+            "attempts": 3,
+            "fg_made": 2,
+            "xp_made": 0
+          },
+          {
+            "week": 5,
+            "points": 10.0,
+            "attempts": 4,
+            "fg_made": 3,
+            "xp_made": 2
+          },
+          {
+            "week": 6,
+            "points": 7.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 2
+          },
+          {
+            "week": 7,
+            "points": 14.0,
+            "attempts": 3,
+            "fg_made": 3,
+            "xp_made": 3
+          },
+          {
+            "week": 8,
+            "points": 9.0,
+            "attempts": 2,
+            "fg_made": 2,
+            "xp_made": 2
+          },
+          {
+            "week": 9,
+            "points": 9.0,
+            "attempts": 2,
+            "fg_made": 2,
+            "xp_made": 2
+          },
+          {
+            "week": 11,
+            "points": 8.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 5
+          }
+        ],
+        "season_points": 79.0,
+        "season_ppg": 7.9,
+        "last3_ppg": 8.666666666666666,
+        "last5_ppg": 9.4,
+        "median_ppg": 8.5,
+        "robust_ppg": 8.1,
+        "low_rate": 0.2,
+        "high_rate": 0.2,
+        "peak_share": 0.17721518987341772,
+        "fg_made": 17,
+        "fg_attempts": 20,
+        "xp_made": 21,
+        "fg_buckets_made": {
+          "0-39": 9,
+          "40-49": 6,
+          "50+": 2
+        },
+        "fg_buckets_attempts": {
+          "0-39": 9,
+          "40-49": 8,
+          "50+": 3
+        }
+      },
+      "opponent": "PIT",
+      "game_context": {
+        "weather": {
+          "status": "forecast",
+          "summary": "wind up to 15 mph, gusts 36 mph, precip up to 0.03 in/hr, 40\u00b0F",
+          "flags": [
+            "Wind 15+ mph",
+            "Gusts 30+ mph"
+          ],
+          "wind_mph": 15.0,
+          "gust_mph": 36.0,
+          "precip_in_hour": 0.028,
+          "snow_cm": 0.014,
+          "source": "Open-Meteo hourly forecast, local 15:00\u201319:00"
+        },
+        "team_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "opponent_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "injury_data_error": "ValueError",
+        "venue": "Acrisure Stadium",
+        "roof": "outdoors",
+        "game_date": "2026-11-27",
+        "weekday": "Friday",
+        "kickoff_eastern": "15:00",
+        "neutral_site": false
+      },
+      "projected_fg_attempts": 2.19,
+      "projected_xp": 2.6,
+      "projected_points": 8.99,
+      "source": "transparent heuristic (not yet calibrated)",
+      "raw_projected_fg_attempts": 2.19,
+      "raw_projected_points": 8.99,
+      "opp_fg_allowed_pg": 3.0,
+      "opp_rz_td_allowed_pct": 0.5666666666666667
+    },
+    {
+      "team": "DET",
+      "team_name": "Detroit Lions",
+      "games": 10,
+      "fg_attempts_pg": 1.9,
+      "fg_last3_pg": 2.0,
+      "fg_last5_pg": 2.2,
+      "fg_allowed_pg": 1.5,
+      "fg_allowed_last3_pg": 1.6666666666666667,
+      "rz_trips_pg": 4.9,
+      "rz_td_pct": 0.6938775510204082,
+      "rz_allowed_pg": 4.1,
+      "rz_td_allowed_pct": 0.6829268292682927,
+      "go_fg_range_pg": 0.8,
+      "form": {
+        "kicker": "J.Bates",
+        "weekly": [
+          {
+            "week": 1,
+            "points": 7.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 4
+          },
+          {
+            "week": 2,
+            "points": 7.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 4
+          },
+          {
+            "week": 3,
+            "points": 7.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 4
+          },
+          {
+            "week": 4,
+            "points": 18.0,
+            "attempts": 4,
+            "fg_made": 4,
+            "xp_made": 2
+          },
+          {
+            "week": 5,
+            "points": 10.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 6
+          },
+          {
+            "week": 7,
+            "points": 9.0,
+            "attempts": 2,
+            "fg_made": 2,
+            "xp_made": 2
+          },
+          {
+            "week": 8,
+            "points": 6.0,
+            "attempts": 3,
+            "fg_made": 2,
+            "xp_made": 1
+          },
+          {
+            "week": 9,
+            "points": 15.0,
+            "attempts": 4,
+            "fg_made": 4,
+            "xp_made": 1
+          },
+          {
+            "week": 10,
+            "points": 5.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 5
+          },
+          {
+            "week": 11,
+            "points": 8.0,
+            "attempts": 2,
+            "fg_made": 1,
+            "xp_made": 4
+          }
+        ],
+        "season_points": 92.0,
+        "season_ppg": 9.2,
+        "last3_ppg": 9.333333333333334,
+        "last5_ppg": 8.6,
+        "median_ppg": 7.5,
+        "robust_ppg": 8.51195,
+        "low_rate": 0.0,
+        "high_rate": 0.3,
+        "peak_share": 0.1956521739130435,
+        "fg_made": 17,
+        "fg_attempts": 19,
+        "xp_made": 33,
+        "fg_buckets_made": {
+          "0-39": 9,
+          "40-49": 6,
+          "50+": 2
+        },
+        "fg_buckets_attempts": {
+          "0-39": 9,
+          "40-49": 7,
+          "50+": 3
+        }
+      },
+      "opponent": "CHI",
+      "game_context": {
+        "weather": {
+          "status": "indoor",
+          "summary": "Indoor / roof closed",
+          "flags": []
+        },
+        "team_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "opponent_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "injury_data_error": "ValueError",
+        "venue": "Ford Field",
+        "roof": "dome",
+        "game_date": "2026-11-26",
+        "weekday": "Thursday",
+        "kickoff_eastern": "13:00",
+        "neutral_site": false
+      },
+      "projected_fg_attempts": 2.09,
+      "projected_xp": 3.32,
+      "projected_points": 9.54,
+      "source": "transparent heuristic (not yet calibrated)",
+      "raw_projected_fg_attempts": 2.09,
+      "raw_projected_points": 9.54,
+      "opp_fg_allowed_pg": 1.8,
+      "opp_rz_td_allowed_pct": 0.6111111111111112
+    },
+    {
+      "team": "GB",
+      "team_name": "Green Bay Packers",
+      "games": 10,
+      "fg_attempts_pg": 2.1,
+      "fg_last3_pg": 1.6666666666666667,
+      "fg_last5_pg": 2.2,
+      "fg_allowed_pg": 1.2,
+      "fg_allowed_last3_pg": 1.6666666666666667,
+      "rz_trips_pg": 4.4,
+      "rz_td_pct": 0.5909090909090909,
+      "rz_allowed_pg": 4.2,
+      "rz_td_allowed_pct": 0.6428571428571429,
+      "go_fg_range_pg": 0.6,
+      "form": {
+        "kicker": "T.Smack",
+        "weekly": [
+          {
+            "week": 1,
+            "points": 13.0,
+            "attempts": 3,
+            "fg_made": 3,
+            "xp_made": 1
+          },
+          {
+            "week": 2,
+            "points": 8.0,
+            "attempts": 2,
+            "fg_made": 2,
+            "xp_made": 2
+          },
+          {
+            "week": 3,
+            "points": 1.0,
+            "attempts": 1,
+            "fg_made": 0,
+            "xp_made": 2
+          },
+          {
+            "week": 4,
+            "points": 7.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 2
+          },
+          {
+            "week": 5,
+            "points": 3.0,
+            "attempts": 3,
+            "fg_made": 1,
+            "xp_made": 2
+          },
+          {
+            "week": 6,
+            "points": 12.0,
+            "attempts": 3,
+            "fg_made": 3,
+            "xp_made": 2
+          },
+          {
+            "week": 7,
+            "points": 4.0,
+            "attempts": 3,
+            "fg_made": 1,
+            "xp_made": 2
+          },
+          {
+            "week": 8,
+            "points": 3.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 3
+          },
+          {
+            "week": 9,
+            "points": 16.0,
+            "attempts": 3,
+            "fg_made": 3,
+            "xp_made": 4
+          },
+          {
+            "week": 10,
+            "points": 4.0,
+            "attempts": 2,
+            "fg_made": 1,
+            "xp_made": 1
+          }
+        ],
+        "season_points": 71.0,
+        "season_ppg": 7.1,
+        "last3_ppg": 7.666666666666667,
+        "last5_ppg": 7.8,
+        "median_ppg": 5.5,
+        "robust_ppg": 6.976625,
+        "low_rate": 0.5,
+        "high_rate": 0.3,
+        "peak_share": 0.22535211267605634,
+        "fg_made": 15,
+        "fg_attempts": 21,
+        "xp_made": 21,
+        "fg_buckets_made": {
+          "0-39": 7,
+          "40-49": 5,
+          "50+": 3
+        },
+        "fg_buckets_attempts": {
+          "0-39": 9,
+          "40-49": 8,
+          "50+": 4
+        }
+      },
+      "opponent": "LA",
+      "game_context": {
+        "weather": {
+          "status": "indoor",
+          "summary": "Indoor / roof closed",
+          "flags": []
+        },
+        "team_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "opponent_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "injury_data_error": "ValueError",
+        "venue": "SoFi Stadium",
+        "roof": "dome",
+        "game_date": "2026-11-25",
+        "weekday": "Wednesday",
+        "kickoff_eastern": "20:00",
+        "neutral_site": false
+      },
+      "projected_fg_attempts": 2.12,
+      "projected_xp": 2.41,
+      "projected_points": 8.26,
+      "source": "transparent heuristic (not yet calibrated)",
+      "raw_projected_fg_attempts": 2.12,
+      "raw_projected_points": 8.26,
+      "opp_fg_allowed_pg": 2.8,
+      "opp_rz_td_allowed_pct": 0.46875
+    },
+    {
+      "team": "HOU",
+      "team_name": "Houston Texans",
+      "games": 10,
+      "fg_attempts_pg": 2.1,
+      "fg_last3_pg": 1.6666666666666667,
+      "fg_last5_pg": 1.8,
+      "fg_allowed_pg": 2.6,
+      "fg_allowed_last3_pg": 3.0,
+      "rz_trips_pg": 4.2,
+      "rz_td_pct": 0.6666666666666666,
+      "rz_allowed_pg": 3.4,
+      "rz_td_allowed_pct": 0.6764705882352942,
+      "go_fg_range_pg": 0.6,
+      "form": {
+        "kicker": "K.Fairbairn",
+        "weekly": [
+          {
+            "week": 1,
+            "points": 9.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 4
+          },
+          {
+            "week": 2,
+            "points": 6.0,
+            "attempts": 3,
+            "fg_made": 2,
+            "xp_made": 0
+          },
+          {
+            "week": 3,
+            "points": 5.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 2
+          },
+          {
+            "week": 4,
+            "points": 16.0,
+            "attempts": 3,
+            "fg_made": 3,
+            "xp_made": 3
+          },
+          {
+            "week": 5,
+            "points": 17.0,
+            "attempts": 4,
+            "fg_made": 4,
+            "xp_made": 2
+          },
+          {
+            "week": 6,
+            "points": 11.0,
+            "attempts": 2,
+            "fg_made": 2,
+            "xp_made": 4
+          },
+          {
+            "week": 7,
+            "points": 11.0,
+            "attempts": 2,
+            "fg_made": 2,
+            "xp_made": 1
+          },
+          {
+            "week": 9,
+            "points": 17.0,
+            "attempts": 3,
+            "fg_made": 3,
+            "xp_made": 5
+          },
+          {
+            "week": 10,
+            "points": 7.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 3
+          },
+          {
+            "week": 11,
+            "points": 6.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 3
+          }
+        ],
+        "season_points": 105.0,
+        "season_ppg": 10.5,
+        "last3_ppg": 10.0,
+        "last5_ppg": 10.4,
+        "median_ppg": 10.0,
+        "robust_ppg": 10.5,
+        "low_rate": 0.0,
+        "high_rate": 0.5,
+        "peak_share": 0.1619047619047619,
+        "fg_made": 20,
+        "fg_attempts": 21,
+        "xp_made": 27,
+        "fg_buckets_made": {
+          "0-39": 8,
+          "40-49": 5,
+          "50+": 7
+        },
+        "fg_buckets_attempts": {
+          "0-39": 8,
+          "40-49": 5,
+          "50+": 8
+        }
+      },
+      "opponent": "BAL",
+      "game_context": {
+        "weather": {
+          "status": "roof_unknown",
+          "summary": "Roof state not verified",
+          "flags": []
+        },
+        "team_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "opponent_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "injury_data_error": "ValueError",
+        "venue": "Reliant Stadium",
+        "roof": "nan",
+        "game_date": "2026-11-29",
+        "weekday": "Sunday",
+        "kickoff_eastern": "13:00",
+        "neutral_site": false
+      },
+      "projected_fg_attempts": 2.18,
+      "projected_xp": 3.23,
+      "projected_points": 10.05,
+      "source": "transparent heuristic (not yet calibrated)",
+      "raw_projected_fg_attempts": 2.18,
+      "raw_projected_points": 10.05,
+      "opp_fg_allowed_pg": 2.4545454545454546,
+      "opp_rz_td_allowed_pct": 0.625
+    },
+    {
+      "team": "IND",
+      "team_name": "Indianapolis Colts",
+      "games": 11,
+      "fg_attempts_pg": 2.5454545454545454,
+      "fg_last3_pg": 2.3333333333333335,
+      "fg_last5_pg": 2.0,
+      "fg_allowed_pg": 2.4545454545454546,
+      "fg_allowed_last3_pg": 2.3333333333333335,
+      "rz_trips_pg": 2.727272727272727,
+      "rz_td_pct": 0.6333333333333333,
+      "rz_allowed_pg": 3.727272727272727,
+      "rz_td_allowed_pct": 0.7317073170731707,
+      "go_fg_range_pg": 0.36363636363636365,
+      "form": {
+        "kicker": "S.Shrader",
+        "weekly": [
+          {
+            "week": 1,
+            "points": 7.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 2
+          },
+          {
+            "week": 2,
+            "points": 14.0,
+            "attempts": 3,
+            "fg_made": 3,
+            "xp_made": 3
+          },
+          {
+            "week": 3,
+            "points": 17.0,
+            "attempts": 4,
+            "fg_made": 4,
+            "xp_made": 1
+          },
+          {
+            "week": 4,
+            "points": 16.0,
+            "attempts": 3,
+            "fg_made": 3,
+            "xp_made": 3
+          },
+          {
+            "week": 5,
+            "points": 21.0,
+            "attempts": 5,
+            "fg_made": 5,
+            "xp_made": 1
+          },
+          {
+            "week": 6,
+            "points": 9.0,
+            "attempts": 2,
+            "fg_made": 2,
+            "xp_made": 2
+          },
+          {
+            "week": 7,
+            "points": 3.0,
+            "attempts": 3,
+            "fg_made": 1,
+            "xp_made": 1
+          },
+          {
+            "week": 8,
+            "points": 1.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 1
+          },
+          {
+            "week": 9,
+            "points": 16.0,
+            "attempts": 3,
+            "fg_made": 3,
+            "xp_made": 2
+          },
+          {
+            "week": 10,
+            "points": 8.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 3
+          },
+          {
+            "week": 11,
+            "points": 1.0,
+            "attempts": 3,
+            "fg_made": 1,
+            "xp_made": 0
+          }
+        ],
+        "season_points": 113.0,
+        "season_ppg": 10.272727272727273,
+        "last3_ppg": 8.333333333333334,
+        "last5_ppg": 5.8,
+        "median_ppg": 9.0,
+        "robust_ppg": 10.272727272727273,
+        "low_rate": 0.2727272727272727,
+        "high_rate": 0.45454545454545453,
+        "peak_share": 0.18584070796460178,
+        "fg_made": 24,
+        "fg_attempts": 28,
+        "xp_made": 19,
+        "fg_buckets_made": {
+          "0-39": 7,
+          "40-49": 8,
+          "50+": 9
+        },
+        "fg_buckets_attempts": {
+          "0-39": 7,
+          "40-49": 9,
+          "50+": 12
+        }
+      },
+      "opponent": "NYG",
+      "game_context": {
+        "weather": {
+          "status": "roof_unknown",
+          "summary": "Roof state not verified",
+          "flags": []
+        },
+        "team_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "opponent_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "injury_data_error": "ValueError",
+        "venue": "Lucas Oil Stadium",
+        "roof": "nan",
+        "game_date": "2026-11-29",
+        "weekday": "Sunday",
+        "kickoff_eastern": "13:00",
+        "neutral_site": false
+      },
+      "projected_fg_attempts": 2.14,
+      "projected_xp": 1.69,
+      "projected_points": 8.29,
+      "source": "transparent heuristic (not yet calibrated)",
+      "raw_projected_fg_attempts": 2.14,
+      "raw_projected_points": 8.29,
+      "opp_fg_allowed_pg": 1.6,
+      "opp_rz_td_allowed_pct": 0.7142857142857143
+    },
+    {
+      "team": "JAX",
+      "team_name": "Jacksonville Jaguars",
+      "games": 10,
+      "fg_attempts_pg": 2.4,
+      "fg_last3_pg": 4.0,
+      "fg_last5_pg": 2.6,
+      "fg_allowed_pg": 1.8,
+      "fg_allowed_last3_pg": 2.6666666666666665,
+      "rz_trips_pg": 4.6,
+      "rz_td_pct": 0.6739130434782609,
+      "rz_allowed_pg": 3.2,
+      "rz_td_allowed_pct": 0.53125,
+      "go_fg_range_pg": 0.5,
+      "form": {
+        "kicker": "C.Little",
+        "weekly": [
+          {
+            "week": 1,
+            "points": 12.0,
+            "attempts": 2,
+            "fg_made": 2,
+            "xp_made": 4
+          },
+          {
+            "week": 2,
+            "points": 7.0,
+            "attempts": 3,
+            "fg_made": 2,
+            "xp_made": 1
+          },
+          {
+            "week": 3,
+            "points": 4.0,
+            "attempts": 1,
+            "fg_made": 0,
+            "xp_made": 5
+          },
+          {
+            "week": 4,
+            "points": 14.0,
+            "attempts": 3,
+            "fg_made": 3,
+            "xp_made": 1
+          },
+          {
+            "week": 5,
+            "points": 9.0,
+            "attempts": 2,
+            "fg_made": 2,
+            "xp_made": 1
+          },
+          {
+            "week": 6,
+            "points": 9.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 4
+          },
+          {
+            "week": 8,
+            "points": 6.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 6
+          },
+          {
+            "week": 9,
+            "points": 17.0,
+            "attempts": 4,
+            "fg_made": 4,
+            "xp_made": 3
+          },
+          {
+            "week": 10,
+            "points": 19.0,
+            "attempts": 4,
+            "fg_made": 4,
+            "xp_made": 4
+          },
+          {
+            "week": 11,
+            "points": 13.0,
+            "attempts": 4,
+            "fg_made": 4,
+            "xp_made": 0
+          }
+        ],
+        "season_points": 110.0,
+        "season_ppg": 11.0,
+        "last3_ppg": 16.333333333333332,
+        "last5_ppg": 12.8,
+        "median_ppg": 10.5,
+        "robust_ppg": 11.0,
+        "low_rate": 0.1,
+        "high_rate": 0.5,
+        "peak_share": 0.17272727272727273,
+        "fg_made": 22,
+        "fg_attempts": 24,
+        "xp_made": 29,
+        "fg_buckets_made": {
+          "0-39": 9,
+          "40-49": 9,
+          "50+": 4
+        },
+        "fg_buckets_attempts": {
+          "0-39": 9,
+          "40-49": 9,
+          "50+": 6
+        }
+      },
+      "opponent": "TEN",
+      "game_context": {
+        "weather": {
+          "status": "forecast",
+          "summary": "wind up to 4 mph, gusts 8 mph, precip up to 0.00 in/hr, 65\u00b0F",
+          "flags": [],
+          "wind_mph": 4.5,
+          "gust_mph": 8.1,
+          "precip_in_hour": 0.0,
+          "snow_cm": 0.0,
+          "source": "Open-Meteo hourly forecast, local 13:00\u201317:00"
+        },
+        "team_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "opponent_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "injury_data_error": "ValueError",
+        "venue": "EverBank Stadium",
+        "roof": "outdoors",
+        "game_date": "2026-11-29",
+        "weekday": "Sunday",
+        "kickoff_eastern": "13:00",
+        "neutral_site": false
+      },
+      "projected_fg_attempts": 2.81,
+      "projected_xp": 2.59,
+      "projected_points": 11.23,
+      "source": "transparent heuristic (not yet calibrated)",
+      "raw_projected_fg_attempts": 2.81,
+      "raw_projected_points": 11.23,
+      "opp_fg_allowed_pg": 2.5,
+      "opp_rz_td_allowed_pct": 0.6956521739130435
+    },
+    {
+      "team": "KC",
+      "team_name": "Kansas City Chiefs",
+      "games": 10,
+      "fg_attempts_pg": 2.1,
+      "fg_last3_pg": 1.0,
+      "fg_last5_pg": 1.6,
+      "fg_allowed_pg": 2.2,
+      "fg_allowed_last3_pg": 2.3333333333333335,
+      "rz_trips_pg": 4.6,
+      "rz_td_pct": 0.717391304347826,
+      "rz_allowed_pg": 3.1,
+      "rz_td_allowed_pct": 0.45161290322580644,
+      "go_fg_range_pg": 0.3,
+      "form": {
+        "kicker": "H.Butker",
+        "weekly": [
+          {
+            "week": 1,
+            "points": 7.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 4
+          },
+          {
+            "week": 2,
+            "points": 16.0,
+            "attempts": 5,
+            "fg_made": 4,
+            "xp_made": 3
+          },
+          {
+            "week": 3,
+            "points": 5.0,
+            "attempts": 2,
+            "fg_made": 1,
+            "xp_made": 3
+          },
+          {
+            "week": 4,
+            "points": 6.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 3
+          },
+          {
+            "week": 6,
+            "points": 12.0,
+            "attempts": 4,
+            "fg_made": 3,
+            "xp_made": 1
+          },
+          {
+            "week": 7,
+            "points": 3.0,
+            "attempts": 3,
+            "fg_made": 1,
+            "xp_made": 0
+          },
+          {
+            "week": 8,
+            "points": 6.0,
+            "attempts": 2,
+            "fg_made": 1,
+            "xp_made": 3
+          },
+          {
+            "week": 9,
+            "points": 4.0,
+            "attempts": 1,
+            "fg_made": 0,
+            "xp_made": 5
+          },
+          {
+            "week": 10,
+            "points": 5.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 5
+          },
+          {
+            "week": 11,
+            "points": 12.0,
+            "attempts": 2,
+            "fg_made": 2,
+            "xp_made": 4
+          }
+        ],
+        "season_points": 76.0,
+        "season_ppg": 7.6,
+        "last3_ppg": 7.0,
+        "last5_ppg": 6.0,
+        "median_ppg": 6.0,
+        "robust_ppg": 7.067925,
+        "low_rate": 0.2,
+        "high_rate": 0.3,
+        "peak_share": 0.21052631578947367,
+        "fg_made": 14,
+        "fg_attempts": 21,
+        "xp_made": 31,
+        "fg_buckets_made": {
+          "0-39": 6,
+          "40-49": 6,
+          "50+": 2
+        },
+        "fg_buckets_attempts": {
+          "0-39": 6,
+          "40-49": 7,
+          "50+": 8
+        }
+      },
+      "opponent": "BUF",
+      "game_context": {
+        "weather": {
+          "status": "forecast",
+          "summary": "wind up to 24 mph, gusts 49 mph, precip up to 0.10 in/hr, 38\u00b0F",
+          "flags": [
+            "Sustained wind 20+ mph",
+            "Gusts 30+ mph"
+          ],
+          "wind_mph": 24.0,
+          "gust_mph": 49.4,
+          "precip_in_hour": 0.098,
+          "snow_cm": 0.0,
+          "source": "Open-Meteo hourly forecast, local 20:00\u201324:00"
+        },
+        "team_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "opponent_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "injury_data_error": "ValueError",
+        "venue": "Highmark Stadium",
+        "roof": "outdoors",
+        "game_date": "2026-11-26",
+        "weekday": "Thursday",
+        "kickoff_eastern": "20:20",
+        "neutral_site": false
+      },
+      "projected_fg_attempts": 1.89,
+      "projected_xp": 3.96,
+      "projected_points": 9.16,
+      "source": "transparent heuristic (not yet calibrated)",
+      "raw_projected_fg_attempts": 1.89,
+      "raw_projected_points": 9.16,
+      "opp_fg_allowed_pg": 2.2,
+      "opp_rz_td_allowed_pct": 0.6111111111111112
+    },
+    {
+      "team": "LA",
+      "team_name": "Los Angeles Rams",
+      "games": 10,
+      "fg_attempts_pg": 1.5,
+      "fg_last3_pg": 1.6666666666666667,
+      "fg_last5_pg": 1.2,
+      "fg_allowed_pg": 2.8,
+      "fg_allowed_last3_pg": 2.3333333333333335,
+      "rz_trips_pg": 4.7,
+      "rz_td_pct": 0.6595744680851063,
+      "rz_allowed_pg": 3.2,
+      "rz_td_allowed_pct": 0.46875,
+      "go_fg_range_pg": 0.7,
+      "form": {
+        "kicker": "B.McManus",
+        "weekly": [
+          {
+            "week": 1,
+            "points": 0.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 0
+          },
+          {
+            "week": 2,
+            "points": 0.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 0
+          },
+          {
+            "week": 3,
+            "points": 0.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 0
+          },
+          {
+            "week": 4,
+            "points": 0.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 0
+          },
+          {
+            "week": 5,
+            "points": 0.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 0
+          },
+          {
+            "week": 6,
+            "points": 0.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 0
+          },
+          {
+            "week": 7,
+            "points": 5.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 5
+          },
+          {
+            "week": 8,
+            "points": 6.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 3
+          },
+          {
+            "week": 9,
+            "points": 8.0,
+            "attempts": 2,
+            "fg_made": 2,
+            "xp_made": 2
+          },
+          {
+            "week": 10,
+            "points": 11.0,
+            "attempts": 2,
+            "fg_made": 2,
+            "xp_made": 4
+          }
+        ],
+        "season_points": 30.0,
+        "season_ppg": 3.0,
+        "last3_ppg": 8.333333333333334,
+        "last5_ppg": 6.0,
+        "median_ppg": 0.0,
+        "robust_ppg": 2.0,
+        "low_rate": 0.6,
+        "high_rate": 0.1,
+        "peak_share": 0.36666666666666664,
+        "fg_made": 5,
+        "fg_attempts": 5,
+        "xp_made": 14,
+        "fg_buckets_made": {
+          "0-39": 4,
+          "40-49": 1,
+          "50+": 0
+        },
+        "fg_buckets_attempts": {
+          "0-39": 4,
+          "40-49": 1,
+          "50+": 0
+        }
+      },
+      "opponent": "GB",
+      "game_context": {
+        "weather": {
+          "status": "indoor",
+          "summary": "Indoor / roof closed",
+          "flags": []
+        },
+        "team_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "opponent_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "injury_data_error": "ValueError",
+        "venue": "SoFi Stadium",
+        "roof": "dome",
+        "game_date": "2026-11-25",
+        "weekday": "Wednesday",
+        "kickoff_eastern": "20:00",
+        "neutral_site": false
+      },
+      "projected_fg_attempts": 1.54,
+      "projected_xp": 2.28,
+      "projected_points": 6.77,
+      "source": "transparent heuristic (not yet calibrated)",
+      "raw_projected_fg_attempts": 1.54,
+      "raw_projected_points": 6.77,
+      "opp_fg_allowed_pg": 1.2,
+      "opp_rz_td_allowed_pct": 0.6428571428571429
+    },
+    {
+      "team": "LAC",
+      "team_name": "Los Angeles Chargers",
+      "games": 10,
+      "fg_attempts_pg": 2.1,
+      "fg_last3_pg": 2.3333333333333335,
+      "fg_last5_pg": 2.4,
+      "fg_allowed_pg": 2.4,
+      "fg_allowed_last3_pg": 2.3333333333333335,
+      "rz_trips_pg": 2.9,
+      "rz_td_pct": 0.5517241379310345,
+      "rz_allowed_pg": 5.0,
+      "rz_td_allowed_pct": 0.58,
+      "go_fg_range_pg": 0.4,
+      "form": {
+        "kicker": "C.Dicker",
+        "weekly": [
+          {
+            "week": 1,
+            "points": 2.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 2
+          },
+          {
+            "week": 2,
+            "points": 1.0,
+            "attempts": 1,
+            "fg_made": 0,
+            "xp_made": 2
+          },
+          {
+            "week": 3,
+            "points": 9.0,
+            "attempts": 4,
+            "fg_made": 3,
+            "xp_made": 1
+          },
+          {
+            "week": 4,
+            "points": 12.0,
+            "attempts": 3,
+            "fg_made": 3,
+            "xp_made": 2
+          },
+          {
+            "week": 5,
+            "points": 6.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 2
+          },
+          {
+            "week": 6,
+            "points": 6.0,
+            "attempts": 2,
+            "fg_made": 2,
+            "xp_made": 0
+          },
+          {
+            "week": 8,
+            "points": 11.0,
+            "attempts": 3,
+            "fg_made": 3,
+            "xp_made": 0
+          },
+          {
+            "week": 9,
+            "points": 13.0,
+            "attempts": 3,
+            "fg_made": 3,
+            "xp_made": 1
+          },
+          {
+            "week": 10,
+            "points": 11.0,
+            "attempts": 3,
+            "fg_made": 3,
+            "xp_made": 2
+          },
+          {
+            "week": 11,
+            "points": 8.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 3
+          }
+        ],
+        "season_points": 79.0,
+        "season_ppg": 7.9,
+        "last3_ppg": 10.666666666666666,
+        "last5_ppg": 9.8,
+        "median_ppg": 8.5,
+        "robust_ppg": 7.9,
+        "low_rate": 0.2,
+        "high_rate": 0.4,
+        "peak_share": 0.16455696202531644,
+        "fg_made": 19,
+        "fg_attempts": 21,
+        "xp_made": 15,
+        "fg_buckets_made": {
+          "0-39": 12,
+          "40-49": 5,
+          "50+": 2
+        },
+        "fg_buckets_attempts": {
+          "0-39": 12,
+          "40-49": 6,
+          "50+": 3
+        }
+      },
+      "opponent": "NE",
+      "game_context": {
+        "weather": {
+          "status": "indoor",
+          "summary": "Indoor / roof closed",
+          "flags": []
+        },
+        "team_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "opponent_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "injury_data_error": "ValueError",
+        "venue": "SoFi Stadium",
+        "roof": "dome",
+        "game_date": "2026-11-29",
+        "weekday": "Sunday",
+        "kickoff_eastern": "16:05",
+        "neutral_site": false
+      },
+      "projected_fg_attempts": 2.17,
+      "projected_xp": 1.78,
+      "projected_points": 8.18,
+      "source": "transparent heuristic (not yet calibrated)",
+      "raw_projected_fg_attempts": 2.17,
+      "raw_projected_points": 8.18,
+      "opp_fg_allowed_pg": 2.3,
+      "opp_rz_td_allowed_pct": 0.6585365853658537
+    },
+    {
+      "team": "LV",
+      "team_name": "Las Vegas Raiders",
+      "games": 11,
+      "fg_attempts_pg": 2.1818181818181817,
+      "fg_last3_pg": 1.3333333333333333,
+      "fg_last5_pg": 1.8,
+      "fg_allowed_pg": 1.5454545454545454,
+      "fg_allowed_last3_pg": 1.0,
+      "rz_trips_pg": 4.545454545454546,
+      "rz_td_pct": 0.58,
+      "rz_allowed_pg": 4.909090909090909,
+      "rz_td_allowed_pct": 0.7222222222222222,
+      "go_fg_range_pg": 0.5454545454545454,
+      "form": {
+        "kicker": "M.Gay",
+        "weekly": [
+          {
+            "week": 1,
+            "points": 10.0,
+            "attempts": 2,
+            "fg_made": 2,
+            "xp_made": 3
+          },
+          {
+            "week": 2,
+            "points": 8.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 3
+          },
+          {
+            "week": 3,
+            "points": 12.0,
+            "attempts": 3,
+            "fg_made": 3,
+            "xp_made": 2
+          },
+          {
+            "week": 4,
+            "points": 16.0,
+            "attempts": 4,
+            "fg_made": 4,
+            "xp_made": 1
+          },
+          {
+            "week": 5,
+            "points": 5.0,
+            "attempts": 2,
+            "fg_made": 1,
+            "xp_made": 2
+          },
+          {
+            "week": 6,
+            "points": 12.0,
+            "attempts": 3,
+            "fg_made": 3,
+            "xp_made": 3
+          },
+          {
+            "week": 7,
+            "points": 8.0,
+            "attempts": 4,
+            "fg_made": 3,
+            "xp_made": 0
+          },
+          {
+            "week": 8,
+            "points": 10.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 5
+          },
+          {
+            "week": 9,
+            "points": 7.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 2
+          },
+          {
+            "week": 10,
+            "points": 8.0,
+            "attempts": 2,
+            "fg_made": 2,
+            "xp_made": 1
+          },
+          {
+            "week": 11,
+            "points": 6.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 3
+          }
+        ],
+        "season_points": 102.0,
+        "season_ppg": 9.272727272727273,
+        "last3_ppg": 7.0,
+        "last5_ppg": 7.8,
+        "median_ppg": 8.0,
+        "robust_ppg": 9.219363636363637,
+        "low_rate": 0.0,
+        "high_rate": 0.45454545454545453,
+        "peak_share": 0.1568627450980392,
+        "fg_made": 22,
+        "fg_attempts": 24,
+        "xp_made": 25,
+        "fg_buckets_made": {
+          "0-39": 12,
+          "40-49": 7,
+          "50+": 3
+        },
+        "fg_buckets_attempts": {
+          "0-39": 12,
+          "40-49": 8,
+          "50+": 4
+        }
+      },
+      "opponent": "CLE",
+      "game_context": {
+        "weather": {
+          "status": "forecast",
+          "summary": "wind up to 11 mph, gusts 31 mph, precip up to 0.12 in/hr, 49\u00b0F",
+          "flags": [
+            "Gusts 30+ mph"
+          ],
+          "wind_mph": 10.9,
+          "gust_mph": 31.3,
+          "precip_in_hour": 0.118,
+          "snow_cm": 0.0,
+          "source": "Open-Meteo hourly forecast, local 20:00\u201324:00"
+        },
+        "team_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "opponent_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "injury_data_error": "ValueError",
+        "venue": "Huntington Bank Field",
+        "roof": "outdoors",
+        "game_date": "2026-11-29",
+        "weekday": "Sunday",
+        "kickoff_eastern": "20:20",
+        "neutral_site": false
+      },
+      "projected_fg_attempts": 1.99,
+      "projected_xp": 2.12,
+      "projected_points": 8.1,
+      "source": "transparent heuristic (not yet calibrated)",
+      "raw_projected_fg_attempts": 1.99,
+      "raw_projected_points": 8.1,
+      "opp_fg_allowed_pg": 2.4,
+      "opp_rz_td_allowed_pct": 0.5897435897435898
+    },
+    {
+      "team": "MIA",
+      "team_name": "Miami Dolphins",
+      "games": 10,
+      "fg_attempts_pg": 2.2,
+      "fg_last3_pg": 3.3333333333333335,
+      "fg_last5_pg": 2.6,
+      "fg_allowed_pg": 2.4,
+      "fg_allowed_last3_pg": 3.3333333333333335,
+      "rz_trips_pg": 2.8,
+      "rz_td_pct": 0.5357142857142857,
+      "rz_allowed_pg": 4.2,
+      "rz_td_allowed_pct": 0.6190476190476191,
+      "go_fg_range_pg": 0.4,
+      "form": {
+        "kicker": "D.Carlson",
+        "weekly": [
+          {
+            "week": 1,
+            "points": 0.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 0
+          },
+          {
+            "week": 2,
+            "points": 0.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 0
+          },
+          {
+            "week": 3,
+            "points": 0.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 0
+          },
+          {
+            "week": 4,
+            "points": 0.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 0
+          },
+          {
+            "week": 5,
+            "points": 0.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 0
+          },
+          {
+            "week": 7,
+            "points": 0.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 0
+          },
+          {
+            "week": 8,
+            "points": 0.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 0
+          },
+          {
+            "week": 9,
+            "points": 0.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 0
+          },
+          {
+            "week": 10,
+            "points": 0.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 0
+          },
+          {
+            "week": 11,
+            "points": 13.0,
+            "attempts": 3,
+            "fg_made": 3,
+            "xp_made": 0
+          }
+        ],
+        "season_points": 13.0,
+        "season_ppg": 1.3,
+        "last3_ppg": 4.333333333333333,
+        "last5_ppg": 2.6,
+        "median_ppg": 0.0,
+        "robust_ppg": 0.5,
+        "low_rate": 0.9,
+        "high_rate": 0.1,
+        "peak_share": 1.0,
+        "fg_made": 3,
+        "fg_attempts": 3,
+        "xp_made": 0,
+        "fg_buckets_made": {
+          "0-39": 1,
+          "40-49": 0,
+          "50+": 2
+        },
+        "fg_buckets_attempts": {
+          "0-39": 1,
+          "40-49": 0,
+          "50+": 2
+        }
+      },
+      "opponent": "NYJ",
+      "game_context": {
+        "weather": {
+          "status": "forecast",
+          "summary": "wind up to 8 mph, gusts 9 mph, precip up to 0.00 in/hr, 78\u00b0F",
+          "flags": [],
+          "wind_mph": 8.3,
+          "gust_mph": 9.4,
+          "precip_in_hour": 0.0,
+          "snow_cm": 0.0,
+          "source": "Open-Meteo hourly forecast, local 13:00\u201317:00"
+        },
+        "team_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "opponent_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "injury_data_error": "ValueError",
+        "venue": "Hard Rock Stadium",
+        "roof": "outdoors",
+        "game_date": "2026-11-29",
+        "weekday": "Sunday",
+        "kickoff_eastern": "13:00",
+        "neutral_site": false
+      },
+      "projected_fg_attempts": 2.18,
+      "projected_xp": 0.0,
+      "projected_points": 6.49,
+      "source": "transparent heuristic (not yet calibrated)",
+      "raw_projected_fg_attempts": 2.18,
+      "raw_projected_points": 6.49,
+      "opp_fg_allowed_pg": 1.3636363636363635,
+      "opp_rz_td_allowed_pct": 0.717391304347826
+    },
+    {
+      "team": "MIN",
+      "team_name": "Minnesota Vikings",
+      "games": 10,
+      "fg_attempts_pg": 2.8,
+      "fg_last3_pg": 2.6666666666666665,
+      "fg_last5_pg": 2.6,
+      "fg_allowed_pg": 2.0,
+      "fg_allowed_last3_pg": 1.6666666666666667,
+      "rz_trips_pg": 2.9,
+      "rz_td_pct": 0.5172413793103449,
+      "rz_allowed_pg": 3.1,
+      "rz_td_allowed_pct": 0.4838709677419355,
+      "go_fg_range_pg": 0.8,
+      "form": {
+        "kicker": "W.Reichard",
+        "weekly": [
+          {
+            "week": 1,
+            "points": 7.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 4
+          },
+          {
+            "week": 2,
+            "points": 10.0,
+            "attempts": 3,
+            "fg_made": 3,
+            "xp_made": 0
+          },
+          {
+            "week": 3,
+            "points": 16.0,
+            "attempts": 3,
+            "fg_made": 3,
+            "xp_made": 2
+          },
+          {
+            "week": 4,
+            "points": 19.0,
+            "attempts": 5,
+            "fg_made": 5,
+            "xp_made": 0
+          },
+          {
+            "week": 5,
+            "points": 16.0,
+            "attempts": 3,
+            "fg_made": 3,
+            "xp_made": 2
+          },
+          {
+            "week": 7,
+            "points": 12.0,
+            "attempts": 4,
+            "fg_made": 3,
+            "xp_made": 1
+          },
+          {
+            "week": 8,
+            "points": 0.0,
+            "attempts": 1,
+            "fg_made": 0,
+            "xp_made": 1
+          },
+          {
+            "week": 9,
+            "points": 9.0,
+            "attempts": 2,
+            "fg_made": 2,
+            "xp_made": 0
+          },
+          {
+            "week": 10,
+            "points": 12.0,
+            "attempts": 3,
+            "fg_made": 3,
+            "xp_made": 3
+          },
+          {
+            "week": 11,
+            "points": 3.0,
+            "attempts": 3,
+            "fg_made": 1,
+            "xp_made": 1
+          }
+        ],
+        "season_points": 104.0,
+        "season_ppg": 10.4,
+        "last3_ppg": 8.0,
+        "last5_ppg": 7.2,
+        "median_ppg": 11.0,
+        "robust_ppg": 10.4,
+        "low_rate": 0.2,
+        "high_rate": 0.6,
+        "peak_share": 0.18269230769230768,
+        "fg_made": 24,
+        "fg_attempts": 28,
+        "xp_made": 14,
+        "fg_buckets_made": {
+          "0-39": 9,
+          "40-49": 8,
+          "50+": 7
+        },
+        "fg_buckets_attempts": {
+          "0-39": 9,
+          "40-49": 8,
+          "50+": 11
+        }
+      },
+      "opponent": "ATL",
+      "game_context": {
+        "weather": {
+          "status": "indoor",
+          "summary": "Indoor / roof closed",
+          "flags": []
+        },
+        "team_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "opponent_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "injury_data_error": "ValueError",
+        "venue": "U.S. Bank Stadium",
+        "roof": "dome",
+        "game_date": "2026-11-29",
+        "weekday": "Sunday",
+        "kickoff_eastern": "13:00",
+        "neutral_site": false
+      },
+      "projected_fg_attempts": 2.27,
+      "projected_xp": 1.36,
+      "projected_points": 8.24,
+      "source": "transparent heuristic (not yet calibrated)",
+      "raw_projected_fg_attempts": 2.27,
+      "raw_projected_points": 8.24,
+      "opp_fg_allowed_pg": 1.8,
+      "opp_rz_td_allowed_pct": 0.7073170731707317
+    },
+    {
+      "team": "NE",
+      "team_name": "New England Patriots",
+      "games": 10,
+      "fg_attempts_pg": 1.4,
+      "fg_last3_pg": 1.0,
+      "fg_last5_pg": 1.2,
+      "fg_allowed_pg": 2.3,
+      "fg_allowed_last3_pg": 2.0,
+      "rz_trips_pg": 3.8,
+      "rz_td_pct": 0.6842105263157895,
+      "rz_allowed_pg": 4.1,
+      "rz_td_allowed_pct": 0.6585365853658537,
+      "go_fg_range_pg": 0.5,
+      "form": {
+        "kicker": "A.Borregales",
+        "weekly": [
+          {
+            "week": 1,
+            "points": 6.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 1
+          },
+          {
+            "week": 2,
+            "points": 8.0,
+            "attempts": 3,
+            "fg_made": 2,
+            "xp_made": 2
+          },
+          {
+            "week": 3,
+            "points": 6.0,
+            "attempts": 3,
+            "fg_made": 2,
+            "xp_made": 0
+          },
+          {
+            "week": 4,
+            "points": 3.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 3
+          },
+          {
+            "week": 5,
+            "points": 9.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 6
+          },
+          {
+            "week": 6,
+            "points": 8.0,
+            "attempts": 2,
+            "fg_made": 2,
+            "xp_made": 2
+          },
+          {
+            "week": 7,
+            "points": 7.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 3
+          },
+          {
+            "week": 8,
+            "points": 5.0,
+            "attempts": 2,
+            "fg_made": 1,
+            "xp_made": 3
+          },
+          {
+            "week": 9,
+            "points": 3.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 3
+          },
+          {
+            "week": 10,
+            "points": 4.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 1
+          }
+        ],
+        "season_points": 59.0,
+        "season_ppg": 5.9,
+        "last3_ppg": 4.0,
+        "last5_ppg": 5.4,
+        "median_ppg": 6.0,
+        "robust_ppg": 5.9,
+        "low_rate": 0.3,
+        "high_rate": 0.0,
+        "peak_share": 0.15254237288135594,
+        "fg_made": 11,
+        "fg_attempts": 14,
+        "xp_made": 24,
+        "fg_buckets_made": {
+          "0-39": 7,
+          "40-49": 3,
+          "50+": 1
+        },
+        "fg_buckets_attempts": {
+          "0-39": 8,
+          "40-49": 5,
+          "50+": 1
+        }
+      },
+      "opponent": "LAC",
+      "game_context": {
+        "weather": {
+          "status": "indoor",
+          "summary": "Indoor / roof closed",
+          "flags": []
+        },
+        "team_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "opponent_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "injury_data_error": "ValueError",
+        "venue": "SoFi Stadium",
+        "roof": "dome",
+        "game_date": "2026-11-29",
+        "weekday": "Sunday",
+        "kickoff_eastern": "16:05",
+        "neutral_site": false
+      },
+      "projected_fg_attempts": 1.62,
+      "projected_xp": 2.36,
+      "projected_points": 6.91,
+      "source": "transparent heuristic (not yet calibrated)",
+      "raw_projected_fg_attempts": 1.62,
+      "raw_projected_points": 6.91,
+      "opp_fg_allowed_pg": 2.4,
+      "opp_rz_td_allowed_pct": 0.58
+    },
+    {
+      "team": "NO",
+      "team_name": "New Orleans Saints",
+      "games": 10,
+      "fg_attempts_pg": 2.0,
+      "fg_last3_pg": 2.6666666666666665,
+      "fg_last5_pg": 2.6,
+      "fg_allowed_pg": 2.3,
+      "fg_allowed_last3_pg": 2.6666666666666665,
+      "rz_trips_pg": 3.4,
+      "rz_td_pct": 0.7058823529411765,
+      "rz_allowed_pg": 4.6,
+      "rz_td_allowed_pct": 0.6086956521739131,
+      "go_fg_range_pg": 0.5,
+      "form": {
+        "kicker": "C.Smyth",
+        "weekly": [
+          {
+            "week": 1,
+            "points": 0.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 0
+          },
+          {
+            "week": 2,
+            "points": 0.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 0
+          },
+          {
+            "week": 3,
+            "points": 0.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 0
+          },
+          {
+            "week": 4,
+            "points": 0.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 0
+          },
+          {
+            "week": 5,
+            "points": 0.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 0
+          },
+          {
+            "week": 6,
+            "points": 0.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 0
+          },
+          {
+            "week": 7,
+            "points": 0.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 0
+          },
+          {
+            "week": 9,
+            "points": 11.0,
+            "attempts": 4,
+            "fg_made": 3,
+            "xp_made": 2
+          },
+          {
+            "week": 10,
+            "points": 7.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 2
+          },
+          {
+            "week": 11,
+            "points": 10.0,
+            "attempts": 3,
+            "fg_made": 2,
+            "xp_made": 1
+          }
+        ],
+        "season_points": 28.0,
+        "season_ppg": 2.8,
+        "last3_ppg": 9.333333333333334,
+        "last5_ppg": 5.6,
+        "median_ppg": 0.0,
+        "robust_ppg": 1.5,
+        "low_rate": 0.7,
+        "high_rate": 0.2,
+        "peak_share": 0.39285714285714285,
+        "fg_made": 6,
+        "fg_attempts": 8,
+        "xp_made": 5,
+        "fg_buckets_made": {
+          "0-39": 2,
+          "40-49": 1,
+          "50+": 3
+        },
+        "fg_buckets_attempts": {
+          "0-39": 2,
+          "40-49": 2,
+          "50+": 4
+        }
+      },
+      "opponent": "CIN",
+      "game_context": {
+        "weather": {
+          "status": "forecast",
+          "summary": "wind up to 14 mph, gusts 38 mph, precip up to 0.04 in/hr, 53\u00b0F",
+          "flags": [
+            "Gusts 30+ mph"
+          ],
+          "wind_mph": 13.8,
+          "gust_mph": 37.8,
+          "precip_in_hour": 0.039,
+          "snow_cm": 0.0,
+          "source": "Open-Meteo hourly forecast, local 13:00\u201317:00"
+        },
+        "team_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "opponent_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "injury_data_error": "ValueError",
+        "venue": "Paycor Stadium",
+        "roof": "outdoors",
+        "game_date": "2026-11-29",
+        "weekday": "Sunday",
+        "kickoff_eastern": "13:00",
+        "neutral_site": false
+      },
+      "projected_fg_attempts": 2.5,
+      "projected_xp": 1.14,
+      "projected_points": 8.5,
+      "source": "transparent heuristic (not yet calibrated)",
+      "raw_projected_fg_attempts": 2.5,
+      "raw_projected_points": 8.5,
+      "opp_fg_allowed_pg": 2.4,
+      "opp_rz_td_allowed_pct": 0.4878048780487805
+    },
+    {
+      "team": "NYG",
+      "team_name": "New York Giants",
+      "games": 10,
+      "fg_attempts_pg": 2.7,
+      "fg_last3_pg": 3.0,
+      "fg_last5_pg": 2.6,
+      "fg_allowed_pg": 1.6,
+      "fg_allowed_last3_pg": 2.0,
+      "rz_trips_pg": 3.4,
+      "rz_td_pct": 0.6470588235294118,
+      "rz_allowed_pg": 3.5,
+      "rz_td_allowed_pct": 0.7142857142857143,
+      "go_fg_range_pg": 0.7,
+      "form": {
+        "kicker": "D.Zvada",
+        "weekly": [
+          {
+            "week": 1,
+            "points": 4.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 4
+          },
+          {
+            "week": 2,
+            "points": 8.0,
+            "attempts": 2,
+            "fg_made": 2,
+            "xp_made": 0
+          },
+          {
+            "week": 3,
+            "points": 12.0,
+            "attempts": 4,
+            "fg_made": 4,
+            "xp_made": 0
+          },
+          {
+            "week": 4,
+            "points": 14.0,
+            "attempts": 3,
+            "fg_made": 3,
+            "xp_made": 1
+          },
+          {
+            "week": 5,
+            "points": 10.0,
+            "attempts": 5,
+            "fg_made": 2,
+            "xp_made": 3
+          },
+          {
+            "week": 6,
+            "points": 8.0,
+            "attempts": 2,
+            "fg_made": 2,
+            "xp_made": 1
+          },
+          {
+            "week": 7,
+            "points": 1.0,
+            "attempts": 2,
+            "fg_made": 0,
+            "xp_made": 3
+          },
+          {
+            "week": 9,
+            "points": 17.0,
+            "attempts": 4,
+            "fg_made": 4,
+            "xp_made": 1
+          },
+          {
+            "week": 10,
+            "points": 2.0,
+            "attempts": 1,
+            "fg_made": 0,
+            "xp_made": 3
+          },
+          {
+            "week": 11,
+            "points": 15.0,
+            "attempts": 4,
+            "fg_made": 3,
+            "xp_made": 2
+          }
+        ],
+        "season_points": 91.0,
+        "season_ppg": 9.1,
+        "last3_ppg": 11.333333333333334,
+        "last5_ppg": 8.6,
+        "median_ppg": 9.0,
+        "robust_ppg": 9.1,
+        "low_rate": 0.3,
+        "high_rate": 0.5,
+        "peak_share": 0.18681318681318682,
+        "fg_made": 20,
+        "fg_attempts": 27,
+        "xp_made": 18,
+        "fg_buckets_made": {
+          "0-39": 8,
+          "40-49": 4,
+          "50+": 8
+        },
+        "fg_buckets_attempts": {
+          "0-39": 10,
+          "40-49": 6,
+          "50+": 11
+        }
+      },
+      "opponent": "IND",
+      "game_context": {
+        "weather": {
+          "status": "roof_unknown",
+          "summary": "Roof state not verified",
+          "flags": []
+        },
+        "team_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "opponent_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "injury_data_error": "ValueError",
+        "venue": "Lucas Oil Stadium",
+        "roof": "nan",
+        "game_date": "2026-11-29",
+        "weekday": "Sunday",
+        "kickoff_eastern": "13:00",
+        "neutral_site": false
+      },
+      "projected_fg_attempts": 2.63,
+      "projected_xp": 1.91,
+      "projected_points": 9.44,
+      "source": "transparent heuristic (not yet calibrated)",
+      "raw_projected_fg_attempts": 2.63,
+      "raw_projected_points": 9.44,
+      "opp_fg_allowed_pg": 2.4545454545454546,
+      "opp_rz_td_allowed_pct": 0.7317073170731707
+    },
+    {
+      "team": "NYJ",
+      "team_name": "New York Jets",
+      "games": 11,
+      "fg_attempts_pg": 2.727272727272727,
+      "fg_last3_pg": 3.6666666666666665,
+      "fg_last5_pg": 3.4,
+      "fg_allowed_pg": 1.3636363636363635,
+      "fg_allowed_last3_pg": 1.0,
+      "rz_trips_pg": 3.727272727272727,
+      "rz_td_pct": 0.4878048780487805,
+      "rz_allowed_pg": 4.181818181818182,
+      "rz_td_allowed_pct": 0.717391304347826,
+      "go_fg_range_pg": 0.7272727272727273,
+      "form": {
+        "kicker": "J.Sanders",
+        "weekly": [
+          {
+            "week": 1,
+            "points": 14.0,
+            "attempts": 4,
+            "fg_made": 3,
+            "xp_made": 2
+          },
+          {
+            "week": 2,
+            "points": 5.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 2
+          },
+          {
+            "week": 3,
+            "points": 5.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 1
+          },
+          {
+            "week": 4,
+            "points": 6.0,
+            "attempts": 2,
+            "fg_made": 2,
+            "xp_made": 0
+          },
+          {
+            "week": 5,
+            "points": 7.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 2
+          },
+          {
+            "week": 6,
+            "points": 15.0,
+            "attempts": 4,
+            "fg_made": 4,
+            "xp_made": 1
+          },
+          {
+            "week": 7,
+            "points": 4.0,
+            "attempts": 2,
+            "fg_made": 1,
+            "xp_made": 2
+          },
+          {
+            "week": 8,
+            "points": 15.0,
+            "attempts": 4,
+            "fg_made": 4,
+            "xp_made": 3
+          },
+          {
+            "week": 9,
+            "points": 15.0,
+            "attempts": 5,
+            "fg_made": 4,
+            "xp_made": 0
+          },
+          {
+            "week": 10,
+            "points": 14.0,
+            "attempts": 4,
+            "fg_made": 4,
+            "xp_made": 0
+          },
+          {
+            "week": 11,
+            "points": 11.0,
+            "attempts": 2,
+            "fg_made": 2,
+            "xp_made": 3
+          }
+        ],
+        "season_points": 111.0,
+        "season_ppg": 10.090909090909092,
+        "last3_ppg": 13.333333333333334,
+        "last5_ppg": 11.8,
+        "median_ppg": 11.0,
+        "robust_ppg": 10.090909090909092,
+        "low_rate": 0.09090909090909091,
+        "high_rate": 0.5454545454545454,
+        "peak_share": 0.13513513513513514,
+        "fg_made": 27,
+        "fg_attempts": 30,
+        "xp_made": 16,
+        "fg_buckets_made": {
+          "0-39": 15,
+          "40-49": 7,
+          "50+": 5
+        },
+        "fg_buckets_attempts": {
+          "0-39": 15,
+          "40-49": 8,
+          "50+": 7
+        }
+      },
+      "opponent": "MIA",
+      "game_context": {
+        "weather": {
+          "status": "forecast",
+          "summary": "wind up to 8 mph, gusts 9 mph, precip up to 0.00 in/hr, 78\u00b0F",
+          "flags": [],
+          "wind_mph": 8.3,
+          "gust_mph": 9.4,
+          "precip_in_hour": 0.0,
+          "snow_cm": 0.0,
+          "source": "Open-Meteo hourly forecast, local 13:00\u201317:00"
+        },
+        "team_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "opponent_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "injury_data_error": "ValueError",
+        "venue": "Hard Rock Stadium",
+        "roof": "outdoors",
+        "game_date": "2026-11-29",
+        "weekday": "Sunday",
+        "kickoff_eastern": "13:00",
+        "neutral_site": false
+      },
+      "projected_fg_attempts": 3.16,
+      "projected_xp": 1.2,
+      "projected_points": 10.69,
+      "source": "transparent heuristic (not yet calibrated)",
+      "raw_projected_fg_attempts": 3.16,
+      "raw_projected_points": 10.69,
+      "opp_fg_allowed_pg": 2.4,
+      "opp_rz_td_allowed_pct": 0.6190476190476191
+    },
+    {
+      "team": "PHI",
+      "team_name": "Philadelphia Eagles",
+      "games": 10,
+      "fg_attempts_pg": 1.2,
+      "fg_last3_pg": 2.3333333333333335,
+      "fg_last5_pg": 1.4,
+      "fg_allowed_pg": 2.7,
+      "fg_allowed_last3_pg": 4.0,
+      "rz_trips_pg": 2.7,
+      "rz_td_pct": 0.7037037037037037,
+      "rz_allowed_pg": 4.1,
+      "rz_td_allowed_pct": 0.5853658536585366,
+      "go_fg_range_pg": 0.1,
+      "form": {
+        "kicker": "J.Elliott",
+        "weekly": [
+          {
+            "week": 1,
+            "points": 6.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 3
+          },
+          {
+            "week": 2,
+            "points": 8.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 3
+          },
+          {
+            "week": 3,
+            "points": 1.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 1
+          },
+          {
+            "week": 4,
+            "points": 10.0,
+            "attempts": 2,
+            "fg_made": 2,
+            "xp_made": 2
+          },
+          {
+            "week": 5,
+            "points": 6.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 2
+          },
+          {
+            "week": 6,
+            "points": 2.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 2
+          },
+          {
+            "week": 7,
+            "points": 3.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 3
+          },
+          {
+            "week": 8,
+            "points": 4.0,
+            "attempts": 2,
+            "fg_made": 1,
+            "xp_made": 1
+          },
+          {
+            "week": 9,
+            "points": 4.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 0
+          },
+          {
+            "week": 11,
+            "points": 18.0,
+            "attempts": 4,
+            "fg_made": 4,
+            "xp_made": 1
+          }
+        ],
+        "season_points": 62.0,
+        "season_ppg": 6.2,
+        "last3_ppg": 8.666666666666666,
+        "last5_ppg": 6.2,
+        "median_ppg": 5.0,
+        "robust_ppg": 5.826625,
+        "low_rate": 0.5,
+        "high_rate": 0.2,
+        "peak_share": 0.2903225806451613,
+        "fg_made": 11,
+        "fg_attempts": 12,
+        "xp_made": 18,
+        "fg_buckets_made": {
+          "0-39": 3,
+          "40-49": 4,
+          "50+": 4
+        },
+        "fg_buckets_attempts": {
+          "0-39": 3,
+          "40-49": 5,
+          "50+": 4
+        }
+      },
+      "opponent": "DAL",
+      "game_context": {
+        "weather": {
+          "status": "roof_unknown",
+          "summary": "Roof state not verified",
+          "flags": []
+        },
+        "team_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "opponent_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "injury_data_error": "ValueError",
+        "venue": "AT&T Stadium",
+        "roof": "nan",
+        "game_date": "2026-11-26",
+        "weekday": "Thursday",
+        "kickoff_eastern": "16:30",
+        "neutral_site": false
+      },
+      "projected_fg_attempts": 2.0,
+      "projected_xp": 1.18,
+      "projected_points": 7.27,
+      "source": "transparent heuristic (not yet calibrated)",
+      "raw_projected_fg_attempts": 2.0,
+      "raw_projected_points": 7.27,
+      "opp_fg_allowed_pg": 1.9090909090909092,
+      "opp_rz_td_allowed_pct": 0.6792452830188679
+    },
+    {
+      "team": "PIT",
+      "team_name": "Pittsburgh Steelers",
+      "games": 10,
+      "fg_attempts_pg": 2.7,
+      "fg_last3_pg": 2.3333333333333335,
+      "fg_last5_pg": 3.0,
+      "fg_allowed_pg": 3.0,
+      "fg_allowed_last3_pg": 2.6666666666666665,
+      "rz_trips_pg": 3.6,
+      "rz_td_pct": 0.5555555555555556,
+      "rz_allowed_pg": 3.0,
+      "rz_td_allowed_pct": 0.5666666666666667,
+      "go_fg_range_pg": 0.4,
+      "form": {
+        "kicker": "C.Boswell",
+        "weekly": [
+          {
+            "week": 1,
+            "points": 8.0,
+            "attempts": 3,
+            "fg_made": 2,
+            "xp_made": 2
+          },
+          {
+            "week": 2,
+            "points": 4.0,
+            "attempts": 2,
+            "fg_made": 1,
+            "xp_made": 0
+          },
+          {
+            "week": 3,
+            "points": 13.0,
+            "attempts": 3,
+            "fg_made": 3,
+            "xp_made": 3
+          },
+          {
+            "week": 4,
+            "points": 3.0,
+            "attempts": 2,
+            "fg_made": 1,
+            "xp_made": 1
+          },
+          {
+            "week": 5,
+            "points": 13.0,
+            "attempts": 2,
+            "fg_made": 2,
+            "xp_made": 4
+          },
+          {
+            "week": 6,
+            "points": 17.0,
+            "attempts": 5,
+            "fg_made": 4,
+            "xp_made": 2
+          },
+          {
+            "week": 7,
+            "points": 11.0,
+            "attempts": 3,
+            "fg_made": 3,
+            "xp_made": 1
+          },
+          {
+            "week": 8,
+            "points": 8.0,
+            "attempts": 3,
+            "fg_made": 2,
+            "xp_made": 3
+          },
+          {
+            "week": 10,
+            "points": 5.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 1
+          },
+          {
+            "week": 11,
+            "points": 13.0,
+            "attempts": 3,
+            "fg_made": 3,
+            "xp_made": 1
+          }
+        ],
+        "season_points": 95.0,
+        "season_ppg": 9.5,
+        "last3_ppg": 8.666666666666666,
+        "last5_ppg": 10.8,
+        "median_ppg": 9.5,
+        "robust_ppg": 9.5,
+        "low_rate": 0.2,
+        "high_rate": 0.5,
+        "peak_share": 0.17894736842105263,
+        "fg_made": 22,
+        "fg_attempts": 27,
+        "xp_made": 18,
+        "fg_buckets_made": {
+          "0-39": 11,
+          "40-49": 6,
+          "50+": 5
+        },
+        "fg_buckets_attempts": {
+          "0-39": 11,
+          "40-49": 8,
+          "50+": 8
+        }
+      },
+      "opponent": "DEN",
+      "game_context": {
+        "weather": {
+          "status": "forecast",
+          "summary": "wind up to 15 mph, gusts 36 mph, precip up to 0.03 in/hr, 40\u00b0F",
+          "flags": [
+            "Wind 15+ mph",
+            "Gusts 30+ mph"
+          ],
+          "wind_mph": 15.0,
+          "gust_mph": 36.0,
+          "precip_in_hour": 0.028,
+          "snow_cm": 0.014,
+          "source": "Open-Meteo hourly forecast, local 15:00\u201319:00"
+        },
+        "team_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "opponent_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "injury_data_error": "ValueError",
+        "venue": "Acrisure Stadium",
+        "roof": "outdoors",
+        "game_date": "2026-11-27",
+        "weekday": "Friday",
+        "kickoff_eastern": "15:00",
+        "neutral_site": false
+      },
+      "projected_fg_attempts": 2.12,
+      "projected_xp": 1.73,
+      "projected_points": 7.92,
+      "source": "transparent heuristic (not yet calibrated)",
+      "raw_projected_fg_attempts": 2.12,
+      "raw_projected_points": 7.92,
+      "opp_fg_allowed_pg": 2.1,
+      "opp_rz_td_allowed_pct": 0.5897435897435898
+    },
+    {
+      "team": "SEA",
+      "team_name": "Seattle Seahawks",
+      "games": 10,
+      "fg_attempts_pg": 1.9,
+      "fg_last3_pg": 1.3333333333333333,
+      "fg_last5_pg": 1.8,
+      "fg_allowed_pg": 1.7,
+      "fg_allowed_last3_pg": 1.6666666666666667,
+      "rz_trips_pg": 4.1,
+      "rz_td_pct": 0.6097560975609756,
+      "rz_allowed_pg": 2.5,
+      "rz_td_allowed_pct": 0.68,
+      "go_fg_range_pg": 0.2,
+      "form": {
+        "kicker": "J.Myers",
+        "weekly": [
+          {
+            "week": 1,
+            "points": 7.0,
+            "attempts": 2,
+            "fg_made": 2,
+            "xp_made": 1
+          },
+          {
+            "week": 2,
+            "points": 7.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 4
+          },
+          {
+            "week": 3,
+            "points": 9.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 4
+          },
+          {
+            "week": 4,
+            "points": 6.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 3
+          },
+          {
+            "week": 5,
+            "points": 23.0,
+            "attempts": 5,
+            "fg_made": 5,
+            "xp_made": 2
+          },
+          {
+            "week": 6,
+            "points": 7.0,
+            "attempts": 3,
+            "fg_made": 2,
+            "xp_made": 0
+          },
+          {
+            "week": 7,
+            "points": 8.0,
+            "attempts": 2,
+            "fg_made": 2,
+            "xp_made": 2
+          },
+          {
+            "week": 8,
+            "points": 2.0,
+            "attempts": 2,
+            "fg_made": 1,
+            "xp_made": 0
+          },
+          {
+            "week": 9,
+            "points": 6.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 2
+          },
+          {
+            "week": 10,
+            "points": 2.0,
+            "attempts": 1,
+            "fg_made": 0,
+            "xp_made": 3
+          }
+        ],
+        "season_points": 77.0,
+        "season_ppg": 7.7,
+        "last3_ppg": 3.3333333333333335,
+        "last5_ppg": 5.0,
+        "median_ppg": 7.0,
+        "robust_ppg": 6.6,
+        "low_rate": 0.2,
+        "high_rate": 0.1,
+        "peak_share": 0.2987012987012987,
+        "fg_made": 16,
+        "fg_attempts": 19,
+        "xp_made": 21,
+        "fg_buckets_made": {
+          "0-39": 8,
+          "40-49": 5,
+          "50+": 3
+        },
+        "fg_buckets_attempts": {
+          "0-39": 9,
+          "40-49": 7,
+          "50+": 3
+        }
+      },
+      "opponent": "SF",
+      "game_context": {
+        "weather": {
+          "status": "forecast",
+          "summary": "wind up to 10 mph, gusts 21 mph, precip up to 0.00 in/hr, 64\u00b0F",
+          "flags": [],
+          "wind_mph": 10.0,
+          "gust_mph": 21.3,
+          "precip_in_hour": 0.0,
+          "snow_cm": 0.0,
+          "source": "Open-Meteo hourly forecast, local 13:00\u201317:00"
+        },
+        "team_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "opponent_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "injury_data_error": "ValueError",
+        "venue": "Levi's Stadium",
+        "roof": "outdoors",
+        "game_date": "2026-11-29",
+        "weekday": "Sunday",
+        "kickoff_eastern": "16:25",
+        "neutral_site": false
+      },
+      "projected_fg_attempts": 1.78,
+      "projected_xp": 1.86,
+      "projected_points": 6.99,
+      "source": "transparent heuristic (not yet calibrated)",
+      "raw_projected_fg_attempts": 1.78,
+      "raw_projected_points": 6.99,
+      "opp_fg_allowed_pg": 2.4,
+      "opp_rz_td_allowed_pct": 0.5833333333333334
+    },
+    {
+      "team": "SF",
+      "team_name": "San Francisco 49ers",
+      "games": 10,
+      "fg_attempts_pg": 1.1,
+      "fg_last3_pg": 0.6666666666666666,
+      "fg_last5_pg": 0.6,
+      "fg_allowed_pg": 2.4,
+      "fg_allowed_last3_pg": 2.0,
+      "rz_trips_pg": 4.4,
+      "rz_td_pct": 0.8863636363636364,
+      "rz_allowed_pg": 3.6,
+      "rz_td_allowed_pct": 0.5833333333333334,
+      "go_fg_range_pg": 0.6,
+      "form": {
+        "kicker": "E.Pineiro",
+        "weekly": [
+          {
+            "week": 1,
+            "points": 10.0,
+            "attempts": 3,
+            "fg_made": 2,
+            "xp_made": 3
+          },
+          {
+            "week": 2,
+            "points": 5.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 5
+          },
+          {
+            "week": 3,
+            "points": 8.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 3
+          },
+          {
+            "week": 4,
+            "points": 5.0,
+            "attempts": 2,
+            "fg_made": 1,
+            "xp_made": 3
+          },
+          {
+            "week": 5,
+            "points": 6.0,
+            "attempts": 2,
+            "fg_made": 1,
+            "xp_made": 3
+          },
+          {
+            "week": 6,
+            "points": 5.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 2
+          },
+          {
+            "week": 7,
+            "points": 2.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 2
+          },
+          {
+            "week": 9,
+            "points": 8.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 5
+          },
+          {
+            "week": 10,
+            "points": 8.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 5
+          },
+          {
+            "week": 11,
+            "points": 5.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 5
+          }
+        ],
+        "season_points": 62.0,
+        "season_ppg": 6.2,
+        "last3_ppg": 7.0,
+        "last5_ppg": 5.6,
+        "median_ppg": 5.5,
+        "robust_ppg": 6.2,
+        "low_rate": 0.1,
+        "high_rate": 0.1,
+        "peak_share": 0.16129032258064516,
+        "fg_made": 8,
+        "fg_attempts": 11,
+        "xp_made": 36,
+        "fg_buckets_made": {
+          "0-39": 5,
+          "40-49": 1,
+          "50+": 2
+        },
+        "fg_buckets_attempts": {
+          "0-39": 5,
+          "40-49": 1,
+          "50+": 5
+        }
+      },
+      "opponent": "SEA",
+      "game_context": {
+        "weather": {
+          "status": "forecast",
+          "summary": "wind up to 10 mph, gusts 21 mph, precip up to 0.00 in/hr, 64\u00b0F",
+          "flags": [],
+          "wind_mph": 10.0,
+          "gust_mph": 21.3,
+          "precip_in_hour": 0.0,
+          "snow_cm": 0.0,
+          "source": "Open-Meteo hourly forecast, local 13:00\u201317:00"
+        },
+        "team_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "opponent_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "injury_data_error": "ValueError",
+        "venue": "Levi's Stadium",
+        "roof": "outdoors",
+        "game_date": "2026-11-29",
+        "weekday": "Sunday",
+        "kickoff_eastern": "16:25",
+        "neutral_site": false
+      },
+      "projected_fg_attempts": 1.14,
+      "projected_xp": 4.37,
+      "projected_points": 7.61,
+      "source": "transparent heuristic (not yet calibrated)",
+      "raw_projected_fg_attempts": 1.14,
+      "raw_projected_points": 7.61,
+      "opp_fg_allowed_pg": 1.7,
+      "opp_rz_td_allowed_pct": 0.68
+    },
+    {
+      "team": "TB",
+      "team_name": "Tampa Bay Buccaneers",
+      "games": 10,
+      "fg_attempts_pg": 2.2,
+      "fg_last3_pg": 2.0,
+      "fg_last5_pg": 2.4,
+      "fg_allowed_pg": 2.2,
+      "fg_allowed_last3_pg": 1.6666666666666667,
+      "rz_trips_pg": 3.7,
+      "rz_td_pct": 0.5405405405405406,
+      "rz_allowed_pg": 3.2,
+      "rz_td_allowed_pct": 0.59375,
+      "go_fg_range_pg": 0.4,
+      "form": {
+        "kicker": "C.McLaughlin",
+        "weekly": [
+          {
+            "week": 1,
+            "points": 11.0,
+            "attempts": 2,
+            "fg_made": 2,
+            "xp_made": 3
+          },
+          {
+            "week": 2,
+            "points": 16.0,
+            "attempts": 4,
+            "fg_made": 4,
+            "xp_made": 1
+          },
+          {
+            "week": 3,
+            "points": 12.0,
+            "attempts": 3,
+            "fg_made": 3,
+            "xp_made": 1
+          },
+          {
+            "week": 4,
+            "points": 2.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 2
+          },
+          {
+            "week": 5,
+            "points": 7.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 3
+          },
+          {
+            "week": 6,
+            "points": 17.0,
+            "attempts": 4,
+            "fg_made": 4,
+            "xp_made": 1
+          },
+          {
+            "week": 7,
+            "points": 12.0,
+            "attempts": 2,
+            "fg_made": 2,
+            "xp_made": 5
+          },
+          {
+            "week": 8,
+            "points": 12.0,
+            "attempts": 3,
+            "fg_made": 3,
+            "xp_made": 1
+          },
+          {
+            "week": 9,
+            "points": 10.0,
+            "attempts": 3,
+            "fg_made": 3,
+            "xp_made": 1
+          },
+          {
+            "week": 11,
+            "points": 3.0,
+            "attempts": 0,
+            "fg_made": 0,
+            "xp_made": 3
+          }
+        ],
+        "season_points": 102.0,
+        "season_ppg": 10.2,
+        "last3_ppg": 8.333333333333334,
+        "last5_ppg": 10.8,
+        "median_ppg": 11.5,
+        "robust_ppg": 10.2,
+        "low_rate": 0.2,
+        "high_rate": 0.7,
+        "peak_share": 0.16666666666666666,
+        "fg_made": 22,
+        "fg_attempts": 22,
+        "xp_made": 21,
+        "fg_buckets_made": {
+          "0-39": 11,
+          "40-49": 7,
+          "50+": 4
+        },
+        "fg_buckets_attempts": {
+          "0-39": 11,
+          "40-49": 7,
+          "50+": 4
+        }
+      },
+      "opponent": "CAR",
+      "game_context": {
+        "weather": {
+          "status": "forecast",
+          "summary": "wind up to 7 mph, gusts 12 mph, precip up to 0.00 in/hr, 68\u00b0F",
+          "flags": [],
+          "wind_mph": 6.9,
+          "gust_mph": 11.9,
+          "precip_in_hour": 0.0,
+          "snow_cm": 0.0,
+          "source": "Open-Meteo hourly forecast, local 20:00\u201324:00"
+        },
+        "team_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "opponent_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "injury_data_error": "ValueError",
+        "venue": "Raymond James Stadium",
+        "roof": "outdoors",
+        "game_date": "2026-11-30",
+        "weekday": "Monday",
+        "kickoff_eastern": "20:15",
+        "neutral_site": false
+      },
+      "projected_fg_attempts": 1.75,
+      "projected_xp": 1.86,
+      "projected_points": 7.27,
+      "source": "transparent heuristic (not yet calibrated)",
+      "raw_projected_fg_attempts": 1.75,
+      "raw_projected_points": 7.27,
+      "opp_fg_allowed_pg": 1.5,
+      "opp_rz_td_allowed_pct": 0.7894736842105263
+    },
+    {
+      "team": "TEN",
+      "team_name": "Tennessee Titans",
+      "games": 10,
+      "fg_attempts_pg": 1.9,
+      "fg_last3_pg": 2.6666666666666665,
+      "fg_last5_pg": 2.6,
+      "fg_allowed_pg": 2.5,
+      "fg_allowed_last3_pg": 1.6666666666666667,
+      "rz_trips_pg": 3.3,
+      "rz_td_pct": 0.5757575757575758,
+      "rz_allowed_pg": 4.6,
+      "rz_td_allowed_pct": 0.6956521739130435,
+      "go_fg_range_pg": 0.2,
+      "form": {
+        "kicker": "J.Slye",
+        "weekly": [
+          {
+            "week": 1,
+            "points": 5.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 1
+          },
+          {
+            "week": 2,
+            "points": 8.0,
+            "attempts": 2,
+            "fg_made": 2,
+            "xp_made": 2
+          },
+          {
+            "week": 3,
+            "points": 0.0,
+            "attempts": 1,
+            "fg_made": 0,
+            "xp_made": 1
+          },
+          {
+            "week": 4,
+            "points": 4.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 1
+          },
+          {
+            "week": 5,
+            "points": 3.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 0
+          },
+          {
+            "week": 6,
+            "points": 18.0,
+            "attempts": 4,
+            "fg_made": 4,
+            "xp_made": 2
+          },
+          {
+            "week": 7,
+            "points": 6.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 3
+          },
+          {
+            "week": 8,
+            "points": 9.0,
+            "attempts": 2,
+            "fg_made": 2,
+            "xp_made": 2
+          },
+          {
+            "week": 10,
+            "points": 17.0,
+            "attempts": 3,
+            "fg_made": 3,
+            "xp_made": 2
+          },
+          {
+            "week": 11,
+            "points": 13.0,
+            "attempts": 3,
+            "fg_made": 3,
+            "xp_made": 3
+          }
+        ],
+        "season_points": 83.0,
+        "season_ppg": 8.3,
+        "last3_ppg": 13.0,
+        "last5_ppg": 12.6,
+        "median_ppg": 7.0,
+        "robust_ppg": 8.3,
+        "low_rate": 0.3,
+        "high_rate": 0.3,
+        "peak_share": 0.21686746987951808,
+        "fg_made": 18,
+        "fg_attempts": 19,
+        "xp_made": 17,
+        "fg_buckets_made": {
+          "0-39": 9,
+          "40-49": 5,
+          "50+": 4
+        },
+        "fg_buckets_attempts": {
+          "0-39": 9,
+          "40-49": 5,
+          "50+": 5
+        }
+      },
+      "opponent": "JAX",
+      "game_context": {
+        "weather": {
+          "status": "forecast",
+          "summary": "wind up to 4 mph, gusts 8 mph, precip up to 0.00 in/hr, 65\u00b0F",
+          "flags": [],
+          "wind_mph": 4.5,
+          "gust_mph": 8.1,
+          "precip_in_hour": 0.0,
+          "snow_cm": 0.0,
+          "source": "Open-Meteo hourly forecast, local 13:00\u201317:00"
+        },
+        "team_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "opponent_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "injury_data_error": "ValueError",
+        "venue": "EverBank Stadium",
+        "roof": "outdoors",
+        "game_date": "2026-11-29",
+        "weekday": "Sunday",
+        "kickoff_eastern": "13:00",
+        "neutral_site": false
+      },
+      "projected_fg_attempts": 2.37,
+      "projected_xp": 2.05,
+      "projected_points": 9.26,
+      "source": "transparent heuristic (not yet calibrated)",
+      "raw_projected_fg_attempts": 2.37,
+      "raw_projected_points": 9.26,
+      "opp_fg_allowed_pg": 1.8,
+      "opp_rz_td_allowed_pct": 0.53125
+    },
+    {
+      "team": "WAS",
+      "team_name": "Washington Commanders",
+      "games": 10,
+      "fg_attempts_pg": 2.5,
+      "fg_last3_pg": 2.6666666666666665,
+      "fg_last5_pg": 2.8,
+      "fg_allowed_pg": 2.1,
+      "fg_allowed_last3_pg": 1.6666666666666667,
+      "rz_trips_pg": 3.4,
+      "rz_td_pct": 0.6176470588235294,
+      "rz_allowed_pg": 3.8,
+      "rz_td_allowed_pct": 0.7368421052631579,
+      "go_fg_range_pg": 0.7,
+      "form": {
+        "kicker": "D.Stevens",
+        "weekly": [
+          {
+            "week": 1,
+            "points": 5.0,
+            "attempts": 2,
+            "fg_made": 1,
+            "xp_made": 1
+          },
+          {
+            "week": 2,
+            "points": 8.0,
+            "attempts": 3,
+            "fg_made": 2,
+            "xp_made": 2
+          },
+          {
+            "week": 3,
+            "points": 11.0,
+            "attempts": 2,
+            "fg_made": 2,
+            "xp_made": 3
+          },
+          {
+            "week": 4,
+            "points": 7.0,
+            "attempts": 2,
+            "fg_made": 2,
+            "xp_made": 1
+          },
+          {
+            "week": 5,
+            "points": 8.0,
+            "attempts": 2,
+            "fg_made": 2,
+            "xp_made": 1
+          },
+          {
+            "week": 6,
+            "points": 7.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 2
+          },
+          {
+            "week": 8,
+            "points": 15.0,
+            "attempts": 5,
+            "fg_made": 4,
+            "xp_made": 1
+          },
+          {
+            "week": 9,
+            "points": 8.0,
+            "attempts": 2,
+            "fg_made": 2,
+            "xp_made": 1
+          },
+          {
+            "week": 10,
+            "points": 7.0,
+            "attempts": 1,
+            "fg_made": 1,
+            "xp_made": 3
+          },
+          {
+            "week": 11,
+            "points": 18.0,
+            "attempts": 5,
+            "fg_made": 5,
+            "xp_made": 1
+          }
+        ],
+        "season_points": 94.0,
+        "season_ppg": 9.4,
+        "last3_ppg": 11.0,
+        "last5_ppg": 11.0,
+        "median_ppg": 8.0,
+        "robust_ppg": 8.7,
+        "low_rate": 0.0,
+        "high_rate": 0.3,
+        "peak_share": 0.19148936170212766,
+        "fg_made": 22,
+        "fg_attempts": 25,
+        "xp_made": 16,
+        "fg_buckets_made": {
+          "0-39": 11,
+          "40-49": 7,
+          "50+": 4
+        },
+        "fg_buckets_attempts": {
+          "0-39": 11,
+          "40-49": 7,
+          "50+": 7
+        }
+      },
+      "opponent": "ARI",
+      "game_context": {
+        "weather": {
+          "status": "roof_unknown",
+          "summary": "Roof state not verified",
+          "flags": []
+        },
+        "team_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "opponent_injuries": {
+          "status": "unavailable",
+          "flags": [],
+          "summary": "Injury feed unavailable"
+        },
+        "injury_data_error": "ValueError",
+        "venue": "State Farm Stadium",
+        "roof": "nan",
+        "game_date": "2026-11-29",
+        "weekday": "Sunday",
+        "kickoff_eastern": "16:25",
+        "neutral_site": false
+      },
+      "projected_fg_attempts": 2.2,
+      "projected_xp": 1.64,
+      "projected_points": 8.2,
+      "source": "transparent heuristic (not yet calibrated)",
+      "raw_projected_fg_attempts": 2.2,
+      "raw_projected_points": 8.2,
+      "opp_fg_allowed_pg": 1.7272727272727273,
+      "opp_rz_td_allowed_pct": 0.7169811320754716
+    }
+  ]
+}
