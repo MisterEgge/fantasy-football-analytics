@@ -3,6 +3,9 @@
   "week": 12,
   "notified": [
     "KC@BUF|weather|rain|high",
-    "NO@CIN|weather|rain|high"
+    "LV@CLE|weather|rain|medium",
+    "LV@CLE|weather|wind|high",
+    "NO@CIN|weather|rain|high",
+    "NO@CIN|weather|rain|medium"
   ]
 }
