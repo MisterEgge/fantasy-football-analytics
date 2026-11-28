@@ -7,6 +7,7 @@
     "LV@CLE|weather|wind|high",
     "NO@CIN|weather|gust|high",
     "NO@CIN|weather|rain|high",
-    "NO@CIN|weather|rain|medium"
+    "NO@CIN|weather|rain|medium",
+    "SEA@SF|weather|rain|high"
   ]
 }
